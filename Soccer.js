@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import Timer from './Timer';
 import TeamSide from './TeamSide';
+import { useIncrementScore } from './hooks';
 
 function Soccer() {
 
@@ -9,14 +10,8 @@ function Soccer() {
     const scoreIntervals = [1];
     const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
     const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
-    const [score, setScore] = useState({homeScore: 0, awayScore: 0});
+    const [score, incrementScore, setScore] = useIncrementScore();
 
-    const incrementScore = (pointsToAdd, position) => {
-        const scoreToChange = position === 'home' ? 'homeScore': 'awayScore';
-        const newScore = {...score};
-        newScore[scoreToChange] += pointsToAdd;
-        setScore(newScore);
-    };
 
     return (
         <View>
