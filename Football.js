@@ -1,11 +1,20 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {View, Text} from 'react-native';
+import TeamSide from './TeamSide';
 
 function Football() {
 
+    const scoreIntervals = [1, 2, 3, 6];
+    const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
+    const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
+
     return (
         <View>
-            <Text>I'm football</Text>
+            <TeamSide scoreIntervals={scoreIntervals}
+                        team={homeTeam} />
+            <Text>Timer goes here</Text>
+            <TeamSide scoreIntervals={scoreIntervals}
+                        team={awayTeam} />
         </View>
     );
 };
