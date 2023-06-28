@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useCallback} from 'react';
 
 function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
 
@@ -14,4 +14,16 @@ function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
     return [score, incrementScore, setScore];
 };
 
-export {useIncrementScore};
+
+function useErrors() {
+    const [apiErrors, setApiErrors] = useState({});
+
+    const getApiErrors = useCallback(e => {
+        const errors = {...e};
+        setApiErrors(errors);
+    }, [setApiErrors]);
+    return [apiErrors, getApiErrors, setApiErrors];
+};
+
+
+export {useIncrementScore, useErrors};

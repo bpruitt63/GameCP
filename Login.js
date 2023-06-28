@@ -1,21 +1,68 @@
 import React, {useState} from 'react';
-import { Text, View, Button } from 'react-native';
+import { TextInput, View, Button } from 'react-native';
+import { useErrors } from './hooks';
+import Errors from './Errors';
 import API from './Api';
 
 function Login() {
 
-    const [data, setData] = useState(null);
+    const initialState = {email: '', pwd: ''};
+    const [data, setData] = useState(initialState);
+    const [errors, setErrors] = useState({});
+    const [apiErrors, getApiErrors, setApiErrors] = useErrors();
 
-    const test = async () => {
-        const info = await API.test();
-        setData(info);
-        console.log(info);
+    const login = async () => {
+        setErrors({});
+        setApiErrors({});
+
+        if (!validate()) return false;
+        try {
+            const token = await API.login(data);
+            console.log(token);
+        } catch (err) {
+            getApiErrors(err);
+            setData(initialState);
+        };
+    };
+
+    const validate = () => {
+        const validateErrors = {};
+        const {email, pwd} = data;
+        if (!(email && pwd)) {
+            setErrors({error: 'Email and Password Required'});
+            return false;
+        };
+        if (email.length < 6 || email.length > 60) {
+            validateErrors.emailLength = 'Email should be between 6 and 60 characters';
+        };
+        if (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
+            validateErrors.email = "Must be valid email address";
+        };
+        if (pwd.length < 6 || pwd.length > 60) validateErrors.pwd = 'Password must be between 6 and 60 characters';
+        if (Object.keys(validateErrors).length) {
+            setErrors(validateErrors);
+            return false;
+        };
+        return true;
     };
 
     return (
         <View>
-            <Button title='test'
-                    onPress={test} />
+            <TextInput
+                    onChangeText={val => setData(d => { return {...d, email: val}})}
+                    name='email'
+                    value={data.email}
+                    placeholder='Email' />
+            <TextInput
+                    onChangeText={val => setData(d => { return {...d, pwd: val}})}
+                    name='pwd'
+                    value={data.pwd}
+                    placeholder='Password'
+                    secureTextEntry />
+            <Button title='Login'
+                    onPress={login} />
+            <Errors formErrors={errors}
+                    apiErrors={apiErrors} />
         </View>
     );
 };
