@@ -7,6 +7,7 @@ import Home from './Home';
 import Soccer from './Soccer';
 import Football from './Football';
 import Basketball from './Basketball';
+import Login from './Login';
 
 const Stack = createNativeStackNavigator();
 export const scoreContext = createContext(null);
@@ -23,6 +24,7 @@ export default function App() {
 					<Stack.Screen name='Soccer' component={Soccer} />
 					<Stack.Screen name='Football' component={Football} />
 					<Stack.Screen name='Basketball' component={Basketball} />
+					<Stack.Screen name='Login' component={Login} />
 				</Stack.Navigator>
 			</scoreContext.Provider>
 		</NavigationContainer>

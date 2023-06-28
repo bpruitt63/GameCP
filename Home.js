@@ -15,7 +15,7 @@ function Home({navigation}) {
                     onPress={() => navigation.navigate('Soccer')} />
             <Text>Or</Text>
             <Button title='Log in to Sporty'
-                    onPress={() => navigation.navigate('Soccer')} />
+                    onPress={() => navigation.navigate('Login')} />
         </View>
     );
 };
