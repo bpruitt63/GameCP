@@ -4,25 +4,33 @@ import { useErrors } from './hooks';
 import Errors from './Errors';
 import API from './Api';
 
-function Login() {
+function Login({route, navigation}) {
 
     const initialState = {email: '', pwd: ''};
     const [data, setData] = useState(initialState);
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
+    const {loginUser} = route.params;
 
-    const login = async () => {
+    const test = () => {
+        const td = API.test();
+        console.log(td)
+    }
+
+    const handleLogin = async () => {
         setErrors({});
         setApiErrors({});
 
         if (!validate()) return false;
         try {
-            const token = await API.login(data);
-            console.log(token);
+            const sendData = {...data, email: data.email.toLowerCase()};
+            const token = await API.login(sendData);
+            await loginUser(token);
+            navigation.navigate('Home');
         } catch (err) {
             getApiErrors(err);
-            setData(initialState);
         };
+        setData(initialState);
     };
 
     const validate = () => {
@@ -60,7 +68,9 @@ function Login() {
                     placeholder='Password'
                     secureTextEntry />
             <Button title='Login'
-                    onPress={login} />
+                    onPress={handleLogin} />
+                    <Button title='test'
+                    onPress={test} />
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
         </View>
