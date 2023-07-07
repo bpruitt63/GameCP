@@ -1,9 +1,10 @@
-import React, { createContext, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
+import { ScoreContext } from './context';
 import { useIncrementScore } from './hooks';
 import Home from './Home';
 import Soccer from './Soccer';
@@ -12,7 +13,6 @@ import Basketball from './Basketball';
 import Login from './Login';
 
 const Stack = createNativeStackNavigator();
-export const scoreContext = createContext(null);
 
 export default function App() {
 
@@ -27,7 +27,7 @@ export default function App() {
 
 	return (
 		<NavigationContainer>
-			<scoreContext.Provider value={{score, incrementScore, setScore}}>
+			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />
@@ -37,7 +37,7 @@ export default function App() {
 									component={Login}
 									initialParams={{loginUser}} />
 				</Stack.Navigator>
-			</scoreContext.Provider>
+			</ScoreContext.Provider>
 		</NavigationContainer>
 	);
 };

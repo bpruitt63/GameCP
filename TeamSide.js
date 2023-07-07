@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import {Text, View, Button} from 'react-native';
-import { scoreContext } from './App';
+import { ScoreContext } from './context';
 
 function TeamSide({scoreIntervals, team}) {
 
-    const {score, incrementScore, setScore} = useContext(scoreContext);
+    const {score, incrementScore, setScore} = useContext(ScoreContext);
 
     return(
         <View>
