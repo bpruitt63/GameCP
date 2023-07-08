@@ -1,20 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import { TextInput, View, Button } from 'react-native';
+import { LoginContext } from './context';
 import { useErrors } from './hooks';
 import Errors from './Errors';
 import API from './Api';
 
-function Login({route, navigation}) {
+function Login({navigation}) {
 
     const initialState = {email: '', pwd: ''};
     const [data, setData] = useState(initialState);
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
-    const {loginUser} = route.params;
+    const {loginUser} = useContext(LoginContext);
 
     const test = () => {
-        const td = API.test();
-        console.log(td)
+        //const td = API.test();
+        console.log(loginUser)
     }
 
     const handleLogin = async () => {

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
-import { ScoreContext } from './context';
+import { ScoreContext, UserContext, LoginContext } from './context';
 import { useIncrementScore } from './hooks';
 import Home from './Home';
 import Soccer from './Soccer';
@@ -19,25 +19,35 @@ export default function App() {
 	const [score, incrementScore, setScore] = useIncrementScore();
 	const [user, setUser] = useState(null);
 
+	useEffect(() => {
+		const checkIfLoggedIn = async () => {
+			const storedToken = await SecureStore.getItemAsync("token");
+			if (storedToken) loginUser(storedToken);
+		};
+		checkIfLoggedIn();
+	}, []);
+
 	const loginUser = async (token) => {
-		const userData = jwt_decode(token);
+		const userData = jwt_decode(token)?.user || jwt_decode(token);
 		setUser(userData);
 		await SecureStore.setItemAsync("token", token);
 	};
 
 	return (
 		<NavigationContainer>
+			<UserContext.Provider value={user}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
+			<LoginContext.Provider value={{loginUser}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />
 					<Stack.Screen name='Football' component={Football} />
 					<Stack.Screen name='Basketball' component={Basketball} />
-					<Stack.Screen name='Login' 
-									component={Login}
-									initialParams={{loginUser}} />
+					<Stack.Screen name='Login' component={Login} />
 				</Stack.Navigator>
+			</LoginContext.Provider>
 			</ScoreContext.Provider>
+			</UserContext.Provider>
 		</NavigationContainer>
 	);
 };

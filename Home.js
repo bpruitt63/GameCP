@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, View, Text} from 'react-native';
+import { UserContext } from './context';
 
 
 function Home({navigation}) {
+
+        const user = useContext(UserContext);
 
     return (
         <View>
@@ -14,8 +17,12 @@ function Home({navigation}) {
             <Button title='Soccer'
                     onPress={() => navigation.navigate('Soccer')} />
             <Text>Or</Text>
-            <Button title='Log in to Sporty'
+            {user ? 
+                <Text>logged in</Text>
+                :
+                <Button title='Log in to Sporty'
                     onPress={() => navigation.navigate('Login')} />
+        	}
         </View>
     );
 };
