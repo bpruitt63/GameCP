@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
@@ -20,7 +20,7 @@ export default function App() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		const checkIfLoggedIn = async () => {
+		const checkIfLoggedIn = async () => {console.log(Platform.OS);
 			const storedToken = await SecureStore.getItemAsync("token");
 			if (storedToken) loginUser(storedToken);
 		};
@@ -33,11 +33,16 @@ export default function App() {
 		await SecureStore.setItemAsync("token", token);
 	};
 
+	const logoutUser = async () => {
+		setUser(null);
+		await SecureStore.deleteItemAsync("token");
+	};
+
 	return (
 		<NavigationContainer>
 			<UserContext.Provider value={user}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
-			<LoginContext.Provider value={{loginUser}}>
+			<LoginContext.Provider value={{loginUser, logoutUser}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />

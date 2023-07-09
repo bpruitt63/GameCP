@@ -14,8 +14,7 @@ function Login({navigation}) {
     const {loginUser} = useContext(LoginContext);
 
     const test = () => {
-        //const td = API.test();
-        console.log(loginUser)
+        const td = API.test();
     }
 
     const handleLogin = async () => {

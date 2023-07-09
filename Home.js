@@ -1,14 +1,17 @@
 import React, {useContext} from 'react';
 import {Button, View, Text} from 'react-native';
-import { UserContext } from './context';
+import { LoginContext, UserContext } from './context';
 
 
 function Home({navigation}) {
 
         const user = useContext(UserContext);
+        const {logoutUser} = useContext(LoginContext);
 
     return (
         <View>
+            {user &&
+                <Text>Logged in as {`${user.firstName} ${user.lastName}`}</Text>}
             <Text>Select a sport</Text>
             <Button title='Basketball'
                     onPress={() => navigation.navigate('Basketball')} />
@@ -18,10 +21,11 @@ function Home({navigation}) {
                     onPress={() => navigation.navigate('Soccer')} />
             <Text>Or</Text>
             {user ? 
-                <Text>logged in</Text>
+                <Button title='Log Out'
+                        onPress={logoutUser} />
                 :
                 <Button title='Log in to Sporty'
-                    onPress={() => navigation.navigate('Login')} />
+                        onPress={() => navigation.navigate('Login')} />
         	}
         </View>
     );
