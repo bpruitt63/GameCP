@@ -20,22 +20,37 @@ export default function App() {
 	const [user, setUser] = useState(null);
 
 	useEffect(() => {
-		const checkIfLoggedIn = async () => {console.log(Platform.OS);
-			const storedToken = await SecureStore.getItemAsync("token");
+		const checkIfLoggedIn = async () => {
+			const storedToken = await storeBasedOnPlatform('get', "token");
 			if (storedToken) loginUser(storedToken);
 		};
 		checkIfLoggedIn();
 	}, []);
 
+	const storeBasedOnPlatform = async (operation, key, value=null) => {
+		const isWeb = Platform.OS === 'web';
+		switch (operation) {
+			case 'login':
+				return isWeb ? localStorage.setItem(key, value) 
+							: await SecureStore.setItemAsync(key, value);
+			case 'logout':
+				return isWeb ? localStorage.removeItem(key) 
+							: await SecureStore.deleteItemAsync(key);
+			case 'get':
+				return isWeb ? localStorage.getItem(key) 
+							: await SecureStore.getItemAsync(key);
+		};
+	};
+
 	const loginUser = async (token) => {
 		const userData = jwt_decode(token)?.user || jwt_decode(token);
 		setUser(userData);
-		await SecureStore.setItemAsync("token", token);
+		await storeBasedOnPlatform('login', "token", token);
 	};
 
 	const logoutUser = async () => {
 		setUser(null);
-		await SecureStore.deleteItemAsync("token");
+		await storeBasedOnPlatform('logout', "token");
 	};
 
 	return (
