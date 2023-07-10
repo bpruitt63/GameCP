@@ -21,11 +21,15 @@ function Home({navigation}) {
                     onPress={() => navigation.navigate('Soccer')} />
             <Text>Or</Text>
             {user ? 
-                <Button title='Log Out'
-                        onPress={logoutUser} />
+                <>
+					<Button title='Select or Change Game'
+							onPress={() => navigation.navigate('Select')} />
+                    <Button title='Log Out'
+                    		onPress={logoutUser} />
+                </>
                 :
                 <Button title='Log in to Sporty'
-                        onPress={() => navigation.navigate('Login')} />
+                   	 	onPress={() => navigation.navigate('Login')} />
         	}
         </View>
     );

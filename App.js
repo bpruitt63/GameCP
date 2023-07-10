@@ -4,13 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
-import { ScoreContext, UserContext, LoginContext } from './context';
+import { ScoreContext, UserContext, LoginContext, GameContext } from './context';
 import { useIncrementScore } from './hooks';
 import Home from './Home';
 import Soccer from './Soccer';
 import Football from './Football';
 import Basketball from './Basketball';
 import Login from './Login';
+import Select from './Select';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,9 @@ export default function App() {
 
 	const [score, incrementScore, setScore] = useIncrementScore();
 	const [user, setUser] = useState(null);
+	const [organization, setOrganization] = useState(null);
+	const [season, setSeason] = useState(null);
+	const [game, setGame] = useState(null);
 
 	useEffect(() => {
 		const checkIfLoggedIn = async () => {
@@ -56,6 +60,9 @@ export default function App() {
 	return (
 		<NavigationContainer>
 			<UserContext.Provider value={user}>
+			<GameContext.Provider value={{organization, setOrganization,
+											season, setSeason,
+											game, setGame}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 				<Stack.Navigator initialRouteName='Home'>
@@ -64,9 +71,11 @@ export default function App() {
 					<Stack.Screen name='Football' component={Football} />
 					<Stack.Screen name='Basketball' component={Basketball} />
 					<Stack.Screen name='Login' component={Login} />
+					<Stack.Screen name='Select' component={Select} />
 				</Stack.Navigator>
 			</LoginContext.Provider>
 			</ScoreContext.Provider>
+			</GameContext.Provider>
 			</UserContext.Provider>
 		</NavigationContainer>
 	);
