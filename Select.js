@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { Button, View, Text } from 'react-native';
 import { GameContext, UserContext } from './context';
+import SelectList from './SelectList';
 
 function Select() {
 
@@ -8,6 +9,7 @@ function Select() {
     const user = useContext(UserContext);
     const {organization, setOrganization, season, 
             setSeason, game, setGame} = useContext(GameContext);
+    const userOrgs = Object.keys(user.organizations).map(k => [k, user.organizations[k].orgName]);
 
     useEffect(() => {
         const getCurrentStep = () => {
@@ -22,10 +24,17 @@ function Select() {
         getCurrentStep();
     }, [setStep]);
 
+    const selectOrg = (id) => {
+        setOrganization(user.organizations[id]);
+        setStep(2);
+    };
+
     return (
         <View>
             <Text>{step}</Text>
-
+            {step === 1 &&
+                <SelectList data={userOrgs}
+                            press={selectOrg} />}
             {step > 1 &&
                 <Button title='Change Organization'
                         onPress={() => setStep(1)} />}
