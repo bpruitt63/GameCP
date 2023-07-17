@@ -7,8 +7,8 @@ function Select() {
 
     const [step, setStep] = useState(1);
     const user = useContext(UserContext);
-    const {organization, setOrganization, season, 
-            setSeason, game, setGame} = useContext(GameContext);
+    const {organization, setOrganization, season, setSeason, 
+            game, setGame, storeBasedOnPlatform} = useContext(GameContext);
     const userOrgs = Object.keys(user.organizations).map(k => [k, user.organizations[k].orgName]);
 
     useEffect(() => {
@@ -26,6 +26,8 @@ function Select() {
 
     const selectOrg = (id) => {
         setOrganization(user.organizations[id]);
+        const org = JSON.stringify(user.organizations[id]);
+        storeBasedOnPlatform('store', 'organization', org);
         setStep(2);
     };
 

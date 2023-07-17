@@ -1,17 +1,20 @@
 import React, {useContext} from 'react';
 import {Button, View, Text} from 'react-native';
-import { LoginContext, UserContext } from './context';
+import { GameContext, LoginContext, UserContext } from './context';
 
 
 function Home({navigation}) {
 
         const user = useContext(UserContext);
+        const {organization} = useContext(GameContext);
         const {logoutUser} = useContext(LoginContext);
 
     return (
         <View>
             {user &&
                 <Text>Logged in as {`${user.firstName} ${user.lastName}`}</Text>}
+            {organization &&
+                <Text>Current organization: {organization.orgName}</Text>}
             <Text>Select a sport</Text>
             <Button title='Basketball'
                     onPress={() => navigation.navigate('Basketball')} />

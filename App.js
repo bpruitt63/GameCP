@@ -26,18 +26,25 @@ export default function App() {
 	useEffect(() => {
 		const checkIfLoggedIn = async () => {
 			const storedToken = await storeBasedOnPlatform('get', "token");
-			if (storedToken) loginUser(storedToken);
+			if (storedToken) {
+				await loginUser(storedToken);
+				await getOrg();
+			};
 		};
+		const getOrg = async () => {
+			const storedOrg = await storeBasedOnPlatform('get', 'organization');
+			if (storedOrg) setOrganization(JSON.parse(storedOrg));
+		}
 		checkIfLoggedIn();
 	}, []);
 
 	const storeBasedOnPlatform = async (operation, key, value=null) => {
 		const isWeb = Platform.OS === 'web';
 		switch (operation) {
-			case 'login':
+			case 'store':
 				return isWeb ? localStorage.setItem(key, value) 
 							: await SecureStore.setItemAsync(key, value);
-			case 'logout':
+			case 'remove':
 				return isWeb ? localStorage.removeItem(key) 
 							: await SecureStore.deleteItemAsync(key);
 			case 'get':
@@ -49,12 +56,12 @@ export default function App() {
 	const loginUser = async (token) => {
 		const userData = jwt_decode(token)?.user || jwt_decode(token);
 		setUser(userData);
-		await storeBasedOnPlatform('login', "token", token);
+		await storeBasedOnPlatform('store', "token", token);
 	};
 
 	const logoutUser = async () => {
 		setUser(null);
-		await storeBasedOnPlatform('logout', "token");
+		await storeBasedOnPlatform('remove', "token");
 	};
 
 	return (
@@ -62,7 +69,8 @@ export default function App() {
 			<UserContext.Provider value={user}>
 			<GameContext.Provider value={{organization, setOrganization,
 											season, setSeason,
-											game, setGame}}>
+											game, setGame,
+											storeBasedOnPlatform}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 				<Stack.Navigator initialRouteName='Home'>
