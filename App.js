@@ -29,12 +29,17 @@ export default function App() {
 			if (storedToken) {
 				await loginUser(storedToken);
 				await getOrg();
+				await getSeason();
 			};
 		};
 		const getOrg = async () => {
 			const storedOrg = await storeBasedOnPlatform('get', 'organization');
 			if (storedOrg) setOrganization(JSON.parse(storedOrg));
-		}
+		};
+		const getSeason = async () => {
+			const storedSeason = await storeBasedOnPlatform('get', 'season');
+			if (storedSeason) setSeason(JSON.parse(storedSeason));
+		};
 		checkIfLoggedIn();
 	}, []);
 

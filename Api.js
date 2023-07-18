@@ -42,6 +42,11 @@ class API {
         //this.setToken(res.token);
         return res.token;
     };
+
+    static async getSeasons(orgId) {
+        const res = await this.request(`organizations/${orgId}/seasons`);
+        return res.seasons;
+    };
 };
 
 export default API;
