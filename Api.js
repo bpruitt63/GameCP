@@ -47,6 +47,11 @@ class API {
         const res = await this.request(`organizations/${orgId}/seasons`);
         return res.seasons;
     };
+
+    static async getGames(orgId, seasonId) {
+        const res = await this.request(`organizations/${orgId}/seasons/${seasonId}/games`);
+        return res.games;
+    };
 };
 
 export default API;

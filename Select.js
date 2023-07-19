@@ -10,6 +10,10 @@ function Select() {
 
     const [step, setStep] = useState(1);
     const [seasons, setSeasons] = useState([]);
+    const [games, setGames] = useState([]);
+    const [tournamentRounds, setTournamentRounds] = useState([]);
+    const [tournamentGames, setTournamentGames] = useState({});
+    const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
     const user = useContext(UserContext);
     const {organization, setOrganization, season, setSeason, 
@@ -35,12 +39,56 @@ function Select() {
             case 2:
                 await getSeasons(organization.orgId);
                 break;
+            case 3:
+                await getGames(organization.orgId, season.seasonId);
+                break;
         };
         setStep(step);
     };
 
+    const getSeasons = async (orgId) => {
+        try {
+            const seasonsRes = await API.getSeasons(orgId);
+            if (!seasonsRes[0]) setErrors({err: 'No seasons found'});
+            setSeasons(seasonsRes.map(s => [s.seasonId, s.title]));
+            return seasonsRes;
+        } catch (err) {
+            getApiErrors(err);
+        };
+    };
+
+    const getGames = async (orgId, seasonId) => {
+        setTournamentRounds([]);
+        try {
+            const gamesRes = await API.getGames(orgId, seasonId);
+            if (Array.isArray(gamesRes)) {
+                setGames(formatGames(gamesRes));
+            } else {
+                setTournamentRounds(Object.keys(gamesRes));
+                setTournamentGames(gamesRes);
+                setGames(formatGames(Object.values(gamesRes['Round 1'])));
+            };
+            return gamesRes;
+        } catch (err) {
+            getApiErrors(err);
+        };
+    };
+
+    const formatGames = (games) => {
+        const formattedGames = games.filter(g => g.team1Score === null);
+        if (!formattedGames[0]) setErrors({err: 'No games yet to be played this season'});
+        for (let i = 0; i < formattedGames.length; i++) {
+            let title = `${formattedGames[i].team1Name} vs ${formattedGames[i].team2Name}`;
+            if (formattedGames[i].readableTime) title += ` at ${formattedGames[i].readableTime}`;
+            if (formattedGames[i].readableDate) title += ` on ${formattedGames[i].readableDate}`;
+            formattedGames[i] = [formattedGames[i].gameId, title];
+        };
+        return formattedGames;
+    };
+
     const selectOrg = async (id) => {
         setApiErrors({});
+        setErrors({});
         const currentOrg = {...user.organizations[id], orgId: id};
         setOrganization(currentOrg);
         const orgString = JSON.stringify(currentOrg);
@@ -49,31 +97,26 @@ function Select() {
         if (seasonsRes) setStep(2);
     };
 
-    const getSeasons = async (orgId) => {
-        try {
-            const seasons = await API.getSeasons(orgId);
-            setSeasons(seasons.map(s => [s.seasonId, s.title]));
-            return seasons;
-        } catch (err) {
-            getApiErrors(err);
-        };
-    };
-
     const selectSeason = async (id) => {
         setApiErrors({});
+        setErrors({});
         const res = seasons.filter(s => s[0] === id)[0];
         const currentSeason = {seasonId: res[0], title: res[1]};
         setSeason(currentSeason);
         const seasonString = JSON.stringify(currentSeason);
         storeBasedOnPlatform('store', 'season', seasonString);
-        //const seasonsRes = await getSeasons(id);
-        //setSeasons(seasonsRes.map(s => [s.seasonId, s.title]));
-        setStep(3);
+        const gamesRes = await getGames(organization.orgId, currentSeason.seasonId);
+        if (gamesRes) setStep(3);
+    };
+
+    const setRound = (key) => {
+        setGames(tournamentGames[key]);
     };
 
     return (
         <View>
-            <Errors apiErrors={apiErrors} />
+            <Errors formErrors={errors}
+                    apiErrors={apiErrors} />
             <Text>{step}</Text>
             {step === 1 &&
                 <SelectList data={userOrgs}
@@ -81,6 +124,15 @@ function Select() {
             {step === 2 &&
                 <SelectList data={seasons}
                             press={selectSeason} />}
+            {step === 3 &&
+                <>
+                    {tournamentRounds.map(r =>
+                        <Button key={r}
+                                title={r}
+                                onPress={() => setRound(r)} />)}
+                    <SelectList data={games}
+                                press={selectSeason} />
+                </>}
             {step > 1 &&
                 <Button title='Change Organization'
                         onPress={() => setStep(1)} />}
@@ -89,7 +141,7 @@ function Select() {
                         onPress={() => goToStep(2)} />}
             {step > 3 &&
                 <Button title='Change Game'
-                        onPress={() => setStep(3)} />}
+                        onPress={() => goToStep(3)} />}
         </View>
     );
 };
