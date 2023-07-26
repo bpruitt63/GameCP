@@ -78,7 +78,7 @@ function Select() {
         const formattedGames = games.filter(g => g.team1Score === null);
         if (!formattedGames[0]) setErrors({err: 'No games yet to be played this season'});
         for (let i = 0; i < formattedGames.length; i++) {
-            let title = `${formattedGames[i].team1Name} vs ${formattedGames[i].team2Name}`;
+            let title = `${formattedGames[i].team1Name || 'TBD'} vs ${formattedGames[i].team2Name || 'TBD'}`;
             if (formattedGames[i].readableTime) title += ` at ${formattedGames[i].readableTime}`;
             if (formattedGames[i].readableDate) title += ` on ${formattedGames[i].readableDate}`;
             formattedGames[i] = [formattedGames[i].gameId, title];
@@ -110,7 +110,7 @@ function Select() {
     };
 
     const setRound = (key) => {
-        setGames(tournamentGames[key]);
+        setGames(formatGames(Object.values(tournamentGames[key])));
     };
 
     return (
