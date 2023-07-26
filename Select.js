@@ -6,7 +6,7 @@ import SelectList from './SelectList';
 import Errors from './Errors';
 import API from './Api';
 
-function Select() {
+function Select({navigation}) {
 
     const [step, setStep] = useState(1);
     const [seasons, setSeasons] = useState([]);
@@ -116,6 +116,7 @@ function Select() {
         setGame(selectedGame);
         const gameString = JSON.stringify(selectedGame);
         storeBasedOnPlatform('store', 'game', gameString);
+        navigation.navigate('Home');
     };
 
     const setRound = (key) => {
