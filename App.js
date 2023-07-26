@@ -30,6 +30,7 @@ export default function App() {
 				await loginUser(storedToken);
 				await getOrg();
 				await getSeason();
+				await getGame();
 			};
 		};
 		const getOrg = async () => {
@@ -39,6 +40,10 @@ export default function App() {
 		const getSeason = async () => {
 			const storedSeason = await storeBasedOnPlatform('get', 'season');
 			if (storedSeason) setSeason(JSON.parse(storedSeason));
+		};
+		const getGame = async () => {
+			const storedGame = await storeBasedOnPlatform('get', 'game');
+			if (storedGame) setGame(JSON.parse(storedGame));
 		};
 		checkIfLoggedIn();
 	}, []);

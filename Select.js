@@ -81,7 +81,7 @@ function Select() {
             let title = `${formattedGames[i].team1Name || 'TBD'} vs ${formattedGames[i].team2Name || 'TBD'}`;
             if (formattedGames[i].readableTime) title += ` at ${formattedGames[i].readableTime}`;
             if (formattedGames[i].readableDate) title += ` on ${formattedGames[i].readableDate}`;
-            formattedGames[i] = [formattedGames[i].gameId, title];
+            formattedGames[i] = [formattedGames[i].gameId, title, formattedGames[i].team1Color, formattedGames[i].team2Color];
         };
         return formattedGames;
     };
@@ -109,6 +109,15 @@ function Select() {
         if (gamesRes) setStep(3);
     };
 
+    const selectGame = (id) => {
+        setApiErrors({});
+        setErrors({});
+        const selectedGame = games.find(g => g[0] === id);
+        setGame(selectedGame);
+        const gameString = JSON.stringify(selectedGame);
+        storeBasedOnPlatform('store', 'game', gameString);
+    };
+
     const setRound = (key) => {
         setGames(formatGames(Object.values(tournamentGames[key])));
     };
@@ -131,7 +140,7 @@ function Select() {
                                 title={r}
                                 onPress={() => setRound(r)} />)}
                     <SelectList data={games}
-                                press={selectSeason} />
+                                press={selectGame} />
                 </>}
             {step > 1 &&
                 <Button title='Change Organization'

@@ -6,7 +6,7 @@ import { GameContext, LoginContext, UserContext } from './context';
 function Home({navigation}) {
 
         const user = useContext(UserContext);
-        const {organization, season} = useContext(GameContext);
+        const {organization, season, game} = useContext(GameContext);
         const {logoutUser} = useContext(LoginContext);
 
     return (
@@ -17,6 +17,8 @@ function Home({navigation}) {
                 <Text>Current organization: {organization.orgName}</Text>}
             {season &&
                 <Text>Current season: {season.title}</Text>}
+            {game &&
+                <Text>Current game: {game[1]}</Text>}
             <Text>Select a sport</Text>
             <Button title='Basketball'
                     onPress={() => navigation.navigate('Basketball')} />
