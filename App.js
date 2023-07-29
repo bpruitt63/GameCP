@@ -55,20 +55,6 @@ export default function App() {
 		checkIfLoggedIn();
 	}, []);
 
-	// const storeBasedOnPlatform = async (operation, key, value=null) => {
-	// 	const isWeb = Platform.OS === 'web';
-	// 	switch (operation) {
-	// 		case 'store':
-	// 			return isWeb ? localStorage.setItem(key, value) 
-	// 						: await SecureStore.setItemAsync(key, value);
-	// 		case 'remove':
-	// 			return isWeb ? localStorage.removeItem(key) 
-	// 						: await SecureStore.deleteItemAsync(key);
-	// 		case 'get':
-	// 			return isWeb ? localStorage.getItem(key) 
-	// 						: await SecureStore.getItemAsync(key);
-	// 	};
-	// };
 
 	const loginUser = async (token) => {
 		const userData = jwt_decode(token)?.user || jwt_decode(token);

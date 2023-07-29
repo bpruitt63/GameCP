@@ -21,13 +21,17 @@ function useGameData(initialState={possession: 'home', down: 1}) {
     const [gameData, setGameData] = useState(initialState);
 
     const changePossession = () => {
-        const newPossession = gameData.possession === 'home' ? 'away' : 'home'
-        setGameData({...gameData, newPossession});
+        const newData = {...gameData,
+                        possession: gameData.possession === 'home' ? 'away' : 'home'};
+        setGameData(newData);
+        storeBasedOnPlatform('store', 'gameData', JSON.stringify(newData));
     };
 
     const incrementDown = () => {
-        const newDown = gameData.down < 4 ? gameData.down + 1 : 1;
+        const newData = {...gameData,
+                        down: gameData.down < 4 ? gameData.down + 1 : 1};
         setGameData({...gameData, newDown});
+        storeBasedOnPlatform('store', 'gameData', JSON.stringify(newData));
     };
 
     return [gameData, changePossession, incrementDown, setGameData];
