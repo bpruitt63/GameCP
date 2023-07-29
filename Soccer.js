@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {View, Text} from 'react-native';
 import Timer from './Timer';
 import TeamSide from './TeamSide';
+import Possession from './Possession';
 
 function Soccer() {
 
@@ -16,6 +17,7 @@ function Soccer() {
             <TeamSide scoreIntervals={scoreIntervals}
                         team={homeTeam} />
             <Text>Timer goes here</Text>
+            <Possession />
             <TeamSide scoreIntervals={scoreIntervals}
                         team={awayTeam} />
         </View>

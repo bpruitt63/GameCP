@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 //import * as SecureStore from 'expo-secure-store';
-import { ScoreContext, UserContext, LoginContext, GameContext } from './context';
+import { ScoreContext, UserContext, LoginContext, GameContext, GameDataContext } from './context';
 import { useIncrementScore, useGameData } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import Home from './Home';
@@ -34,6 +34,7 @@ export default function App() {
 				await getSeason();
 				await getGame();
 				await getScore();
+				await getGameData();
 			};
 		};
 		const getOrg = async () => {
@@ -51,6 +52,10 @@ export default function App() {
 		const getScore = async () => {
 			const storedScore = await storeBasedOnPlatform('get', 'score');
 			if (storedScore) setScore(JSON.parse(storedScore));
+		};
+		const getGameData = async () => {
+			const storedGameData = await storeBasedOnPlatform('get', 'gameData');
+			if (storedGameData) setGameData(JSON.parse(storedGameData));
 		};
 		checkIfLoggedIn();
 	}, []);
@@ -73,6 +78,8 @@ export default function App() {
 			<GameContext.Provider value={{organization, setOrganization,
 											season, setSeason,
 											game, setGame}}>
+			<GameDataContext.Provider value={{gameData, changePossession, 
+											incrementDown, setGameData}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 				<Stack.Navigator initialRouteName='Home'>
@@ -85,6 +92,7 @@ export default function App() {
 				</Stack.Navigator>
 			</LoginContext.Provider>
 			</ScoreContext.Provider>
+			</GameDataContext.Provider>
 			</GameContext.Provider>
 			</UserContext.Provider>
 		</NavigationContainer>
