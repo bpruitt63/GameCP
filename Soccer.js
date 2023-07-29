@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import Timer from './Timer';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
+import { GameContext } from './context';
 
 function Soccer() {
 
@@ -10,6 +11,14 @@ function Soccer() {
     const scoreIntervals = [1];
     const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
     const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
+    const {game} = useContext(GameContext);
+
+    useEffect(() => {
+        if (game) {
+            setHomeTeam({...homeTeam, name: game.team1Name});
+            setAwayTeam({...awayTeam, name: game.team2Name});
+        };
+    }, [setHomeTeam, setAwayTeam, game]);
 
     return (
         <View>
