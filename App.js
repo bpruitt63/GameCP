@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 import * as SecureStore from 'expo-secure-store';
 import { ScoreContext, UserContext, LoginContext, GameContext } from './context';
-import { useIncrementScore } from './hooks';
+import { useIncrementScore, useGameData } from './hooks';
 import Home from './Home';
 import Soccer from './Soccer';
 import Football from './Football';
@@ -18,6 +18,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 
 	const [score, incrementScore, setScore] = useIncrementScore();
+	const [gameData, changePossession, incrementDown, setGameData] = useGameData();
 	const [user, setUser] = useState(null);
 	const [organization, setOrganization] = useState(null);
 	const [season, setSeason] = useState(null);
