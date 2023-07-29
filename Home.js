@@ -18,7 +18,7 @@ function Home({navigation}) {
             {season &&
                 <Text>Current season: {season.title}</Text>}
             {game &&
-                <Text>Current game: {game[1]}</Text>}
+                <Text>Current game: {game.title}</Text>}
             <Text>Select a sport</Text>
             <Button title='Basketball'
                     onPress={() => navigation.navigate('Basketball')} />

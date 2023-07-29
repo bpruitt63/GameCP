@@ -82,7 +82,9 @@ function Select({navigation}) {
             let title = `${formattedGames[i].team1Name || 'TBD'} vs ${formattedGames[i].team2Name || 'TBD'}`;
             if (formattedGames[i].readableTime) title += ` at ${formattedGames[i].readableTime}`;
             if (formattedGames[i].readableDate) title += ` on ${formattedGames[i].readableDate}`;
-            formattedGames[i] = [formattedGames[i].gameId, title, formattedGames[i].team1Color, formattedGames[i].team2Color];
+            formattedGames[i] = [formattedGames[i].gameId, title, 
+                                formattedGames[i].team1Color, formattedGames[i].team2Color,
+                                formattedGames[i].team1Id, formattedGames[i].team2Id];
         };
         return formattedGames;
     };
@@ -113,9 +115,13 @@ function Select({navigation}) {
     const selectGame = (id) => {
         setApiErrors({});
         setErrors({});
-        const selectedGame = games.find(g => g[0] === id);
-        setGame(selectedGame);
-        const gameString = JSON.stringify(selectedGame);
+        const res = games.find(g => g[0] === id);
+        const names = res[1].split(' ');
+        const currentGame = {gameId: res[0], title: res[1], team1Id: res[4], 
+                            team2Id: res[5], team1Color: res[2], team2Color: res[3],
+                            team1Name: names[0], team2Name: names[2]};
+        setGame(currentGame);
+        const gameString = JSON.stringify(currentGame);
         storeBasedOnPlatform('store', 'game', gameString);
         navigation.navigate('Home');
     };
