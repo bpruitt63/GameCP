@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Platform } from 'react-native';
+//import { StyleSheet, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
-import * as SecureStore from 'expo-secure-store';
+//import * as SecureStore from 'expo-secure-store';
 import { ScoreContext, UserContext, LoginContext, GameContext } from './context';
 import { useIncrementScore, useGameData } from './hooks';
+import { storeBasedOnPlatform } from './helpers';
 import Home from './Home';
 import Soccer from './Soccer';
 import Football from './Football';
@@ -32,6 +33,7 @@ export default function App() {
 				await getOrg();
 				await getSeason();
 				await getGame();
+				await getScore();
 			};
 		};
 		const getOrg = async () => {
@@ -46,23 +48,27 @@ export default function App() {
 			const storedGame = await storeBasedOnPlatform('get', 'game');
 			if (storedGame) setGame(JSON.parse(storedGame));
 		};
+		const getScore = async () => {
+			const storedScore = await storeBasedOnPlatform('get', 'score');
+			if (storedScore) setScore(JSON.parse(storedScore));
+		};
 		checkIfLoggedIn();
 	}, []);
 
-	const storeBasedOnPlatform = async (operation, key, value=null) => {
-		const isWeb = Platform.OS === 'web';
-		switch (operation) {
-			case 'store':
-				return isWeb ? localStorage.setItem(key, value) 
-							: await SecureStore.setItemAsync(key, value);
-			case 'remove':
-				return isWeb ? localStorage.removeItem(key) 
-							: await SecureStore.deleteItemAsync(key);
-			case 'get':
-				return isWeb ? localStorage.getItem(key) 
-							: await SecureStore.getItemAsync(key);
-		};
-	};
+	// const storeBasedOnPlatform = async (operation, key, value=null) => {
+	// 	const isWeb = Platform.OS === 'web';
+	// 	switch (operation) {
+	// 		case 'store':
+	// 			return isWeb ? localStorage.setItem(key, value) 
+	// 						: await SecureStore.setItemAsync(key, value);
+	// 		case 'remove':
+	// 			return isWeb ? localStorage.removeItem(key) 
+	// 						: await SecureStore.deleteItemAsync(key);
+	// 		case 'get':
+	// 			return isWeb ? localStorage.getItem(key) 
+	// 						: await SecureStore.getItemAsync(key);
+	// 	};
+	// };
 
 	const loginUser = async (token) => {
 		const userData = jwt_decode(token)?.user || jwt_decode(token);
@@ -80,8 +86,7 @@ export default function App() {
 			<UserContext.Provider value={user}>
 			<GameContext.Provider value={{organization, setOrganization,
 											season, setSeason,
-											game, setGame,
-											storeBasedOnPlatform}}>
+											game, setGame}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 				<Stack.Navigator initialRouteName='Home'>

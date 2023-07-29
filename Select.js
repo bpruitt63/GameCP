@@ -1,7 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View } from 'react-native';
 import { GameContext, UserContext } from './context';
 import {useErrors} from './hooks';
+import { storeBasedOnPlatform } from './helpers';
 import SelectList from './SelectList';
 import Errors from './Errors';
 import API from './Api';
@@ -16,8 +17,8 @@ function Select({navigation}) {
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
     const user = useContext(UserContext);
-    const {organization, setOrganization, season, setSeason, 
-            game, setGame, storeBasedOnPlatform} = useContext(GameContext);
+    const {organization, setOrganization, season, 
+            setSeason, game, setGame} = useContext(GameContext);
     const userOrgs = Object.keys(user.organizations).map(k => [k, user.organizations[k].orgName]);
 
     useEffect(() => {
@@ -33,7 +34,7 @@ function Select({navigation}) {
         getCurrentStep();
     }, [setStep]);
 
-    // TODO finish this function!
+
     const goToStep = async (step) => {
         switch (step) {
             case 2:
@@ -127,7 +128,6 @@ function Select({navigation}) {
         <View>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            <Text>{step}</Text>
             {step === 1 &&
                 <SelectList data={userOrgs}
                             press={selectOrg} />}

@@ -1,4 +1,5 @@
 import {useState, useCallback} from 'react';
+import { storeBasedOnPlatform } from './helpers';
 
 function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
 
@@ -9,6 +10,7 @@ function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
         const newScore = {...score};
         newScore[scoreToChange] += pointsToAdd;
         setScore(newScore);
+        storeBasedOnPlatform('store', 'score', JSON.stringify(newScore));
     };
 
     return [score, incrementScore, setScore];
