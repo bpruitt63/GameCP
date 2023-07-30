@@ -21,11 +21,13 @@ function Basketball() {
     return (
         <View>
             <TeamSide scoreIntervals={scoreIntervals}
-                        team={homeTeam} />
+                        team={homeTeam}
+                        sport='basketball' />
             <Text>Timer goes here</Text>
             <Possession />
             <TeamSide scoreIntervals={scoreIntervals}
-                        team={awayTeam} />
+                        team={awayTeam}
+                        sport='basketball' />
         </View>
     );
 };

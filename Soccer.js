@@ -24,11 +24,13 @@ function Soccer() {
         <View>
             {/* <Timer defaultValues={defaultValues} /> */}
             <TeamSide scoreIntervals={scoreIntervals}
-                        team={homeTeam} />
+                        team={homeTeam}
+                        sport='soccer' />
             <Text>Timer goes here</Text>
             <Possession />
             <TeamSide scoreIntervals={scoreIntervals}
-                        team={awayTeam} />
+                        team={awayTeam}
+                        sport='soccer' />
         </View>
     );
 };

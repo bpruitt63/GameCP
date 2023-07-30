@@ -26,6 +26,8 @@ function Home({navigation}) {
                     onPress={() => navigation.navigate('Football')} />
             <Button title='Soccer'
                     onPress={() => navigation.navigate('Soccer')} />
+            <Button title='Baseball'
+                    onPress={() => navigation.navigate('Baseball')} />
             <Text>Or</Text>
             {user ? 
                 <>

@@ -9,3 +9,5 @@ export const UserContext = createContext(null);
 export const LoginContext = createContext(null);
 
 export const GameContext = createContext(null);
+
+export const BaseballContext = createContext(null);

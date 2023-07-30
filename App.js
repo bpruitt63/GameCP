@@ -3,14 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
-//import * as SecureStore from 'expo-secure-store';
-import { ScoreContext, UserContext, LoginContext, GameContext, GameDataContext } from './context';
-import { useIncrementScore, useGameData } from './hooks';
+import { ScoreContext, UserContext, LoginContext, 
+		GameContext, GameDataContext, BaseballContext } from './context';
+import { useIncrementScore, useGameData, useBaseball } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import Home from './Home';
 import Soccer from './Soccer';
 import Football from './Football';
 import Basketball from './Basketball';
+import Baseball from './Baseball';
 import Login from './Login';
 import Select from './Select';
 
@@ -20,6 +21,7 @@ export default function App() {
 
 	const [score, incrementScore, setScore] = useIncrementScore();
 	const [gameData, changePossession, incrementDown, setGameData] = useGameData();
+	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData] = useBaseball();
 	const [user, setUser] = useState(null);
 	const [organization, setOrganization] = useState(null);
 	const [season, setSeason] = useState(null);
@@ -35,6 +37,7 @@ export default function App() {
 				await getGame();
 				await getScore();
 				await getGameData();
+				await getBaseballData();
 			};
 		};
 		const getOrg = async () => {
@@ -56,6 +59,10 @@ export default function App() {
 		const getGameData = async () => {
 			const storedGameData = await storeBasedOnPlatform('get', 'gameData');
 			if (storedGameData) setGameData(JSON.parse(storedGameData));
+		};
+		const getBaseballData = async () => {
+			const storedBaseballData = await storeBasedOnPlatform('get', 'baseballData');
+			if (storedBaseballData) setBaseballData(JSON.parse(storedBaseballData));
 		};
 		checkIfLoggedIn();
 	}, []);
@@ -82,14 +89,18 @@ export default function App() {
 											incrementDown, setGameData}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
+			<BaseballContext.Provider value={{baseballData, incrementBalls, 
+									incrementStrikes, incrementOuts, setBaseballData}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />
 					<Stack.Screen name='Football' component={Football} />
 					<Stack.Screen name='Basketball' component={Basketball} />
+					<Stack.Screen name='Baseball' component={Baseball} />
 					<Stack.Screen name='Login' component={Login} />
 					<Stack.Screen name='Select' component={Select} />
 				</Stack.Navigator>
+			</BaseballContext.Provider>
 			</LoginContext.Provider>
 			</ScoreContext.Provider>
 			</GameDataContext.Provider>

@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import {Text, View, Button} from 'react-native';
 import { ScoreContext, GameDataContext } from './context';
 
-function TeamSide({scoreIntervals, team}) {
+function TeamSide({scoreIntervals, team, sport}) {
 
     const {score, incrementScore, setScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
@@ -15,7 +15,7 @@ function TeamSide({scoreIntervals, team}) {
                 <Button key={interval}
                         title={`+${interval}`}
                         onPress={() => incrementScore(interval, team.position)} />)}
-            {gameData.possession === team.position &&
+            {sport !== 'baseball' && gameData.possession === team.position &&
                 <Text>Possession</Text>}
         </View>
     );

@@ -22,12 +22,14 @@ function Football() {
     return (
         <View>
             <TeamSide scoreIntervals={scoreIntervals}
-                        team={homeTeam} />
+                        team={homeTeam}
+                        sport='football' />
             <Text>Timer goes here</Text>
             <Possession />
             <Down />
             <TeamSide scoreIntervals={scoreIntervals}
-                        team={awayTeam} />
+                        team={awayTeam}
+                        sport='football' />
         </View>
     );
 };

@@ -38,6 +38,65 @@ function useGameData(initialState={possession: 'home', down: 1}) {
 };
 
 
+const initialBaseball = {balls: 0, strikes: 0, outs: 0, inning: 1, top: true, length: 9, gameOver: false};
+function useBaseball(initialState=initialBaseball) {
+
+    const [baseballData, setBaseballData] = useState(initialState);
+
+    const newBatter = (data=baseballData) => {
+        return {...data, balls: 0, strikes: 0};
+    };
+
+    const changeSides = (score) => {
+        const newBaseballData = newBatter();
+        const gameOver = baseballData.inning >= baseballData.length 
+                        && ((!baseballData.top && score.homeScore !== score.awayScore)
+                        || (baseballData.top && score.homeScore > score.awayScore));
+        if (gameOver) {
+            newBaseballData.gameOver = true;
+        } else {
+            if (!baseballData.top) newBaseballData.inning++;
+            newBaseballData.top = !newBaseballData.top;
+            newBaseballData.outs = 0;
+        };
+        return newBaseballData;
+    };
+
+    const incrementOuts = (score) => {
+        const newBaseballData = baseballData.outs >= 2 ? changeSides(score) 
+                                    : {...baseballData, outs: baseballData.outs + 1};
+        setBaseballData(newBaseballData);
+        storeBasedOnPlatform('store', 'baseballData', JSON.stringify(newBaseballData));
+        return newBaseballData;
+    };
+
+    const incrementStrikes = (score) => {
+        let newBaseballData = {...baseballData};
+        if (baseballData.strikes >= 2) {
+            newBaseballData = incrementOuts(score);
+            newBaseballData = newBatter(newBaseballData);
+        } else {
+            newBaseballData.strikes++;
+        };
+        setBaseballData(newBaseballData);
+        storeBasedOnPlatform('store', 'baseballData', JSON.stringify(newBaseballData));
+    };
+
+    const incrementBalls = () => {
+        let newBaseballData = {...baseballData};
+        if (baseballData.balls >= 3) {
+            newBaseballData = newBatter();
+        } else {
+            newBaseballData.balls++;
+        };
+        setBaseballData(newBaseballData);
+        storeBasedOnPlatform('store', 'baseballData', JSON.stringify(newBaseballData));
+    };
+
+    return [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData];
+};
+
+
 function useErrors() {
     const [apiErrors, setApiErrors] = useState({});
 
@@ -49,4 +108,4 @@ function useErrors() {
 };
 
 
-export {useIncrementScore, useGameData, useErrors};
+export {useIncrementScore, useGameData, useBaseball, useErrors};
