@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from 'react';
 import {View, Text} from 'react-native';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
+import Down from './Down';
 import { GameContext } from './context';
 
 function Football() {
@@ -24,6 +25,7 @@ function Football() {
                         team={homeTeam} />
             <Text>Timer goes here</Text>
             <Possession />
+            <Down />
             <TeamSide scoreIntervals={scoreIntervals}
                         team={awayTeam} />
         </View>

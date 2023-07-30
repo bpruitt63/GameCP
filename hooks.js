@@ -30,7 +30,7 @@ function useGameData(initialState={possession: 'home', down: 1}) {
     const incrementDown = () => {
         const newData = {...gameData,
                         down: gameData.down < 4 ? gameData.down + 1 : 1};
-        setGameData({...gameData, newDown});
+        setGameData(newData);
         storeBasedOnPlatform('store', 'gameData', JSON.stringify(newData));
     };
 
