@@ -116,10 +116,10 @@ function Select({navigation}) {
         setApiErrors({});
         setErrors({});
         const res = games.find(g => g[0] === id);
-        const names = res[1].split(' ');
+        const names = res[1].split('vs');
         const currentGame = {gameId: res[0], title: res[1], team1Id: res[4], 
                             team2Id: res[5], team1Color: res[2], team2Color: res[3],
-                            team1Name: names[0], team2Name: names[2]};
+                            team1Name: names[0].trim(), team2Name: names[1].trim()};
         setGame(currentGame);
         const gameString = JSON.stringify(currentGame);
         storeBasedOnPlatform('store', 'game', gameString);
