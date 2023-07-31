@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button, Text} from 'react-native';
 import TeamSide from './TeamSide';
-import { BaseballContext, GameContext } from './context';
+import { BaseballContext, GameContext, ScoreContext } from './context';
 
 function Baseball() {
 
@@ -10,7 +10,8 @@ function Baseball() {
     const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
     const {game} = useContext(GameContext);
     const {baseballData, incrementBalls, incrementStrikes, incrementOuts, 
-            setBaseballData} = useContext(BaseballContext);
+            setBaseballData, resetGame} = useContext(BaseballContext);
+    const {score} = useContext(ScoreContext);
 
     useEffect(() => {
         if (game) {
@@ -29,9 +30,11 @@ function Baseball() {
             <Button title={`Balls: ${baseballData.balls}`}
                     onPress={incrementBalls} />
             <Button title={`Strikes: ${baseballData.strikes}`}
-                    onPress={incrementStrikes} />
+                    onPress={() => incrementStrikes(score)} />
             <Button title={`Outs: ${baseballData.outs}`}
-                    onPress={incrementOuts} />
+                    onPress={() => incrementOuts(score)} />
+            <Button title='Reset Data'
+                    onPress={resetGame} />
         </View>
     );
 };

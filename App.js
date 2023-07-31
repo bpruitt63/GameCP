@@ -19,9 +19,9 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-	const [score, incrementScore, setScore] = useIncrementScore();
-	const [gameData, changePossession, incrementDown, setGameData] = useGameData();
-	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData] = useBaseball();
+	const [score, incrementScore, setScore, resetScore] = useIncrementScore();
+	const [gameData, changePossession, incrementDown, setGameData, resetGameData] = useGameData();
+	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData] = useBaseball();
 	const [user, setUser] = useState(null);
 	const [organization, setOrganization] = useState(null);
 	const [season, setSeason] = useState(null);
@@ -79,6 +79,12 @@ export default function App() {
 		await storeBasedOnPlatform('remove', "token");
 	};
 
+	const resetGame = () => {
+		resetScore();
+		resetGameData();
+		resetBaseballData();
+	};
+
 	return (
 		<NavigationContainer>
 			<UserContext.Provider value={user}>
@@ -86,11 +92,11 @@ export default function App() {
 											season, setSeason,
 											game, setGame}}>
 			<GameDataContext.Provider value={{gameData, changePossession, 
-											incrementDown, setGameData}}>
+											incrementDown, setGameData, resetGame}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
-			<BaseballContext.Provider value={{baseballData, incrementBalls, 
-									incrementStrikes, incrementOuts, setBaseballData}}>
+			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
+										incrementOuts, setBaseballData, resetGame}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />

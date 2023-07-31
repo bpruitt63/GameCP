@@ -13,7 +13,12 @@ function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
         storeBasedOnPlatform('store', 'score', JSON.stringify(newScore));
     };
 
-    return [score, incrementScore, setScore];
+    const resetScore = () => {
+        setScore(initialState);
+        storeBasedOnPlatform('store', 'score', JSON.stringify(initialState));
+    };
+
+    return [score, incrementScore, setScore, resetScore];
 };
 
 function useGameData(initialState={possession: 'home', down: 1}) {
@@ -34,7 +39,12 @@ function useGameData(initialState={possession: 'home', down: 1}) {
         storeBasedOnPlatform('store', 'gameData', JSON.stringify(newData));
     };
 
-    return [gameData, changePossession, incrementDown, setGameData];
+    const resetGameData = () => {
+        setGameData(initialState);
+        storeBasedOnPlatform('store', 'gameData', JSON.stringify(initialState));
+    };
+
+    return [gameData, changePossession, incrementDown, setGameData, resetGameData];
 };
 
 
@@ -93,7 +103,13 @@ function useBaseball(initialState=initialBaseball) {
         storeBasedOnPlatform('store', 'baseballData', JSON.stringify(newBaseballData));
     };
 
-    return [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData];
+    const resetBaseballData = () => {
+        setBaseballData(initialState);
+        storeBasedOnPlatform('store', 'baseballData', JSON.stringify(initialState));
+    };
+
+    return [baseballData, incrementBalls, incrementStrikes, 
+            incrementOuts, setBaseballData, resetBaseballData];
 };
 
 

@@ -1,9 +1,9 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Text} from 'react-native';
+import {View, Text, Button} from 'react-native';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
 import Down from './Down';
-import { GameContext } from './context';
+import { GameContext, GameDataContext } from './context';
 
 function Football() {
 
@@ -11,6 +11,7 @@ function Football() {
     const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
     const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
     const {game} = useContext(GameContext);
+    const {resetGame} = useContext(GameDataContext);
 
     useEffect(() => {
         if (game) {
@@ -30,6 +31,8 @@ function Football() {
             <TeamSide scoreIntervals={scoreIntervals}
                         team={awayTeam}
                         sport='football' />
+            <Button title='Reset Data'
+                    onPress={resetGame} />
         </View>
     );
 };
