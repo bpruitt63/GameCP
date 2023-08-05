@@ -1,12 +1,16 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Button} from 'react-native';
+import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
 import Down from './Down';
 import { GameContext, GameDataContext } from './context';
+import Timer from './Timer';
 
 function Football() {
 
+    const defaultTime = {minutes: 12, seconds: 0, periods: 4, sport: 'football'};
+    const [defaultValues, setDefaultValues] = useState(defaultTime);
     const scoreIntervals = [1, 2, 3, 6];
     const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
     const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
@@ -20,19 +24,25 @@ function Football() {
         };
     }, [setHomeTeam, setAwayTeam, game]);
 
+    const fullReset = () => {
+        resetGame();
+        setDefaultValues({...defaultTime});
+        storeBasedOnPlatform('store', 'time', JSON.stringify(defaultTime));
+    };
+
     return (
         <View>
             <TeamSide scoreIntervals={scoreIntervals}
                         team={homeTeam}
                         sport='football' />
-            <Text>Timer goes here</Text>
+            <Timer defaultValues={defaultValues} />
             <Possession />
             <Down />
             <TeamSide scoreIntervals={scoreIntervals}
                         team={awayTeam}
                         sport='football' />
             <Button title='Reset Data'
-                    onPress={resetGame} />
+                    onPress={fullReset} />
         </View>
     );
 };

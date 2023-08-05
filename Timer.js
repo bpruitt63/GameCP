@@ -11,10 +11,15 @@ function Timer({defaultValues}) {
     useEffect(() => {
         const getStoredTime = async () => {
             const storedTime = await storeBasedOnPlatform('get', 'time');
-			if (storedTime) setTime(JSON.parse(storedTime));
+			if (storedTime && storedTime.sport === defaultValues.sport) {
+                setTime(JSON.parse(storedTime));
+            } else {
+                setTime(defaultValues);
+            };
         };
+        setIsRunning(false);
         getStoredTime();
-    }, [setTime]);
+    }, [setTime, defaultValues]);
 
     return (
         <View>
