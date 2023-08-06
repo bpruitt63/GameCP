@@ -9,6 +9,7 @@ function Timer({defaultValues}) {
     const [isRunning, setIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState(defaultValues);
 
+
     useEffect(() => {
         const getStartingTime = async () => {
 			if (time && time.sport === defaultValues.sport) {
@@ -31,7 +32,8 @@ function Timer({defaultValues}) {
             {isRunning ?
                 <RunningClock currentTime={currentTime}
                             setCurrentTime={setCurrentTime}
-                            stopTimer={stopTimer} />
+                            stopTimer={stopTimer}
+                            saveTime={saveTime} />
                 :
                 <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
                         onPress={() => setIsRunning(true)} />}

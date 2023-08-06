@@ -13,7 +13,7 @@ function useTimer(timerData=null) {
 
     const saveTime = (timeToSave) => {
         setTime(timeToSave);
-        storeBasedOnPlatform('store', JSON.stringify(timeToSave));
+        storeBasedOnPlatform('store', 'time', JSON.stringify(timeToSave));
     };
 
     return [time, clearTime, saveTime, setTime];

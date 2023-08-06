@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
 import { Button } from 'react-native';
-import { storeBasedOnPlatform } from './helpers';
+import { useNavigation } from '@react-navigation/native';
 
-function RunningClock({currentTime, setCurrentTime, stopTimer}) {
+function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         const getTime = () => {
@@ -17,8 +19,15 @@ function RunningClock({currentTime, setCurrentTime, stopTimer}) {
                 newTime.seconds = 0;
             };
             setCurrentTime(newTime);
-            storeBasedOnPlatform('store', 'time', JSON.stringify(newTime));
         };
+        const saveOnNavigate = () => {
+            navigation.addListener('beforeRemove', (e) => {
+                e.preventDefault();
+                saveTime(currentTime);
+                navigation.dispatch(e.data.action);
+            });
+        };
+        saveOnNavigate();
         const interval = setInterval(() => getTime(), 1000);
         return () => clearInterval(interval);
     }, [currentTime]);
