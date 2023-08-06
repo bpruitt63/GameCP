@@ -5,7 +5,7 @@ import RunningClock from './RunningClock';
 
 function Timer({defaultValues}) {
 
-    const {time, setTime} = useContext(TimeContext);
+    const {time, saveTime, setTime} = useContext(TimeContext);
     const [isRunning, setIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState(defaultValues);
 
@@ -21,12 +21,17 @@ function Timer({defaultValues}) {
         getStartingTime();
     }, [time, setTime, defaultValues]);
 
+    const stopTimer = () => {
+        setIsRunning(false);
+        saveTime(currentTime);
+    };
+
     return (
         <View>
             {isRunning ?
                 <RunningClock currentTime={currentTime}
                             setCurrentTime={setCurrentTime}
-                            setIsRunning={setIsRunning} />
+                            stopTimer={stopTimer} />
                 :
                 <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
                         onPress={() => setIsRunning(true)} />}

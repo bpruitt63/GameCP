@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
-	const [time, clearTime, setTime] = useTimer();
+	const [time, clearTime, saveTime, setTime] = useTimer();
 	const [score, incrementScore, setScore, resetScore] = useIncrementScore();
 	const [gameData, changePossession, incrementDown, setGameData, resetGameData] = useGameData();
 	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData] = useBaseball();
@@ -105,7 +105,7 @@ export default function App() {
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
 										incrementOuts, setBaseballData, resetGame}}>
-			<TimeContext.Provider value={{time, setTime}}>
+			<TimeContext.Provider value={{time, setTime, saveTime}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />

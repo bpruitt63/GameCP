@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Button } from 'react-native';
 import { storeBasedOnPlatform } from './helpers';
 
-function RunningClock({currentTime, setCurrentTime, setIsRunning}) {
+function RunningClock({currentTime, setCurrentTime, stopTimer}) {
 
     useEffect(() => {
         const getTime = () => {
@@ -25,7 +25,7 @@ function RunningClock({currentTime, setCurrentTime, setIsRunning}) {
 
     return (
         <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
-                onPress={() => setIsRunning(false)} />
+                onPress={stopTimer} />
     );
 };
 
