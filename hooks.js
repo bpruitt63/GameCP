@@ -1,6 +1,20 @@
 import {useState, useCallback} from 'react';
 import { storeBasedOnPlatform } from './helpers';
 
+
+function useTimer(timerData=null) {
+
+    const [time, setTime] = useState(timerData);
+
+    const clearTime = () => {
+        setTime(null);
+        storeBasedOnPlatform('remove', 'time');
+    };
+
+    return [time, clearTime, setTime];
+};
+
+
 function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
 
     const [score, setScore] = useState(initialState);
@@ -124,4 +138,4 @@ function useErrors() {
 };
 
 
-export {useIncrementScore, useGameData, useBaseball, useErrors};
+export { useTimer, useIncrementScore, useGameData, useBaseball, useErrors};

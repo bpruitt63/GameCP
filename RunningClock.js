@@ -2,29 +2,29 @@ import React, {useEffect} from 'react';
 import { Button } from 'react-native';
 import { storeBasedOnPlatform } from './helpers';
 
-function RunningClock({time, setTime, setIsRunning}) {
+function RunningClock({currentTime, setCurrentTime, setIsRunning}) {
 
     useEffect(() => {
         const getTime = () => {
-            const newTime = {...time};
+            const newTime = {...currentTime};
             if (newTime.seconds > 0) {
                 newTime.seconds--;
-            } else if (time.minutes > 0) {
+            } else if (newTime.minutes > 0) {
                 newTime.minutes--;
                 newTime.seconds = 59;
             } else {
                 newTime.minutes = 0;
                 newTime.seconds = 0;
             };
-            setTime(newTime);
+            setCurrentTime(newTime);
             storeBasedOnPlatform('store', 'time', JSON.stringify(newTime));
         };
         const interval = setInterval(() => getTime(), 1000);
         return () => clearInterval(interval);
-    }, [time]);
+    }, [currentTime]);
 
     return (
-        <Button title={`${time.minutes}:${time.seconds > 9 ? time.seconds : `0${time.seconds}`}`}
+        <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
                 onPress={() => setIsRunning(false)} />
     );
 };
