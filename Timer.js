@@ -3,18 +3,19 @@ import {View, Button} from 'react-native';
 import { storeBasedOnPlatform } from './helpers';
 import RunningClock from './RunningClock';
 
-function Timer({defaultValues}) {
+function Timer({defaultValues, sport}) {
 
     const [isRunning, setIsRunning] = useState(false);
     const [time, setTime] = useState(defaultValues);
 
     useEffect(() => {
         const getStoredTime = async () => {
-            const storedTime = await storeBasedOnPlatform('get', 'time');
-			if (storedTime && storedTime.sport === defaultValues.sport) {
-                setTime(JSON.parse(storedTime));
+            let storedTime = await storeBasedOnPlatform('get', 'time');
+            storedTime = JSON.parse(storedTime);
+			if (storedTime && storedTime.sport === sport) {
+                setTime(storedTime);
             } else {
-                setTime(defaultValues);
+                setTime({...defaultValues, sport});
             };
         };
         setIsRunning(false);
