@@ -1,16 +1,17 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button} from 'react-native';
 import { storeBasedOnPlatform } from './helpers';
+import { defaultData } from './defaultData';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
+import Down from './Down';
 import { GameContext, GameDataContext } from './context';
 import Timer from './Timer';
 
-function Basketball() {
+function Game({route}) {
 
-    const defaultTime = {minutes: 8, seconds: 0, periods: 4, sport: 'basketball'};
-    const [defaultValues, setDefaultValues] = useState(defaultTime);
-    const scoreIntervals = [1, 2, 3];
+    const {sport} = route.params;
+    const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
     const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
     const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
     const {game} = useContext(GameContext);
@@ -25,24 +26,27 @@ function Basketball() {
 
     const fullReset = () => {
         resetGame();
-        setDefaultValues({...defaultTime});
-        storeBasedOnPlatform('store', 'time', JSON.stringify(defaultTime));
+        setDefaultValues({...defaultData[sport]});
+        storeBasedOnPlatform('store', 'time', JSON.stringify(defaultData[sport]));
     };
 
     return (
         <View>
-            <TeamSide scoreIntervals={scoreIntervals}
+            <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
-                        sport='basketball' />
-            <Timer defaultValues={defaultValues} />
+                        sport={sport} />
+            <Timer defaultValues={defaultValues}
+                    sport={sport} />
             <Possession />
-            <TeamSide scoreIntervals={scoreIntervals}
+            {sport === 'football' &&
+                <Down />}
+            <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={awayTeam}
-                        sport='basketball' />
+                        sport={sport} />
             <Button title='Reset Data'
                     onPress={fullReset} />
         </View>
     );
 };
 
-export default Basketball;
+export default Game;

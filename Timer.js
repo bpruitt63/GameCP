@@ -3,7 +3,7 @@ import {View, Button, Text} from 'react-native';
 import { TimeContext } from './context';
 import RunningClock from './RunningClock';
 
-function Timer({defaultValues}) {
+function Timer({defaultValues, sport}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const [isRunning, setIsRunning] = useState(false);
@@ -12,10 +12,10 @@ function Timer({defaultValues}) {
 
     useEffect(() => {
         const getStartingTime = async () => {
-			if (time && time.sport === defaultValues.sport) {
+			if (time && time.sport === sport) {
                 setCurrentTime(time);
             } else {
-                setCurrentTime(defaultValues);
+                setCurrentTime({...defaultValues, sport});
             };
         };
         setIsRunning(false);
@@ -37,7 +37,7 @@ function Timer({defaultValues}) {
                 :
                 <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
                         onPress={() => setIsRunning(true)} />}
-                <Text>{time.sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
+                <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
         </View>
     );
 };

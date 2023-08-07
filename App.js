@@ -9,9 +9,7 @@ import { ScoreContext, UserContext, LoginContext,
 import { useTimer, useIncrementScore, useGameData, useBaseball } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import Home from './Home';
-import Soccer from './Soccer';
-import Football from './Football';
-import Basketball from './Basketball';
+import Game from './Game';
 import Baseball from './Baseball';
 import Login from './Login';
 import Select from './Select';
@@ -108,9 +106,7 @@ export default function App() {
 			<TimeContext.Provider value={{time, setTime, saveTime}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
-					<Stack.Screen name='Soccer' component={Soccer} />
-					<Stack.Screen name='Football' component={Football} />
-					<Stack.Screen name='Basketball' component={Basketball} />
+					<Stack.Screen name='Game' component={Game} />
 					<Stack.Screen name='Baseball' component={Baseball} />
 					<Stack.Screen name='Login' component={Login} />
 					<Stack.Screen name='Select' component={Select} />
