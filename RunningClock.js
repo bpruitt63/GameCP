@@ -1,31 +1,40 @@
 import React, {useEffect} from 'react';
 import { Button } from 'react-native';
-import { storeBasedOnPlatform } from './helpers';
+import { useNavigation } from '@react-navigation/native';
 
-function RunningClock({time, setTime, setIsRunning}) {
+function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
+
+    const navigation = useNavigation();
 
     useEffect(() => {
         const getTime = () => {
-            const newTime = {...time};
+            const newTime = {...currentTime};
             if (newTime.seconds > 0) {
                 newTime.seconds--;
-            } else if (time.minutes > 0) {
+            } else if (newTime.minutes > 0) {
                 newTime.minutes--;
                 newTime.seconds = 59;
             } else {
                 newTime.minutes = 0;
                 newTime.seconds = 0;
             };
-            setTime(newTime);
-            storeBasedOnPlatform('store', 'time', JSON.stringify(newTime));
+            setCurrentTime(newTime);
         };
+        const saveOnNavigate = () => {
+            navigation.addListener('beforeRemove', (e) => {
+                e.preventDefault();
+                saveTime(currentTime);
+                navigation.dispatch(e.data.action);
+            });
+        };
+        saveOnNavigate();
         const interval = setInterval(() => getTime(), 1000);
         return () => clearInterval(interval);
-    }, [time]);
+    }, [currentTime]);
 
     return (
-        <Button title={`${time.minutes}:${time.seconds > 9 ? time.seconds : `0${time.seconds}`}`}
-                onPress={() => setIsRunning(false)} />
+        <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
+                onPress={stopTimer} />
     );
 };
 

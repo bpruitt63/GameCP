@@ -4,8 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 import { ScoreContext, UserContext, LoginContext, 
-		GameContext, GameDataContext, BaseballContext } from './context';
-import { useIncrementScore, useGameData, useBaseball } from './hooks';
+		GameContext, GameDataContext, BaseballContext,
+		TimeContext } from './context';
+import { useTimer, useIncrementScore, useGameData, useBaseball } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import Home from './Home';
 import Soccer from './Soccer';
@@ -19,6 +20,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
 
+	const [time, clearTime, saveTime, setTime] = useTimer();
 	const [score, incrementScore, setScore, resetScore] = useIncrementScore();
 	const [gameData, changePossession, incrementDown, setGameData, resetGameData] = useGameData();
 	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData] = useBaseball();
@@ -30,14 +32,15 @@ export default function App() {
 	useEffect(() => {
 		const checkIfLoggedIn = async () => {
 			const storedToken = await storeBasedOnPlatform('get', "token");
+			await getOrg();
+			await getSeason();
+			await getGame();
+			await getScore();
+			await getGameData();
+			await getBaseballData();
+			await getTime();
 			if (storedToken) {
 				await loginUser(storedToken);
-				await getOrg();
-				await getSeason();
-				await getGame();
-				await getScore();
-				await getGameData();
-				await getBaseballData();
 			};
 		};
 		const getOrg = async () => {
@@ -64,6 +67,10 @@ export default function App() {
 			const storedBaseballData = await storeBasedOnPlatform('get', 'baseballData');
 			if (storedBaseballData) setBaseballData(JSON.parse(storedBaseballData));
 		};
+		const getTime = async () => {
+			const storedTime = await storeBasedOnPlatform('get', 'time');
+			if (storedTime) setTime(JSON.parse(storedTime));
+		};
 		checkIfLoggedIn();
 	}, []);
 
@@ -83,6 +90,7 @@ export default function App() {
 		resetScore();
 		resetGameData();
 		resetBaseballData();
+		clearTime();
 	};
 
 	return (
@@ -97,6 +105,7 @@ export default function App() {
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
 										incrementOuts, setBaseballData, resetGame}}>
+			<TimeContext.Provider value={{time, setTime, saveTime}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Soccer' component={Soccer} />
@@ -106,6 +115,7 @@ export default function App() {
 					<Stack.Screen name='Login' component={Login} />
 					<Stack.Screen name='Select' component={Select} />
 				</Stack.Navigator>
+			</TimeContext.Provider>
 			</BaseballContext.Provider>
 			</LoginContext.Provider>
 			</ScoreContext.Provider>

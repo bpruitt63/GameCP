@@ -1,34 +1,41 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {View, Button} from 'react-native';
-import { storeBasedOnPlatform } from './helpers';
+import { TimeContext } from './context';
 import RunningClock from './RunningClock';
 
 function Timer({defaultValues}) {
 
+    const {time, saveTime, setTime} = useContext(TimeContext);
     const [isRunning, setIsRunning] = useState(false);
-    const [time, setTime] = useState(defaultValues);
+    const [currentTime, setCurrentTime] = useState(defaultValues);
+
 
     useEffect(() => {
-        const getStoredTime = async () => {
-            const storedTime = await storeBasedOnPlatform('get', 'time');
-			if (storedTime && storedTime.sport === defaultValues.sport) {
-                setTime(JSON.parse(storedTime));
+        const getStartingTime = async () => {
+			if (time && time.sport === defaultValues.sport) {
+                setCurrentTime(time);
             } else {
-                setTime(defaultValues);
+                setCurrentTime(defaultValues);
             };
         };
         setIsRunning(false);
-        getStoredTime();
-    }, [setTime, defaultValues]);
+        getStartingTime();
+    }, [time, setTime, defaultValues]);
+
+    const stopTimer = () => {
+        setIsRunning(false);
+        saveTime(currentTime);
+    };
 
     return (
         <View>
             {isRunning ?
-                <RunningClock time={time}
-                            setTime={setTime}
-                            setIsRunning={setIsRunning} />
+                <RunningClock currentTime={currentTime}
+                            setCurrentTime={setCurrentTime}
+                            stopTimer={stopTimer}
+                            saveTime={saveTime} />
                 :
-                <Button title={`${time.minutes}:${time.seconds > 9 ? time.seconds : `0${time.seconds}`}`}
+                <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
                         onPress={() => setIsRunning(true)} />}
         </View>
     );
