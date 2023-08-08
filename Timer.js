@@ -7,7 +7,7 @@ function Timer({defaultValues, sport}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const [isRunning, setIsRunning] = useState(false);
-    const [currentTime, setCurrentTime] = useState(defaultValues);
+    const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
 
 
     useEffect(() => {
@@ -27,6 +27,14 @@ function Timer({defaultValues, sport}) {
         saveTime(currentTime);
     };
 
+    const nextPeriod = () => {
+        const newTime = {...currentTime,
+                            minutes: defaultValues.minutes,
+                            seconds: defaultValues.seconds,
+                            period: currentTime.period + 1};
+        saveTime(newTime);
+    };
+
     return (
         <View>
             {isRunning ?
@@ -38,6 +46,9 @@ function Timer({defaultValues, sport}) {
                 <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
                         onPress={() => setIsRunning(true)} />}
                 <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
+                {currentTime.minutes === 0 && currentTime.seconds === 0 &&
+                    <Button title='Next Period'
+                            onPress={nextPeriod} />}
         </View>
     );
 };

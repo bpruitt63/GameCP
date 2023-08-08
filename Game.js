@@ -40,7 +40,7 @@ function Game({route}) {
             <Possession />
             {sport === 'football' &&
                 <Down />}
-            <TeamSide scoreIntervals={defaultValues.scoreIntervals}
+            <TeamSide scoreIntervals={[...defaultValues.scoreIntervals].reverse()}
                         team={awayTeam}
                         sport={sport} />
             <Button title='Reset Data'
