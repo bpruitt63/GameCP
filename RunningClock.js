@@ -1,4 +1,4 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -17,7 +17,8 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
             } else {
                 newTime.minutes = 0;
                 newTime.seconds = 0;
-                stopTimer();
+                if (newTime.period >= newTime.maxPeriod) newTime.regulation = false;
+                stopTimer(newTime);
             };
             setCurrentTime(newTime);
         };
@@ -31,7 +32,7 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
         saveOnNavigate();
         const interval = setInterval(() => getTime(), 1000);
         return () => clearInterval(interval);
-    }, [currentTime, stopTimer]);
+    }, [currentTime, stopTimer, saveTime]);
 
     return (
         <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
