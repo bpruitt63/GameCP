@@ -9,7 +9,7 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
     useEffect(() => {
         const getTime = () => {
             const newTime = {...currentTime};
-            if (newTime.seconds > 0) {
+            if (newTime.seconds > 1) {
                 newTime.seconds--;
             } else if (newTime.minutes > 0) {
                 newTime.minutes--;

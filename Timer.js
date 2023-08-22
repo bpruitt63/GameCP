@@ -31,7 +31,8 @@ function Timer({defaultValues, sport}) {
 
     const stopTimer = (newTime) => {
         setIsRunning(false);
-        saveTime(newTime);
+        if (!newTime.regulation && score.homeScore !== score.awayScore) gameOver();
+            else saveTime(newTime);
     };
 
     const nextPeriod = () => {
@@ -44,6 +45,8 @@ function Timer({defaultValues, sport}) {
 
     const gameOver = () => {
         const newTime = {...currentTime,
+                            minutes: 0,
+                            seconds: 0,
                             gameOver: true};
         setCurrentTime(newTime);
         saveTime(newTime);
