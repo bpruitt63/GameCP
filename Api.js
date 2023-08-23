@@ -36,6 +36,11 @@ class API {
         const res = await this.request(`organizations/${orgId}/seasons/${seasonId}/games`);
         return res.games;
     };
+
+    static async herokuWakeup() {
+        const res = await this.request(`heroku/wakeup`);
+        return res;
+    };
 };
 
 export default API;

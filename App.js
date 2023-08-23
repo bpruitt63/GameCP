@@ -70,6 +70,7 @@ export default function App() {
 			const storedTime = await storeBasedOnPlatform('get', 'time');
 			if (storedTime) setTime(JSON.parse(storedTime));
 		};
+		API.herokuWakeup();
 		checkIfLoggedIn();
 	}, []);
 
