@@ -13,6 +13,7 @@ import Game from './Game';
 import Baseball from './Baseball';
 import Login from './Login';
 import Select from './Select';
+import API from './Api';
 
 const Stack = createNativeStackNavigator();
 
@@ -76,11 +77,13 @@ export default function App() {
 	const loginUser = async (token) => {
 		const userData = jwt_decode(token)?.user || jwt_decode(token);
 		setUser(userData);
+		API.token = token;
 		await storeBasedOnPlatform('store', "token", token);
 	};
 
 	const logoutUser = async () => {
 		setUser(null);
+		API.token = '';
 		await storeBasedOnPlatform('remove', "token");
 	};
 
