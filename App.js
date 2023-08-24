@@ -7,7 +7,7 @@ import { ScoreContext, UserContext, LoginContext,
 		GameContext, GameDataContext, BaseballContext,
 		TimeContext } from './context';
 import { useTimer, useIncrementScore, useGameData, useBaseball } from './hooks';
-import { storeBasedOnPlatform } from './helpers';
+import { storeBasedOnPlatform, checkStorageOnLogin } from './helpers';
 import Home from './Home';
 import Game from './Game';
 import Baseball from './Baseball';
@@ -31,44 +31,9 @@ export default function App() {
 	useEffect(() => {
 		const checkIfLoggedIn = async () => {
 			const storedToken = await storeBasedOnPlatform('get', "token");
-			await getOrg();
-			await getSeason();
-			await getGame();
-			await getScore();
-			await getGameData();
-			await getBaseballData();
-			await getTime();
 			if (storedToken) {
 				await loginUser(storedToken);
 			};
-		};
-		const getOrg = async () => {
-			const storedOrg = await storeBasedOnPlatform('get', 'organization');
-			if (storedOrg) setOrganization(JSON.parse(storedOrg));
-		};
-		const getSeason = async () => {
-			const storedSeason = await storeBasedOnPlatform('get', 'season');
-			if (storedSeason) setSeason(JSON.parse(storedSeason));
-		};
-		const getGame = async () => {
-			const storedGame = await storeBasedOnPlatform('get', 'game');
-			if (storedGame) setGame(JSON.parse(storedGame));
-		};
-		const getScore = async () => {
-			const storedScore = await storeBasedOnPlatform('get', 'score');
-			if (storedScore) setScore(JSON.parse(storedScore));
-		};
-		const getGameData = async () => {
-			const storedGameData = await storeBasedOnPlatform('get', 'gameData');
-			if (storedGameData) setGameData(JSON.parse(storedGameData));
-		};
-		const getBaseballData = async () => {
-			const storedBaseballData = await storeBasedOnPlatform('get', 'baseballData');
-			if (storedBaseballData) setBaseballData(JSON.parse(storedBaseballData));
-		};
-		const getTime = async () => {
-			const storedTime = await storeBasedOnPlatform('get', 'time');
-			if (storedTime) setTime(JSON.parse(storedTime));
 		};
 		API.herokuWakeup();
 		checkIfLoggedIn();
@@ -80,12 +45,21 @@ export default function App() {
 		setUser(userData);
 		API.token = token;
 		await storeBasedOnPlatform('store', "token", token);
+		const setters = {setOrganization, setSeason, setGame, setScore, setGameData, setBaseballData, setTime};
+		await checkStorageOnLogin(setters);
 	};
 
 	const logoutUser = async () => {
 		setUser(null);
 		API.token = '';
 		await storeBasedOnPlatform('remove', "token");
+		setTime(null);
+		setScore({homeScore: 0, awayScore: 0});
+		setGame(null);
+		setGameData(null);
+		setBaseballData(null);
+		setOrganization(null);
+		setSeason(null);
 	};
 
 	const resetGame = () => {

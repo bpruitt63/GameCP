@@ -1,4 +1,5 @@
 import axios from "axios";
+import { AppState } from "react-native";
 
 const BASE_URL = 'https://sportyapp-backend.herokuapp.com';
 
@@ -35,6 +36,11 @@ class API {
     static async getGames(orgId, seasonId) {
         const res = await this.request(`organizations/${orgId}/seasons/${seasonId}/games`);
         return res.games;
+    };
+
+    static async submitScore(orgId, seasonId, gameId, data) {
+        const res = await this.request(`organizations/${orgId}/seasons/${seasonId}/games/${gameId}`, data, 'patch');
+        return res.game;
     };
 
     static async herokuWakeup() {

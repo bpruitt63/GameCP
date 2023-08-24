@@ -13,10 +13,6 @@ function Login({navigation}) {
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
     const {loginUser} = useContext(LoginContext);
 
-    const test = () => {
-        const td = API.test();
-    }
-
     const handleLogin = async () => {
         setErrors({});
         setApiErrors({});
@@ -69,8 +65,6 @@ function Login({navigation}) {
                     secureTextEntry />
             <Button title='Login'
                     onPress={handleLogin} />
-                    <Button title='test'
-                    onPress={test} />
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
         </View>
