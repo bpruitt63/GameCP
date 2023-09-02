@@ -149,13 +149,13 @@ function Select({navigation}) {
                     <SelectList data={games}
                                 press={selectGame} />
                 </>}
-            {step > 1 &&
+            {step >= 1 &&
                 <Button title='Change Organization'
                         onPress={() => setStep(1)} />}
-            {step > 2 &&
+            {step >= 2 &&
                 <Button title='Change Season'
                         onPress={() => goToStep(2)} />}
-            {step > 3 &&
+            {step >= 3 &&
                 <Button title='Change Game'
                         onPress={() => goToStep(3)} />}
         </View>
