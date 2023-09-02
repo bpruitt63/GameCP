@@ -5,17 +5,23 @@ import { defaultData } from './defaultData';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
 import Down from './Down';
-import { GameContext, GameDataContext } from './context';
+import { GameContext, GameDataContext, TimeContext, SportyContext } from './context';
 import Timer from './Timer';
+import SubmitScores from './SubmitScores';
+
 
 function Game({route}) {
 
     const {sport} = route.params;
     const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
-    const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
-    const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
+    const defaultHome = {name: 'Home', position: 'home'};
+    const defaultAway = {name: 'Away', position: 'away'};
+    const [homeTeam, setHomeTeam] = useState(defaultHome);
+    const [awayTeam, setAwayTeam] = useState(defaultAway);
     const {game} = useContext(GameContext);
     const {resetGame} = useContext(GameDataContext);
+    const {time} = useContext(TimeContext);
+    const {submitScores, apiErrors} = useContext(SportyContext);
 
     useEffect(() => {
         if (game) {
@@ -30,8 +36,17 @@ function Game({route}) {
         storeBasedOnPlatform('store', 'time', JSON.stringify(defaultData[sport]));
     };
 
+    const submitAndReset = async () => {
+        await submitScores();
+        setHomeTeam(defaultHome);
+        setAwayTeam(defaultAway);
+    };
+
     return (
         <View>
+            {game && time && time.gameOver &&
+                <SubmitScores submitScores={submitAndReset}
+                                apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
                         sport={sport} />

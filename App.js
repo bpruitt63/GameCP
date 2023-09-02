@@ -5,8 +5,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
 import { ScoreContext, UserContext, LoginContext, 
 		GameContext, GameDataContext, BaseballContext,
-		TimeContext } from './context';
-import { useTimer, useIncrementScore, useGameData, useBaseball } from './hooks';
+		TimeContext, SportyContext } from './context';
+import { useTimer, useIncrementScore, useGameData, useBaseball, useErrors } from './hooks';
 import { storeBasedOnPlatform, checkStorageOnLogin } from './helpers';
 import Home from './Home';
 import Game from './Game';
@@ -27,6 +27,7 @@ export default function App() {
 	const [organization, setOrganization] = useState(null);
 	const [season, setSeason] = useState(null);
 	const [game, setGame] = useState(null);
+	const [apiErrors, getApiErrors, setApiErrors] = useErrors();
 
 	useEffect(() => {
 		const checkIfLoggedIn = async () => {
@@ -56,7 +57,7 @@ export default function App() {
 		setTime(null);
 		setScore({homeScore: 0, awayScore: 0});
 		setGame(null);
-		setGameData(null);
+		setGameData({possession: 'home', down: 1});
 		setBaseballData(null);
 		setOrganization(null);
 		setSeason(null);
@@ -67,6 +68,22 @@ export default function App() {
 		resetGameData();
 		resetBaseballData();
 		clearTime();
+	};
+
+	const submitScores = async () => {
+		setApiErrors({});
+		const dataToSubmit = {game: {
+			team1Score: score.homeScore,
+			team2Score: score.awayScore
+		}};
+		try {
+			await API.submitScore(organization.orgId, season.seasonId, game.gameId, dataToSubmit);
+			resetGame();
+			await storeBasedOnPlatform('remove', 'game');
+			setGame(null);
+		} catch (err) {
+            getApiErrors(err);
+        };
 	};
 
 	return (
@@ -82,6 +99,7 @@ export default function App() {
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
 										incrementOuts, setBaseballData, resetGame}}>
 			<TimeContext.Provider value={{time, setTime, saveTime}}>
+			<SportyContext.Provider value={{submitScores, apiErrors}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home} />
 					<Stack.Screen name='Game' component={Game} />
@@ -89,6 +107,7 @@ export default function App() {
 					<Stack.Screen name='Login' component={Login} />
 					<Stack.Screen name='Select' component={Select} />
 				</Stack.Navigator>
+			</SportyContext.Provider>
 			</TimeContext.Provider>
 			</BaseballContext.Provider>
 			</LoginContext.Provider>

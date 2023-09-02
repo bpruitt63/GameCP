@@ -1,17 +1,21 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button, Text} from 'react-native';
 import TeamSide from './TeamSide';
-import { BaseballContext, GameContext, ScoreContext } from './context';
+import { BaseballContext, GameContext, ScoreContext, SportyContext } from './context';
+import SubmitScores from './SubmitScores';
 
 function Baseball() {
 
     const scoreIntervals = [1];
-    const [homeTeam, setHomeTeam] = useState({name: 'Home', position: 'home'});
-    const [awayTeam, setAwayTeam] = useState({name: 'Away', position: 'away'});
+    const defaultHome = {name: 'Home', position: 'home'};
+    const defaultAway = {name: 'Away', position: 'away'};
+    const [homeTeam, setHomeTeam] = useState(defaultHome);
+    const [awayTeam, setAwayTeam] = useState(defaultAway);
     const {game} = useContext(GameContext);
     const {baseballData, incrementBalls, incrementStrikes, incrementOuts, 
             setBaseballData, resetGame} = useContext(BaseballContext);
     const {score} = useContext(ScoreContext);
+    const {submitScores, apiErrors} = useContext(SportyContext);
 
     useEffect(() => {
         if (game) {
@@ -20,8 +24,17 @@ function Baseball() {
         };
     }, [setHomeTeam, setAwayTeam, game]);
 
+    const submitAndReset = async () => {
+        await submitScores();
+        setHomeTeam(defaultHome);
+        setAwayTeam(defaultAway);
+    };
+
     return (
         <View>
+            {game && baseballData && baseballData.gameOver &&
+                <SubmitScores submitScores={submitAndReset}
+                                apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={scoreIntervals}
                         team={baseballData.top ? awayTeam : homeTeam}
                         sport='baseball' />
