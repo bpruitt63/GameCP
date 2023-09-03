@@ -21,7 +21,7 @@ export default function App() {
 
 	const [time, clearTime, saveTime, setTime] = useTimer();
 	const [score, incrementScore, setScore, resetScore] = useIncrementScore();
-	const [gameData, changePossession, incrementDown, setGameData, resetGameData] = useGameData();
+	const [gameData, changePossession, incrementDown, setGameData, resetGameData, manualDataChange] = useGameData();
 	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData] = useBaseball();
 	const [user, setUser] = useState(null);
 	const [organization, setOrganization] = useState(null);
@@ -92,8 +92,8 @@ export default function App() {
 			<GameContext.Provider value={{organization, setOrganization,
 											season, setSeason,
 											game, setGame}}>
-			<GameDataContext.Provider value={{gameData, changePossession, 
-											incrementDown, setGameData, resetGame}}>
+			<GameDataContext.Provider value={{gameData, changePossession, incrementDown, 
+											setGameData, resetGame, manualDataChange}}>
 			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 

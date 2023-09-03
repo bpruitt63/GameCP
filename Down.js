@@ -1,14 +1,32 @@
-import React, {useContext} from 'react';
-import { Button } from 'react-native';
+import React, {useContext, useState} from 'react';
+import { Text, TouchableOpacity } from 'react-native';
 import { GameDataContext } from './context';
+import ManualInputForm from './ManualInputForm';
 
 function Down() {
 
-    const {gameData, incrementDown} = useContext(GameDataContext);
+    const {gameData, incrementDown, manualDataChange} = useContext(GameDataContext);
+    const [formOpen, setFormOpen] = useState(false);
+
+    const save = (val) => {
+        const newData = {...gameData, down: +val};
+        manualDataChange(newData);
+        setFormOpen(false);
+    };
 
     return (
-        <Button title={`Down ${gameData.down}`}
-                onPress={incrementDown} />
+        <>
+            {formOpen ? 
+                <ManualInputForm initialValue={gameData.down.toString()}
+                                    save={save}
+                                    cancel={() => setFormOpen(false)} />
+                :
+                <TouchableOpacity onPress={incrementDown}
+                                    onLongPress={() => setFormOpen(true)}>
+                    <Text>{`Down ${gameData.down}`}</Text>
+                </TouchableOpacity>
+            }  
+        </>
     );
 };
 

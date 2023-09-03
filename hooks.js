@@ -63,7 +63,12 @@ function useGameData(initialState={possession: 'home', down: 1}) {
         storeBasedOnPlatform('store', 'gameData', JSON.stringify(initialState));
     };
 
-    return [gameData, changePossession, incrementDown, setGameData, resetGameData];
+    const manualDataChange = (newData) => {
+        setGameData(newData);
+        storeBasedOnPlatform('store', 'gameData', JSON.stringify(newData));
+    };
+
+    return [gameData, changePossession, incrementDown, setGameData, resetGameData, manualDataChange];
 };
 
 
