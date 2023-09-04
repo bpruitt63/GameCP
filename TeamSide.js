@@ -1,16 +1,19 @@
 import React, { useContext } from 'react';
 import {Text, View, Button} from 'react-native';
 import { ScoreContext, GameDataContext } from './context';
+import Score from './Score';
 
 function TeamSide({scoreIntervals, team, sport}) {
 
-    const {score, incrementScore, setScore} = useContext(ScoreContext);
+    const {score, incrementScore, manualSetScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
 
     return(
         <View>
             <Text>{team.name}</Text>
-            <Text>{score[`${team.position}Score`]}</Text>
+            <Score score={score}
+                    position={team.position}
+                    manualSetScore={manualSetScore} />
             {scoreIntervals.map(interval =>
                 <Button key={interval}
                         title={`+${interval}`}

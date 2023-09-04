@@ -20,7 +20,7 @@ const Stack = createNativeStackNavigator();
 export default function App() {
 
 	const [time, clearTime, saveTime, setTime] = useTimer();
-	const [score, incrementScore, setScore, resetScore] = useIncrementScore();
+	const [score, incrementScore, setScore, resetScore, manualSetScore] = useIncrementScore();
 	const [gameData, changePossession, incrementDown, setGameData, resetGameData, manualDataChange] = useGameData();
 	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData] = useBaseball();
 	const [user, setUser] = useState(null);
@@ -94,7 +94,7 @@ export default function App() {
 											game, setGame}}>
 			<GameDataContext.Provider value={{gameData, changePossession, incrementDown, 
 											setGameData, resetGame, manualDataChange}}>
-			<ScoreContext.Provider value={{score, incrementScore, setScore}}>
+			<ScoreContext.Provider value={{score, incrementScore, manualSetScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
 										incrementOuts, setBaseballData, resetGame}}>

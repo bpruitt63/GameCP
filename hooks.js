@@ -37,7 +37,12 @@ function useIncrementScore(initialState={homeScore: 0, awayScore: 0}) {
         storeBasedOnPlatform('store', 'score', JSON.stringify(initialState));
     };
 
-    return [score, incrementScore, setScore, resetScore];
+    const manualSetScore = (newScore) => {
+        setScore(newScore);
+        storeBasedOnPlatform('store', 'score', JSON.stringify(newScore));
+    }
+
+    return [score, incrementScore, setScore, resetScore, manualSetScore];
 };
 
 function useGameData(initialState={possession: 'home', down: 1}) {
