@@ -5,7 +5,7 @@ function ManualInputForm({initialValue, save, cancel}) {
 
     const [value, setValue] = useState(initialValue);
 
-    const handleChange = (val) => setValue(val)
+    const handleChange = (val) => setValue(val);
 
     return (
         <>
