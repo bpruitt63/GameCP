@@ -97,9 +97,12 @@ function Timer({defaultValues, sport}) {
                                 save={timerSave}
                                 cancel={cancel} />}
             {formOpen.period ?
-                <ManualInputForm initialValue={currentTime.period}
-                                save={periodSave}
-                                cancel={cancel} />
+                <>
+                    <Text>{sport === 'soccer' ? 'Period' : 'Quarter'}</Text>
+                    <ManualInputForm initialValue={currentTime.period}
+                                    save={periodSave}
+                                    cancel={cancel} />
+                </>
                 :
                 <TouchableOpacity onLongPress={() => openForm('period')}>
                     <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
