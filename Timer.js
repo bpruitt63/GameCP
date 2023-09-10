@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Button, Text} from 'react-native';
+import {View, Button, Text, TouchableOpacity} from 'react-native';
 import { ScoreContext, TimeContext } from './context';
 import RunningClock from './RunningClock';
+import ManualTimerForm from './ManualTimerForm';
 
 function Timer({defaultValues, sport}) {
 
@@ -9,6 +10,8 @@ function Timer({defaultValues, sport}) {
     const {score} = useContext(ScoreContext);
     const [isRunning, setIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
+    const intitialFormOpen = {timer: false, period: false};
+    const [formOpen, setFormOpen] = useState(intitialFormOpen);
 
 
     useEffect(() => {
@@ -52,23 +55,37 @@ function Timer({defaultValues, sport}) {
         saveTime(newTime);
     };
 
+    const openForm = (field) => {
+        setFormOpen({...intitialFormOpen, [field]: true});
+    };
+
+    const timerSave = () => setFormOpen(intitialFormOpen);
+
+    const timerCancel = () => setFormOpen(intitialFormOpen);
+
     return (
         <View>
-            {isRunning ?
+            {isRunning && !formOpen.timer &&
                 <RunningClock currentTime={currentTime}
                             setCurrentTime={setCurrentTime}
                             stopTimer={stopTimer}
-                            saveTime={saveTime} />
-                :
-                <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
-                        onPress={startTimer} />}
-                <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
-                {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
-                    <Button title='End As Tie'
-                            onPress={gameOver} />}
-                {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver &&
-                    <Button title={!currentTime.regulation && score.homeScore === score.awayScore ? '+ Overtime' : 'Next Period'}
-                            onPress={nextPeriod} />}
+                            saveTime={saveTime} />}
+            {!isRunning && !formOpen.timer &&
+                <TouchableOpacity onPress={startTimer}
+                                onLongPress={() => openForm('timer')} >
+                <Text>{`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}</Text>
+                </TouchableOpacity>}
+            {!isRunning && formOpen.timer &&
+                <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes : `0${currentTime.minutes}`, seconds: currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}}
+                                save={timerSave}
+                                cancel={timerCancel} />}
+            <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
+            {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
+                <Button title='End As Tie'
+                        onPress={gameOver} />}
+            {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver &&
+                <Button title={!currentTime.regulation && score.homeScore === score.awayScore ? '+ Overtime' : 'Next Period'}
+                        onPress={nextPeriod} />}
         </View>
     );
 };

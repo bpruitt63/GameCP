@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { Button } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
@@ -35,8 +35,9 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
     }, [currentTime, stopTimer, saveTime]);
 
     return (
-        <Button title={`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
-                onPress={stopTimer} />
+        <TouchableOpacity onPress={() => stopTimer(currentTime)} >
+            {`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
+        </TouchableOpacity>
     );
 };
 
