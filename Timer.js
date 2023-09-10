@@ -24,6 +24,7 @@ function Timer({defaultValues, sport}) {
         };
         setIsRunning(false);
         getStartingTime();
+        setFormOpen(intitialFormOpen);
     }, [time, setTime, defaultValues]);
 
     const startTimer = () => {

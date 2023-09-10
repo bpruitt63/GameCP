@@ -1,10 +1,14 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { TouchableOpacity } from 'react-native';
 import ManualInputForm from './ManualInputForm';
 
 function Score({score, position, manualSetScore}) {
 
     const [formOpen, setFormOpen] = useState(false);
+
+    useEffect(() => {
+        setFormOpen(false);
+    }, [score]);
 
     const save = (val) => {
         const newScore = {...score, [`${position}Score`]: +val};

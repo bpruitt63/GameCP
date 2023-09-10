@@ -11,7 +11,9 @@ function ManualInputForm({initialValue, save, cancel}) {
         <>
             <TextInput inputMode='numeric'
                         onChangeText={handleChange}
-                        value={value} />
+                        value={value}
+                        autoFocus
+                        selectTextOnFocus />
             <Button title='Confirm'
                     onPress={() => save(value)} />
             <Button title='Cancel'
