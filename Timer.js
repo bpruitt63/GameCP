@@ -59,7 +59,14 @@ function Timer({defaultValues, sport}) {
         setFormOpen({...intitialFormOpen, [field]: true});
     };
 
-    const timerSave = () => setFormOpen(intitialFormOpen);
+    const timerSave = (newTime) => {
+        const newCurrentTime = {...currentTime, 
+                                minutes: +newTime.minutes,
+                                seconds: +newTime.seconds};
+        setCurrentTime(newCurrentTime);
+        saveTime(newCurrentTime);
+        setFormOpen(intitialFormOpen);
+    };
 
     const timerCancel = () => setFormOpen(intitialFormOpen);
 
@@ -73,7 +80,7 @@ function Timer({defaultValues, sport}) {
             {!isRunning && !formOpen.timer &&
                 <TouchableOpacity onPress={startTimer}
                                 onLongPress={() => openForm('timer')} >
-                <Text>{`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}</Text>
+                    <Text>{`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}</Text>
                 </TouchableOpacity>}
             {!isRunning && formOpen.timer &&
                 <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes : `0${currentTime.minutes}`, seconds: currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}}

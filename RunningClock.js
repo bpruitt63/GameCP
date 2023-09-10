@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
@@ -36,7 +36,9 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
 
     return (
         <TouchableOpacity onPress={() => stopTimer(currentTime)} >
-            {`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
+            <Text>
+                {`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
+            </Text>
         </TouchableOpacity>
     );
 };
