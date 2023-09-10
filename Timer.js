@@ -64,6 +64,7 @@ function Timer({defaultValues, sport}) {
         const newCurrentTime = {...currentTime, 
                                 minutes: +newTime.minutes,
                                 seconds: +newTime.seconds};
+        if (newCurrentTime.seconds > 59) newCurrentTime.seconds = 59;
         setCurrentTime(newCurrentTime);
         saveTime(newCurrentTime);
         setFormOpen(intitialFormOpen);
