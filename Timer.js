@@ -3,6 +3,7 @@ import {View, Button, Text, TouchableOpacity} from 'react-native';
 import { ScoreContext, TimeContext } from './context';
 import RunningClock from './RunningClock';
 import ManualTimerForm from './ManualTimerForm';
+import ManualInputForm from './ManualInputForm';
 
 function Timer({defaultValues, sport}) {
 
@@ -70,7 +71,14 @@ function Timer({defaultValues, sport}) {
         setFormOpen(intitialFormOpen);
     };
 
-    const timerCancel = () => setFormOpen(intitialFormOpen);
+    const periodSave = (newPeriod) => {
+        const newCurrentTime = {...currentTime, period: newPeriod};
+        setCurrentTime(newCurrentTime);
+        saveTime(newCurrentTime);
+        setFormOpen(intitialFormOpen);
+    };
+
+    const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
         <View>
@@ -87,8 +95,15 @@ function Timer({defaultValues, sport}) {
             {!isRunning && formOpen.timer &&
                 <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes : `0${currentTime.minutes}`, seconds: currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}}
                                 save={timerSave}
-                                cancel={timerCancel} />}
-            <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
+                                cancel={cancel} />}
+            {formOpen.period ?
+                <ManualInputForm initialValue={currentTime.period}
+                                save={periodSave}
+                                cancel={cancel} />
+                :
+                <TouchableOpacity onLongPress={() => openForm('period')}>
+                    <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
+                </TouchableOpacity>}
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
                 <Button title='End As Tie'
                         onPress={gameOver} />}
