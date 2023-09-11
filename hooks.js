@@ -137,8 +137,13 @@ function useBaseball(initialState=initialBaseball) {
         storeBasedOnPlatform('store', 'baseballData', JSON.stringify(initialState));
     };
 
-    return [baseballData, incrementBalls, incrementStrikes, 
-            incrementOuts, setBaseballData, resetBaseballData];
+    const manualBaseballChange = (newData) => {
+        setBaseballData(newData);
+        storeBasedOnPlatform('store', 'baseballData', JSON.stringify(newData));
+    };
+
+    return [baseballData, incrementBalls, incrementStrikes, incrementOuts, 
+            setBaseballData, resetBaseballData, manualBaseballChange];
 };
 
 

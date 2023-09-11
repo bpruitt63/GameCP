@@ -22,7 +22,7 @@ export default function App() {
 	const [time, clearTime, saveTime, setTime] = useTimer();
 	const [score, incrementScore, setScore, resetScore, manualSetScore] = useIncrementScore();
 	const [gameData, changePossession, incrementDown, setGameData, resetGameData, manualDataChange] = useGameData();
-	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData] = useBaseball();
+	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData, manualBaseballChange] = useBaseball();
 	const [user, setUser] = useState(null);
 	const [organization, setOrganization] = useState(null);
 	const [season, setSeason] = useState(null);
@@ -97,7 +97,7 @@ export default function App() {
 			<ScoreContext.Provider value={{score, incrementScore, manualSetScore}}>
 			<LoginContext.Provider value={{loginUser, logoutUser}}>
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
-										incrementOuts, setBaseballData, resetGame}}>
+										incrementOuts, setBaseballData, resetGame, manualBaseballChange}}>
 			<TimeContext.Provider value={{time, setTime, saveTime}}>
 			<SportyContext.Provider value={{submitScores, apiErrors}}>
 				<Stack.Navigator initialRouteName='Home'>
