@@ -13,6 +13,7 @@ import Game from './Game';
 import Baseball from './Baseball';
 import Login from './Login';
 import Select from './Select';
+import Settings from './Settings';
 import API from './Api';
 
 const Stack = createNativeStackNavigator();
@@ -106,6 +107,7 @@ export default function App() {
 					<Stack.Screen name='Baseball' component={Baseball} />
 					<Stack.Screen name='Login' component={Login} />
 					<Stack.Screen name='Select' component={Select} />
+					<Stack.Screen name='Settings' component={Settings} />
 				</Stack.Navigator>
 			</SportyContext.Provider>
 			</TimeContext.Provider>
