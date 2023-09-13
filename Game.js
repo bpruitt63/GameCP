@@ -1,7 +1,8 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button} from 'react-native';
 import { storeBasedOnPlatform } from './helpers';
-import { defaultData } from './defaultData';
+import { useSettings } from './hooks';
+//import { defaultData } from './defaultData';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
 import Down from './Down';
@@ -13,7 +14,7 @@ import SubmitScores from './SubmitScores';
 function Game({route}) {
 
     const {sport} = route.params;
-    const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
+    const [defaultValues, getStoredDefaults, setDefaultValues] = useSettings(sport);
     const defaultHome = {name: 'Home', position: 'home'};
     const defaultAway = {name: 'Away', position: 'away'};
     const [homeTeam, setHomeTeam] = useState(defaultHome);
@@ -28,11 +29,12 @@ function Game({route}) {
             setHomeTeam({...homeTeam, name: game.team1Name});
             setAwayTeam({...awayTeam, name: game.team2Name});
         };
+        setDefaultValues(getStoredDefaults(sport));
     }, [setHomeTeam, setAwayTeam, game]);
 
     const fullReset = () => {
         resetGame();
-        setDefaultValues({...defaultData[sport]});
+        setDefaultValues(getStoredDefaults(sport));
         storeBasedOnPlatform('store', 'time', JSON.stringify(defaultData[sport]));
     };
 

@@ -1,10 +1,14 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, {useState} from 'react';
+import { Text, View } from 'react-native';
+import { defaultData } from './defaultData';
+import { storeBasedOnPlatform } from './helpers';
 
 function Settings() {
 
     return (
-        <Text>settings</Text>
+        <View>
+            {console.log(defaultData)}
+        </View>
     );
 };
 
