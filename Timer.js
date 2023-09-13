@@ -105,7 +105,11 @@ function Timer({defaultValues, sport}) {
                 </>
                 :
                 <TouchableOpacity onLongPress={() => openForm('period')}>
-                    <Text>{sport === 'soccer' ? 'Period: ' : 'Quarter: '}{currentTime.period}</Text>
+                    <Text>
+                        {sport === 'soccer' ? 'Period: ' : 'Quarter: '}
+                        {currentTime.period <= currentTime.maxPeriod ? currentTime.period 
+                                        : `OT${currentTime.period - currentTime.maxPeriod}`}
+                    </Text>
                 </TouchableOpacity>}
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
                 <Button title='End As Tie'
