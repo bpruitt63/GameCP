@@ -162,11 +162,11 @@ function useErrors() {
 function useSettings(sport) {
     const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
 
-    const getStoredDefaults = (sport) => {
-        const storedValues = JSON.parse(storeBasedOnPlatform('get', 'defaultData'));
+    const getStoredDefaults = async (sport) => {
+        const storedValues = await storeBasedOnPlatform('get', 'defaultData');
         const newDefaultValues = {...defaultValues};
-        if (storedValues[sport]) {
-            newDefaultValues = {...newDefaultValues, ...storedValues};
+        if (storedValues && storedValues[sport]) {
+            newDefaultValues = {...newDefaultValues, ...JSON.parse(storedValues[sport])};
             setDefaultValues(newDefaultValues);
         };
         return newDefaultValues;

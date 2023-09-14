@@ -25,12 +25,16 @@ function Game({route}) {
     const {submitScores, apiErrors} = useContext(SportyContext);
 
     useEffect(() => {
-        if (game) {
-            setHomeTeam({...homeTeam, name: game.team1Name});
-            setAwayTeam({...awayTeam, name: game.team2Name});
+        const setDefaults = async () => {
+            if (game) {
+                setHomeTeam({...homeTeam, name: game.team1Name});
+                setAwayTeam({...awayTeam, name: game.team2Name});
+            };
+            const newDefaultValues = await getStoredDefaults(sport);
+            setDefaultValues(newDefaultValues);
         };
-        setDefaultValues(getStoredDefaults(sport));
-    }, [setHomeTeam, setAwayTeam, game]);
+        setDefaults();
+    }, [setHomeTeam, setAwayTeam, game, setDefaultValues]);
 
     const fullReset = () => {
         resetGame();
