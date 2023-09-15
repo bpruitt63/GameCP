@@ -164,15 +164,22 @@ function useSettings(sport) {
 
     const getStoredDefaults = async (sport) => {
         const storedValues = await storeBasedOnPlatform('get', 'defaultData');
-        const newDefaultValues = {...defaultValues};
-        if (storedValues && storedValues[sport]) {
-            newDefaultValues = {...newDefaultValues, ...JSON.parse(storedValues[sport])};
+        let newDefaultValues = {...defaultValues};
+        let parsedValues = {};
+        if (storedValues) parsedValues = JSON.parse(storedValues);
+        if (parsedValues[sport]) {
+            newDefaultValues = {...newDefaultValues, ...parsedValues[sport]};
             setDefaultValues(newDefaultValues);
         };
         return newDefaultValues;
     };
 
-    return [defaultValues, getStoredDefaults, setDefaultValues];
+    const updateDefaults = async (newDefaultValues) => {
+        setDefaultValues(newDefaultValues);
+        await storeBasedOnPlatform('store', 'defaultData', JSON.stringify(newDefaultValues));
+    };
+
+    return [getStoredDefaults, defaultValues, setDefaultValues, updateDefaults];
 };
 
 
