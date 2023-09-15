@@ -1,5 +1,6 @@
 import {useState, useCallback} from 'react';
 import { storeBasedOnPlatform } from './helpers';
+import { defaultData } from './defaultData';
 
 
 function useTimer(timerData=null) {
@@ -158,4 +159,28 @@ function useErrors() {
 };
 
 
-export { useTimer, useIncrementScore, useGameData, useBaseball, useErrors};
+function useSettings(sport) {
+    const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
+
+    const getStoredDefaults = async (sport) => {
+        const storedValues = await storeBasedOnPlatform('get', 'defaultData');
+        let newDefaultValues = {...defaultValues};
+        let parsedValues = {};
+        if (storedValues) parsedValues = JSON.parse(storedValues);
+        if (parsedValues[sport]) {
+            newDefaultValues = {...newDefaultValues, ...parsedValues[sport]};
+            setDefaultValues(newDefaultValues);
+        };
+        return newDefaultValues;
+    };
+
+    const updateDefaults = async (newDefaultValues) => {
+        setDefaultValues(newDefaultValues);
+        await storeBasedOnPlatform('store', 'defaultData', JSON.stringify(newDefaultValues));
+    };
+
+    return [getStoredDefaults, defaultValues, setDefaultValues, updateDefaults];
+};
+
+
+export { useTimer, useIncrementScore, useGameData, useBaseball, useErrors, useSettings};

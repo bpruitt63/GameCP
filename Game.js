@@ -1,7 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button} from 'react-native';
 import { storeBasedOnPlatform } from './helpers';
-import { defaultData } from './defaultData';
+import { useSettings } from './hooks';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
 import Down from './Down';
@@ -13,7 +13,7 @@ import SubmitScores from './SubmitScores';
 function Game({route}) {
 
     const {sport} = route.params;
-    const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
+    const [getStoredDefaults, defaultValues, setDefaultValues] = useSettings(sport);
     const defaultHome = {name: 'Home', position: 'home'};
     const defaultAway = {name: 'Away', position: 'away'};
     const [homeTeam, setHomeTeam] = useState(defaultHome);
@@ -24,16 +24,22 @@ function Game({route}) {
     const {submitScores, apiErrors} = useContext(SportyContext);
 
     useEffect(() => {
-        if (game) {
-            setHomeTeam({...homeTeam, name: game.team1Name});
-            setAwayTeam({...awayTeam, name: game.team2Name});
+        const setDefaults = async () => {
+            if (game) {
+                setHomeTeam({...homeTeam, name: game.team1Name});
+                setAwayTeam({...awayTeam, name: game.team2Name});
+            };
+            const newDefaultValues = await getStoredDefaults(sport);
+            setDefaultValues(newDefaultValues);
         };
-    }, [setHomeTeam, setAwayTeam, game]);
+        setDefaults();
+    }, [setHomeTeam, setAwayTeam, game, setDefaultValues]);
 
-    const fullReset = () => {
+    const fullReset = async () => {
         resetGame();
-        setDefaultValues({...defaultData[sport]});
-        storeBasedOnPlatform('store', 'time', JSON.stringify(defaultData[sport]));
+        const newDefaults = await getStoredDefaults(sport);
+        setDefaultValues(newDefaults);
+        storeBasedOnPlatform('store', 'time', JSON.stringify(newDefaults));
     };
 
     const submitAndReset = async () => {

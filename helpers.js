@@ -20,6 +20,9 @@ export const checkStorageOnLogin = async (setters) => {
     await getOrg(setters.setOrganization);
     await getSeason(setters.setSeason);
     await getGame(setters.setGame);
+};
+
+export const retrieveStoredData = async (setters) => {
     await getScore(setters.setScore);
     await getGameData(setters.setGameData);
     await getBaseballData(setters.setBaseballData);

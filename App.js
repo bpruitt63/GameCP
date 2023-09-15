@@ -7,12 +7,13 @@ import { ScoreContext, UserContext, LoginContext,
 		GameContext, GameDataContext, BaseballContext,
 		TimeContext, SportyContext } from './context';
 import { useTimer, useIncrementScore, useGameData, useBaseball, useErrors } from './hooks';
-import { storeBasedOnPlatform, checkStorageOnLogin } from './helpers';
+import { storeBasedOnPlatform, checkStorageOnLogin, retrieveStoredData } from './helpers';
 import Home from './Home';
 import Game from './Game';
 import Baseball from './Baseball';
 import Login from './Login';
 import Select from './Select';
+import Settings from './Settings';
 import API from './Api';
 
 const Stack = createNativeStackNavigator();
@@ -36,8 +37,13 @@ export default function App() {
 				await loginUser(storedToken);
 			};
 		};
+		const checkStorageWithoutLogin = async () => {
+			const setters = {setScore, setGameData, setBaseballData, setTime};
+			await retrieveStoredData(setters);
+		};
 		API.herokuWakeup();
 		checkIfLoggedIn();
+		checkStorageWithoutLogin();
 	}, []);
 
 
@@ -46,7 +52,7 @@ export default function App() {
 		setUser(userData);
 		API.token = token;
 		await storeBasedOnPlatform('store', "token", token);
-		const setters = {setOrganization, setSeason, setGame, setScore, setGameData, setBaseballData, setTime};
+		const setters = {setOrganization, setSeason, setGame};
 		await checkStorageOnLogin(setters);
 	};
 
@@ -54,11 +60,11 @@ export default function App() {
 		setUser(null);
 		API.token = '';
 		await storeBasedOnPlatform('remove', "token");
-		setTime(null);
-		setScore({homeScore: 0, awayScore: 0});
+		//setTime(null);
+		//setScore({homeScore: 0, awayScore: 0});
 		setGame(null);
-		setGameData({possession: 'home', down: 1});
-		setBaseballData(null);
+		//setGameData({possession: 'home', down: 1});
+		//setBaseballData(null);
 		setOrganization(null);
 		setSeason(null);
 	};
@@ -106,6 +112,7 @@ export default function App() {
 					<Stack.Screen name='Baseball' component={Baseball} />
 					<Stack.Screen name='Login' component={Login} />
 					<Stack.Screen name='Select' component={Select} />
+					<Stack.Screen name='Settings' component={Settings} />
 				</Stack.Navigator>
 			</SportyContext.Provider>
 			</TimeContext.Provider>

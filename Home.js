@@ -40,6 +40,8 @@ function Home({navigation}) {
                 <Button title='Log in to Sporty'
                    	 	onPress={() => navigation.navigate('Login')} />
         	}
+            <Button title='Set Defaults'
+                    onPress={() => navigation.navigate('Settings')} />
         </View>
     );
 };
