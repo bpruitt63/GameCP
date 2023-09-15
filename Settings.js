@@ -31,7 +31,7 @@ function Settings() {
         const newDefaultValues = {...compiledDefaults};
         const {sport} = newData;
         newDefaultValues[sport].minutes = +newData.minutes;
-        newDefaultValues[sport].seconds = +newData.seconds < 60 ? newData.seconds : 59;
+        newDefaultValues[sport].seconds = +newData.seconds < 60 ? +newData.seconds : 59;
         await updateDefaults(newDefaultValues);
         setOpenForm(initialOpen);
     };
@@ -40,6 +40,15 @@ function Settings() {
 
     return (
         <View>
+            {openForm.basketballTimer ?
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.basketball.minutes,
+                                                seconds: compiledDefaults.basketball.seconds > 9 ? compiledDefaults.basketball.seconds : `0${compiledDefaults.basketball.seconds}`,
+                                                sport: 'basketball'}}
+                                                save={save}
+                                                cancel={cancel} />
+            :
+                <Button title='Default Basketball Quarter Length'
+                        onPress={() => toggleOpen('basketballTimer')} />}
             {openForm.footballTimer ?
                 <ManualTimerForm initialValue={{minutes: compiledDefaults.football.minutes,
                                                 seconds: compiledDefaults.football.seconds > 9 ? compiledDefaults.football.seconds : `0${compiledDefaults.football.seconds}`,
@@ -47,8 +56,17 @@ function Settings() {
                                                 save={save}
                                                 cancel={cancel} />
             :
-                <Button title='Default Football Time'
+                <Button title='Default Football Quarter Length'
                         onPress={() => toggleOpen('footballTimer')} />}
+            {openForm.soccerTimer ?
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.soccer.minutes,
+                                                seconds: compiledDefaults.soccer.seconds > 9 ? compiledDefaults.soccer.seconds : `0${compiledDefaults.soccer.seconds}`,
+                                                sport: 'soccer'}}
+                                                save={save}
+                                                cancel={cancel} />
+            :
+                <Button title='Default Soccer Period Length'
+                        onPress={() => toggleOpen('soccerTimer')} />}
         </View>
     );
 };
