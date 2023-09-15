@@ -35,13 +35,13 @@ function Home({navigation}) {
 							onPress={() => navigation.navigate('Select')} />
                     <Button title='Log Out'
                     		onPress={logoutUser} />
-                    <Button title='Set Defaults'
-                            onPress={() => navigation.navigate('Settings')} />
                 </>
                 :
                 <Button title='Log in to Sporty'
                    	 	onPress={() => navigation.navigate('Login')} />
         	}
+            <Button title='Set Defaults'
+                    onPress={() => navigation.navigate('Settings')} />
         </View>
     );
 };
