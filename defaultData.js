@@ -19,5 +19,12 @@ export const defaultData = {
             maxPeriod: 4, 
             scoreIntervals: [1, 2, 3], 
             gameOver: false,
-            regulation: true}
+            regulation: true},
+    baseball: {balls: 0, 
+			strikes: 0, 
+			outs: 0, 
+			inning: 1, 
+			top: true, 
+			length: 9, 
+			gameOver: false}    
 };

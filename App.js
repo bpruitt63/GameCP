@@ -60,11 +60,7 @@ export default function App() {
 		setUser(null);
 		API.token = '';
 		await storeBasedOnPlatform('remove', "token");
-		//setTime(null);
-		//setScore({homeScore: 0, awayScore: 0});
 		setGame(null);
-		//setGameData({possession: 'home', down: 1});
-		//setBaseballData(null);
 		setOrganization(null);
 		setSeason(null);
 	};
