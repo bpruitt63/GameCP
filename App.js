@@ -8,6 +8,7 @@ import { ScoreContext, UserContext, LoginContext,
 		TimeContext, SportyContext } from './context';
 import { useTimer, useIncrementScore, useGameData, useBaseball, useErrors } from './hooks';
 import { storeBasedOnPlatform, checkStorageOnLogin, retrieveStoredData } from './helpers';
+import { defaultData } from './defaultData';
 import Home from './Home';
 import Game from './Game';
 import Baseball from './Baseball';
@@ -23,7 +24,8 @@ export default function App() {
 	const [time, clearTime, saveTime, setTime] = useTimer();
 	const [score, incrementScore, setScore, resetScore, manualSetScore] = useIncrementScore();
 	const [gameData, changePossession, incrementDown, setGameData, resetGameData, manualDataChange] = useGameData();
-	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData, manualBaseballChange] = useBaseball();
+	const [defaultBaseball, setDefaultBaseball] = useState(defaultData.baseball);
+	const [baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData, resetBaseballData, manualBaseballChange] = useBaseball(defaultBaseball);
 	const [user, setUser] = useState(null);
 	const [organization, setOrganization] = useState(null);
 	const [season, setSeason] = useState(null);
@@ -40,6 +42,11 @@ export default function App() {
 		const checkStorageWithoutLogin = async () => {
 			const setters = {setScore, setGameData, setBaseballData, setTime};
 			await retrieveStoredData(setters);
+			let newBaseball = {...defaultBaseball};
+			let storedDefault = await storeBasedOnPlatform('get', 'defaultData');
+			storedDefault = JSON.parse(storedDefault);
+			if (storedDefault?.baseball) newBaseball = {...newBaseball, ...storedDefault.baseball};
+			setDefaultBaseball(newBaseball);
 		};
 		API.herokuWakeup();
 		checkIfLoggedIn();

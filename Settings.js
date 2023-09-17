@@ -3,10 +3,12 @@ import { Button, View } from 'react-native';
 import { defaultData } from './defaultData';
 import { useSettings } from './hooks';
 import ManualTimerForm from './ManualTimerForm';
+import ManualInputForm from './ManualInputForm';
 
 function Settings() {
 
-    const initialOpen = {footballTimer: false, basketballTimer: false, soccerTimer: false};
+    const initialOpen = {footballTimer: false, basketballTimer: false, 
+                            soccerTimer: false, baseballLength: false};
     const [openForm, setOpenForm] = useState(initialOpen);
     const [compiledDefaults, setCompiledDefaults] = useState(defaultData);
     const [getStoredDefaults, defaultValues, setDefaultValues, updateDefaults] = useSettings();
@@ -17,9 +19,11 @@ function Settings() {
             const storedFootball = await getStoredDefaults('football');
             const storedBasketball = await getStoredDefaults('basketball');
             const storedSoccer = await getStoredDefaults('soccer');
+            const storedBaseball = await getStoredDefaults('baseball');
             if (storedFootball) newDefaults.football = storedFootball;
             if (storedBasketball) newDefaults.basketball = storedBasketball;
             if (storedSoccer) newDefaults.soccer = storedSoccer;
+            if (storedBaseball) newDefaults.baseball = storedBaseball;
             setCompiledDefaults(newDefaults);
         };
         checkStoredDefaults();
@@ -30,8 +34,12 @@ function Settings() {
     const save = async (newData) => {
         const newDefaultValues = {...compiledDefaults};
         const {sport} = newData;
-        newDefaultValues[sport].minutes = +newData.minutes;
-        newDefaultValues[sport].seconds = +newData.seconds < 60 ? +newData.seconds : 59;
+        if (sport) {
+            newDefaultValues[sport].minutes = +newData.minutes;
+            newDefaultValues[sport].seconds = +newData.seconds < 60 ? +newData.seconds : 59;
+        } else {
+            newDefaultValues.baseball.length = +newData;
+        };
         await updateDefaults(newDefaultValues);
         setOpenForm(initialOpen);
     };
@@ -67,6 +75,13 @@ function Settings() {
             :
                 <Button title='Default Soccer Period Length'
                         onPress={() => toggleOpen('soccerTimer')} />}
+            {openForm.baseballLength ?
+                <ManualInputForm initialValue={compiledDefaults.baseball.length}
+                                    save={save}
+                                    cancel={cancel} />
+            :
+                <Button title='Default Innings'
+                        onPress={() => toggleOpen('baseballLength')} />}
         </View>
     );
 };

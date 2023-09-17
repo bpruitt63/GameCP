@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button, Text, TouchableOpacity} from 'react-native';
 import { useSettings } from './hooks';
+import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';
 import { BaseballContext, GameContext, ScoreContext, SportyContext } from './context';
 import SubmitScores from './SubmitScores';

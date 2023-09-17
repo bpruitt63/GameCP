@@ -159,12 +159,12 @@ function useErrors() {
 };
 
 
-function useSettings(sport) {
-    const [defaultValues, setDefaultValues] = useState(defaultData[sport]);
+function useSettings(sport=null) {
+    const [defaultValues, setDefaultValues] = useState(sport ? defaultData[sport] : defaultData);
 
     const getStoredDefaults = async (sport) => {
         const storedValues = await storeBasedOnPlatform('get', 'defaultData');
-        let newDefaultValues = {...defaultValues};
+        let newDefaultValues = {...defaultValues[sport]};
         let parsedValues = {};
         if (storedValues) parsedValues = JSON.parse(storedValues);
         if (parsedValues[sport]) {
