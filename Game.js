@@ -18,6 +18,7 @@ function Game({route}) {
     const defaultAway = {name: 'Away', position: 'away'};
     const [homeTeam, setHomeTeam] = useState(defaultHome);
     const [awayTeam, setAwayTeam] = useState(defaultAway);
+    const [resetOpen, setResetOpen] = useState(false);
     const {game} = useContext(GameContext);
     const {resetGame} = useContext(GameDataContext);
     const {time} = useContext(TimeContext);
@@ -40,6 +41,7 @@ function Game({route}) {
         const newDefaults = await getStoredDefaults(sport);
         setDefaultValues(newDefaults);
         storeBasedOnPlatform('store', 'time', JSON.stringify(newDefaults));
+        setResetOpen(false);
     };
 
     const submitAndReset = async () => {
@@ -64,8 +66,16 @@ function Game({route}) {
             <TeamSide scoreIntervals={[...defaultValues.scoreIntervals].reverse()}
                         team={awayTeam}
                         sport={sport} />
-            <Button title='Reset Data'
-                    onPress={fullReset} />
+            {resetOpen ?
+                    <>
+                        <Button title='Confirm Reset'
+                                onPress={fullReset} />
+                        <Button title='Cancel Reset'
+                                onPress={() => setResetOpen(false)} />
+                    </>
+                :
+                    <Button title='Reset Data'
+                        onPress={() => setResetOpen(true)} />}
         </View>
     );
 };

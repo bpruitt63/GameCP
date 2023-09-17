@@ -16,6 +16,7 @@ function Baseball() {
     const [homeTeam, setHomeTeam] = useState(defaultHome);
     const [awayTeam, setAwayTeam] = useState(defaultAway);
     const [formOpen, setFormOpen] = useState(false);
+    const [resetOpen, setResetOpen] = useState(false);
     const [getStoredDefaults, defaultValues, setDefaultValues] = useSettings(sport);
     const {game} = useContext(GameContext);
     const {baseballData, incrementBalls, incrementStrikes, incrementOuts, 
@@ -48,6 +49,7 @@ function Baseball() {
         const newDefaults = await getStoredDefaults(sport);
         setDefaultValues(newDefaults);
         storeBasedOnPlatform('store', 'baseballData', JSON.stringify(newDefaults));
+        setResetOpen(false);
     };
 
     const save = (newData) => {
@@ -81,8 +83,16 @@ function Baseball() {
                     onPress={() => incrementStrikes(score)} />
             <Button title={`Outs: ${baseballData.outs}`}
                     onPress={() => incrementOuts(score)} />
-            <Button title='Reset Data'
-                    onPress={fullReset} />
+            {resetOpen ? 
+                    <>
+                        <Button title='Confirm Reset'
+                                onPress={fullReset} />
+                        <Button title='Cancel Reset'
+                                onPress={() => setResetOpen(false)} />
+                    </>
+                :
+                    <Button title='Reset Data'
+                        onPress={() => setResetOpen(true)} />}
             <Text>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
             <Score score={score}
                     position={baseballData.top ? 'home' : 'away'}
