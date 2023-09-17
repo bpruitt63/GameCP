@@ -4,6 +4,7 @@ import { useSettings } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';
 import { BaseballContext, GameContext, ScoreContext, SportyContext } from './context';
+import Score from './Score';
 import SubmitScores from './SubmitScores';
 import ManualBaseballForm from './ManualBaseballForm';
 
@@ -19,7 +20,7 @@ function Baseball() {
     const {game} = useContext(GameContext);
     const {baseballData, incrementBalls, incrementStrikes, incrementOuts, 
             resetGame, manualBaseballChange} = useContext(BaseballContext);
-    const {score} = useContext(ScoreContext);
+    const {score, manualSetScore} = useContext(ScoreContext);
     const {submitScores, apiErrors} = useContext(SportyContext);
     const sport = 'baseball';
 
@@ -82,6 +83,10 @@ function Baseball() {
                     onPress={() => incrementOuts(score)} />
             <Button title='Reset Data'
                     onPress={fullReset} />
+            <Text>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
+            <Score score={score}
+                    position={baseballData.top ? 'home' : 'away'}
+                    manualSetScore={manualSetScore} />
         </View>
     );
 };
