@@ -19,7 +19,7 @@ function Baseball() {
     const [resetOpen, setResetOpen] = useState(false);
     const [getStoredDefaults, defaultValues, setDefaultValues] = useSettings(sport);
     const {game} = useContext(GameContext);
-    const {baseballData, incrementBalls, incrementStrikes, incrementOuts, 
+    const {baseballData, incrementBalls, incrementStrikes, incrementOuts, setBaseballData,
             resetGame, manualBaseballChange} = useContext(BaseballContext);
     const {score, manualSetScore} = useContext(ScoreContext);
     const {submitScores, apiErrors} = useContext(SportyContext);

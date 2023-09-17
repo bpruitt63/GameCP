@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Button, View } from 'react-native';
 import { defaultData } from './defaultData';
 import { useSettings } from './hooks';
 import ManualTimerForm from './ManualTimerForm';
 import ManualInputForm from './ManualInputForm';
+import { BaseballContext } from './context';
 
 function Settings() {
 
@@ -14,6 +15,7 @@ function Settings() {
     const [openForm, setOpenForm] = useState(initialOpen);
     const [compiledDefaults, setCompiledDefaults] = useState(defaultData);
     const [getStoredDefaults, defaultValues, setDefaultValues, updateDefaults] = useSettings();
+    const {baseballData, manualBaseballChange} = useContext(BaseballContext);
 
     useEffect(() => {
         const checkStoredDefaults = async () => {
@@ -33,19 +35,6 @@ function Settings() {
 
     const toggleOpen = (form) => setOpenForm({...initialOpen, [form]: true});
 
-    // const save = async (newData) => {
-    //     const newDefaultValues = {...compiledDefaults};
-    //     const {sport} = newData;
-    //     if (sport) {
-    //         newDefaultValues[sport].minutes = +newData.minutes;
-    //         newDefaultValues[sport].seconds = +newData.seconds < 60 ? +newData.seconds : 59;
-    //     } else {
-    //         newDefaultValues.baseball.length = +newData;
-    //     };
-    //     await updateDefaults(newDefaultValues);
-    //     setOpenForm(initialOpen);
-    // };
-
     const saveTime = async (newData) => {
         const newDefaultValues = {...compiledDefaults};
         const {sport} = newData;
@@ -59,6 +48,9 @@ function Settings() {
         const newDefaultValues = {...compiledDefaults};
         if (sport === 'baseball') {
             newDefaultValues.baseball.length = +newData;
+            const newBaseballData = {...baseballData};
+            newBaseballData.length = +newData;
+            manualBaseballChange(newBaseballData);
         } else {
             newDefaultValues[sport].maxPeriod = +newData;
         };
