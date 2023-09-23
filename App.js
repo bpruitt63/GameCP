@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-//import { StyleSheet, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
@@ -128,12 +127,3 @@ export default function App() {
 		</NavigationContainer>
 	);
 };
-
-// const styles = StyleSheet.create({
-// 	container: {
-// 		flex: 1,
-// 		backgroundColor: '#fff',
-// 		alignItems: 'center',
-// 		justifyContent: 'center',
-// 	},
-// });

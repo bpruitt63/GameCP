@@ -1,5 +1,6 @@
 import React, {useContext} from 'react';
 import {Button, View, Text} from 'react-native';
+import { styles } from './styles';
 import { GameContext, LoginContext, UserContext } from './context';
 
 
@@ -10,16 +11,16 @@ function Home({navigation}) {
         const {logoutUser} = useContext(LoginContext);
 
     return (
-        <View>
+        <View style={styles.app}>
             {user &&
-                <Text>Logged in as {`${user.firstName} ${user.lastName}`}</Text>}
+                <Text style={styles.text}>Logged in as {`${user.firstName} ${user.lastName}`}</Text>}
             {organization &&
-                <Text>Current organization: {organization.orgName}</Text>}
+                <Text style={styles.text}>Current organization: {organization.orgName}</Text>}
             {season &&
-                <Text>Current season: {season.title}</Text>}
+                <Text style={styles.text}>Current season: {season.title}</Text>}
             {game &&
-                <Text>Current game: {game.title}</Text>}
-            <Text>Select a sport</Text>
+                <Text style={styles.text}>Current game: {game.title}</Text>}
+            <Text style={styles.text}>Select a sport</Text>
             <Button title='Basketball'
                     onPress={() => navigation.navigate('Game', {sport: 'basketball'})} />
             <Button title='Football'
@@ -28,7 +29,7 @@ function Home({navigation}) {
                     onPress={() => navigation.navigate('Game', {sport: 'soccer'})} />
             <Button title='Baseball'
                     onPress={() => navigation.navigate('Baseball')} />
-            <Text>Or</Text>
+            <Text style={styles.text}>Or</Text>
             {user ? 
                 <>
 					<Button title='Select or Change Game'
