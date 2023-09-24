@@ -9,7 +9,7 @@ function TeamSide({scoreIntervals, team, sport, textStyle}) {
     const {gameData} = useContext(GameDataContext);
 
     return(
-        <View>
+        <View style={{backgroundColor: team.color === 'N/A' ? 'grey' : team.color}}>
             <Text style={textStyle}>{team.name}</Text>
             <Score score={score}
                     position={team.position}

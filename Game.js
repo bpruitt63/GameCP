@@ -15,8 +15,8 @@ function Game({route}) {
 
     const {sport} = route.params;
     const [getStoredDefaults, defaultValues, setDefaultValues] = useSettings(sport);
-    const defaultHome = {name: 'Home', position: 'home'};
-    const defaultAway = {name: 'Away', position: 'away'};
+    const defaultHome = {name: 'Home', position: 'home', color: 'N/A'};
+    const defaultAway = {name: 'Away', position: 'away', color: 'N/A'};
     const [homeTeam, setHomeTeam] = useState(defaultHome);
     const [awayTeam, setAwayTeam] = useState(defaultAway);
     const [resetOpen, setResetOpen] = useState(false);
@@ -28,8 +28,8 @@ function Game({route}) {
     useEffect(() => {
         const setDefaults = async () => {
             if (game) {
-                setHomeTeam({...homeTeam, name: game.team1Name});
-                setAwayTeam({...awayTeam, name: game.team2Name});
+                setHomeTeam({...homeTeam, name: game.team1Name, color: game.team1Color});
+                setAwayTeam({...awayTeam, name: game.team2Name, color: game.team2Color});
             };
             const newDefaultValues = await getStoredDefaults(sport);
             setDefaultValues(newDefaultValues);
