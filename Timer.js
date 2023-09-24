@@ -5,7 +5,7 @@ import RunningClock from './RunningClock';
 import ManualTimerForm from './ManualTimerForm';
 import ManualInputForm from './ManualInputForm';
 
-function Timer({defaultValues, sport}) {
+function Timer({defaultValues, sport, textStyle}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const {score} = useContext(ScoreContext);
@@ -90,7 +90,7 @@ function Timer({defaultValues, sport}) {
             {!isRunning && !formOpen.timer &&
                 <TouchableOpacity onPress={startTimer}
                                 onLongPress={() => openForm('timer')} >
-                    <Text>{`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}</Text>
+                    <Text style={textStyle}>{`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}</Text>
                 </TouchableOpacity>}
             {!isRunning && formOpen.timer &&
                 <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes : `0${currentTime.minutes}`, seconds: currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}}
@@ -98,14 +98,14 @@ function Timer({defaultValues, sport}) {
                                 cancel={cancel} />}
             {formOpen.period ?
                 <>
-                    <Text>{currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period' }</Text>
+                    <Text style={textStyle}>{currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period' }</Text>
                     <ManualInputForm initialValue={currentTime.period}
                                     save={periodSave}
                                     cancel={cancel} />
                 </>
                 :
                 <TouchableOpacity onLongPress={() => openForm('period')}>
-                    <Text>
+                    <Text style={textStyle}>
                         {currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period '}
                         {currentTime.period <= currentTime.maxPeriod ? currentTime.period 
                                         : `OT${currentTime.period - currentTime.maxPeriod}`}

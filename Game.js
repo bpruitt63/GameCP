@@ -1,5 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button} from 'react-native';
+import { styles } from './styles';
 import { storeBasedOnPlatform } from './helpers';
 import { useSettings } from './hooks';
 import TeamSide from './TeamSide';
@@ -51,21 +52,24 @@ function Game({route}) {
     };
 
     return (
-        <View>
+        <View style={styles.app}>
             {game && time && time.gameOver &&
                 <SubmitScores submitScores={submitAndReset}
                                 apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
-                        sport={sport} />
+                        sport={sport}
+                        textStyle={styles.text} />
             <Timer defaultValues={defaultValues}
-                    sport={sport} />
+                    sport={sport}
+                    textStyle={styles.text} />
             <Possession />
             {sport === 'football' &&
-                <Down />}
+                <Down textStyle={styles.text} />}
             <TeamSide scoreIntervals={[...defaultValues.scoreIntervals].reverse()}
                         team={awayTeam}
-                        sport={sport} />
+                        sport={sport}
+                        textStyle={styles.text} />
             {resetOpen ?
                     <>
                         <Button title='Confirm Reset'

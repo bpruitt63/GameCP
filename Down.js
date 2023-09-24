@@ -3,7 +3,7 @@ import { Text, TouchableOpacity } from 'react-native';
 import { GameDataContext } from './context';
 import ManualInputForm from './ManualInputForm';
 
-function Down() {
+function Down({textStyle}) {
 
     const {gameData, incrementDown, manualDataChange} = useContext(GameDataContext);
     const [formOpen, setFormOpen] = useState(false);
@@ -22,7 +22,7 @@ function Down() {
         <>
             {formOpen ? 
                 <>  
-                    <Text>Down</Text>
+                    <Text style={textStyle}>Down</Text>
                     <ManualInputForm initialValue={gameData.down.toString()}
                                         save={save}
                                         cancel={() => setFormOpen(false)} />
@@ -30,7 +30,7 @@ function Down() {
                 :
                 <TouchableOpacity onPress={incrementDown}
                                     onLongPress={() => setFormOpen(true)}>
-                    <Text>{`Down ${gameData.down}`}</Text>
+                    <Text style={textStyle}>{`Down ${gameData.down}`}</Text>
                 </TouchableOpacity>
             }  
         </>
