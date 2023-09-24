@@ -164,13 +164,14 @@ function useSettings(sport=null) {
 
     const getStoredDefaults = async (sport) => {
         const storedValues = await storeBasedOnPlatform('get', 'defaultData');
-        let newDefaultValues = {...defaultValues[sport]};
+        let newDefaultValues = sport in defaultValues ? {...defaultValues[sport]}
+                                                    : {...defaultValues};
         let parsedValues = {};
         if (storedValues) parsedValues = JSON.parse(storedValues);
         if (parsedValues[sport]) {
             newDefaultValues = {...newDefaultValues, ...parsedValues[sport]};
             setDefaultValues(newDefaultValues);
-        };
+        };console.log({newDefaultValues});console.log({defaultValues})
         return newDefaultValues;
     };
 
