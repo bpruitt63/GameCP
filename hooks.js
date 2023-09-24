@@ -171,7 +171,7 @@ function useSettings(sport=null) {
         if (parsedValues[sport]) {
             newDefaultValues = {...newDefaultValues, ...parsedValues[sport]};
             setDefaultValues(newDefaultValues);
-        };console.log({newDefaultValues});console.log({defaultValues})
+        };
         return newDefaultValues;
     };
 
