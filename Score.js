@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import ManualInputForm from './ManualInputForm';
 
 function Score({score, position, manualSetScore}) {
@@ -26,7 +26,7 @@ function Score({score, position, manualSetScore}) {
                                 cancel={cancel}/>
                 :
                 <TouchableOpacity onLongPress={() => setFormOpen(true)}>
-                    {score[`${position}Score`]}
+                    <Text>{score[`${position}Score`]}</Text>
                 </TouchableOpacity>}
         </>
     );
