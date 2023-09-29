@@ -58,8 +58,7 @@ function Game({route}) {
                                 apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
-                        sport={sport}
-                        textStyle={styles.text} />
+                        sport={sport} />
             <Timer defaultValues={defaultValues}
                     sport={sport}
                     textStyle={styles.text} />
