@@ -12,8 +12,8 @@ import ManualBaseballForm from './ManualBaseballForm';
 function Baseball() {
 
     const scoreIntervals = [1];
-    const defaultHome = {name: 'Home', position: 'home'};
-    const defaultAway = {name: 'Away', position: 'away'};
+    const defaultHome = {name: 'Home', position: 'home', color: 'N/A'};
+    const defaultAway = {name: 'Away', position: 'away', color: 'N/A'};
     const [homeTeam, setHomeTeam] = useState(defaultHome);
     const [awayTeam, setAwayTeam] = useState(defaultAway);
     const [formOpen, setFormOpen] = useState(false);
@@ -29,8 +29,8 @@ function Baseball() {
     useEffect(() => {
         const setDefaults = async () => {
             if (game) {
-                setHomeTeam({...homeTeam, name: game.team1Name});
-                setAwayTeam({...awayTeam, name: game.team2Name});
+                setHomeTeam({...homeTeam, name: game.team1Name, color: game.team1Color});
+                setAwayTeam({...awayTeam, name: game.team2Name, color: game.team2Color});
             };
             const newDefaultValues = await getStoredDefaults(sport);
             setDefaultValues(newDefaultValues);
@@ -68,8 +68,7 @@ function Baseball() {
                                 apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={scoreIntervals}
                         team={baseballData.top ? awayTeam : homeTeam}
-                        sport='baseball'
-                        textStyle={styles.text} />
+                        sport='baseball' />
             {formOpen ?
                 <ManualBaseballForm initialValue={{inning: baseballData.inning, top: baseballData.top}}
                                     save={save} 
