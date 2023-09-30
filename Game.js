@@ -65,7 +65,7 @@ function Game({route}) {
             <Possession />
             {sport === 'football' &&
                 <Down textStyle={appStyles.text} />}
-            <TeamSide scoreIntervals={[...defaultValues.scoreIntervals].reverse()}
+            <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={awayTeam}
                         sport={sport}
                         textStyle={appStyles.text} />

@@ -10,13 +10,31 @@ export const appStyles = StyleSheet.create({
     }
 });
 
+const teamSide_home = {
+    height: '30%',
+    backgroundColor: 'grey'
+};
 export const gameScreenStyles = StyleSheet.create({
-    teamSide: {
-        height: '30%',
-        backgroundColor: 'grey'
-    },
+    teamSide_home,
+    teamSide_away: {
+        ...teamSide_home,
+        flexDirection: 'column-reverse'
+    },  
     possession: {
         height: '15%'
+    },
+    scoreButtons: {
+        width: '100%',
+        height: '50%',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    scoreButton: {
+        border: '1px solid black',
+        width: '20%',
+        height: '80%',
+        margin: 'auto',
+        textAlign: 'center'
     }
 });
 
