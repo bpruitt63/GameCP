@@ -23,8 +23,10 @@ function TeamSide({scoreIntervals, team, sport}) {
                 <Button key={interval}
                         title={`+${interval}`}
                         onPress={() => incrementScore(interval, team.position)} />)}
-            {sport !== 'baseball' && gameData.possession === team.position &&
-                <Text style={textStyle}>Possession</Text>}
+            <View style={styles.possession}>
+                {sport !== 'baseball' && gameData.possession === team.position &&
+                    <Text style={textStyle}>Possession</Text>}
+            </View>
         </View>
     );
 };

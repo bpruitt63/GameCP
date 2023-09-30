@@ -11,6 +11,9 @@ export const styles = StyleSheet.create({
     teamSide: {
         height: '30%',
         backgroundColor: 'grey'
+    },
+    possession: {
+        height: '15%'
     }
 });
 
