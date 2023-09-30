@@ -1,13 +1,16 @@
 import { StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+export const appStyles = StyleSheet.create({
     app: {
         backgroundColor: 'black',
         flex: 1
     },
     text: {
         color: 'white'
-    },
+    }
+});
+
+export const gameScreenStyles = StyleSheet.create({
     teamSide: {
         height: '30%',
         backgroundColor: 'grey'

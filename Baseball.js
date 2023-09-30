@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button, Text, TouchableOpacity} from 'react-native';
-import { styles } from './styles';
+import { appStyles } from './styles';
 import { useSettings } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';
@@ -62,7 +62,7 @@ function Baseball() {
     const cancel = () => setFormOpen(false);
 
     return (
-        <View style={styles.app}>
+        <View style={appStyles.app}>
             {game && baseballData && baseballData.gameOver &&
                 <SubmitScores submitScores={submitAndReset}
                                 apiErrors={apiErrors} />}
@@ -75,7 +75,7 @@ function Baseball() {
                                     cancel={cancel} />
             :
                 <TouchableOpacity onLongPress={() => setFormOpen(true)}>
-                    <Text style={styles.text}>Inning: {baseballData.top ? 'Top ' : 'Bottom '}
+                    <Text style={appStyles.text}>Inning: {baseballData.top ? 'Top ' : 'Bottom '}
                             {baseballData.inning}</Text>
                 </TouchableOpacity>}
             <Button title={`Balls: ${baseballData.balls}`}
@@ -94,11 +94,11 @@ function Baseball() {
                 :
                     <Button title='Reset Data'
                         onPress={() => setResetOpen(true)} />}
-            <Text style={styles.text}>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
+            <Text style={appStyles.text}>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
             <Score score={score}
                     position={baseballData.top ? 'home' : 'away'}
                     manualSetScore={manualSetScore}
-                    textStyle={styles.text} />
+                    textStyle={appStyles.text} />
         </View>
     );
 };
