@@ -19,7 +19,20 @@ export const gameScreenStyles = StyleSheet.create({
     teamSide_away: {
         ...teamSide_home,
         flexDirection: 'column-reverse'
-    },  
+    }, 
+    teamNameParent: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    teamName: {
+        flex: '3',
+        marginLeft: '10%'
+    },
+    teamScore: {
+        flex: '1',
+        textAlign: 'right',
+        marginRight: '10%'
+    },
     possession: {
         height: '15%'
     },

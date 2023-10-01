@@ -17,11 +17,14 @@ function TeamSide({scoreIntervals, team, sport}) {
 
     return(
         <View style={teamSideStyle}>
-            <Text style={textStyle}>{team.name}</Text>
-            <Score score={score}
-                    position={team.position}
-                    manualSetScore={manualSetScore}
-                    textStyle={textStyle} />
+            <View style={gameScreenStyles.teamNameParent}>
+                <Text style={[gameScreenStyles.teamName, textStyle]}>{team.name}</Text>
+                <Score score={score}
+                        position={team.position}
+                        manualSetScore={manualSetScore}
+                        textStyle={textStyle}
+                        teamScore={gameScreenStyles.teamScore} />
+            </View>
             <View style={gameScreenStyles.scoreButtons}>
                 {scoreIntervals.map(interval =>
                     <TouchableOpacity key={interval}
