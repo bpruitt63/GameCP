@@ -13,7 +13,7 @@ function TeamSide({scoreIntervals, team, sport}) {
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
     return(
-        <View style={teamSideStyle}>{console.log(team)}
+        <View style={teamSideStyle}>
             <Text style={textStyle}>{team.name}</Text>
             <Score score={score}
                     position={team.position}

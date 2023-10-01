@@ -84,7 +84,8 @@ function Select({navigation}) {
             if (formattedGames[i].readableDate) title += ` on ${formattedGames[i].readableDate}`;
             formattedGames[i] = [formattedGames[i].gameId, title, 
                                 formattedGames[i].team1Color, formattedGames[i].team2Color,
-                                formattedGames[i].team1Id, formattedGames[i].team2Id];
+                                formattedGames[i].team1Id, formattedGames[i].team2Id,
+                                formattedGames[i].team1Name, formattedGames[i].team2Name];
         };
         return formattedGames;
     };
@@ -116,10 +117,9 @@ function Select({navigation}) {
         setApiErrors({});
         setErrors({});
         const res = games.find(g => g[0] === id);
-        const names = res[1].split('vs');
         const currentGame = {gameId: res[0], title: res[1], team1Id: res[4], 
                             team2Id: res[5], team1Color: res[2], team2Color: res[3],
-                            team1Name: names[0].trim(), team2Name: names[1].trim()};
+                            team1Name: res[6], team2Name: res[7]};
         setGame(currentGame);
         const gameString = JSON.stringify(currentGame);
         storeBasedOnPlatform('store', 'game', gameString);
