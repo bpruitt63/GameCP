@@ -9,7 +9,10 @@ function TeamSide({scoreIntervals, team, sport}) {
     const {score, incrementScore, manualSetScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
     const colorStyle = team.color === 'N/A' ? teamColorStyles.NA : teamColorStyles[team.color];
-    const teamSideStyle = StyleSheet.compose(gameScreenStyles[`teamSide_${team.position}`], colorStyle);
+    const teamSideStyle = sport === 'baseball' ? 
+                        StyleSheet.compose(gameScreenStyles[`teamSide_home`], colorStyle)
+                            :
+                        StyleSheet.compose(gameScreenStyles[`teamSide_${team.position}`], colorStyle);
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
     return(
