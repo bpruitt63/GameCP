@@ -1,14 +1,16 @@
 import React, {useContext} from "react";
-import { Button } from "react-native";
+import { TouchableOpacity, Text } from "react-native";
 import { GameDataContext } from "./context";
 
-function Possession() {
+function Possession({mainStyle, textStyle}) {
 
     const {changePossession} = useContext(GameDataContext);
 
     return (
-        <Button title='Change Possession'
-                onPress={changePossession} />
+        <TouchableOpacity style={mainStyle}
+                        onPress={changePossession}>
+            <Text style={textStyle}>Change Possession</Text>
+        </TouchableOpacity>
     );
 };
 

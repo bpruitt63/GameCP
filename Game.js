@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button} from 'react-native';
-import { appStyles } from './styles';
+import { appStyles, gameScreenStyles } from './styles';
 import { storeBasedOnPlatform } from './helpers';
 import { useSettings } from './hooks';
 import TeamSide from './TeamSide';
@@ -59,12 +59,18 @@ function Game({route}) {
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
                         sport={sport} />
-            <Timer defaultValues={defaultValues}
-                    sport={sport}
-                    textStyle={appStyles.text} />
-            {sport === 'football' &&
-                <Down textStyle={appStyles.text} />}
-            <Possession />
+            <View style={gameScreenStyles.center}>
+                <Timer defaultValues={defaultValues}
+                        sport={sport}
+                        textStyle={appStyles.text} />
+                <View style={gameScreenStyles.underTimer}>
+                    <Possession mainStyle={gameScreenStyles.underTimerChild}
+                                textStyle={appStyles.text} />
+                    {sport === 'football' &&
+                        <Down mainStyle={gameScreenStyles.underTimerChild}
+                            textStyle={appStyles.text} />}
+                </View>
+            </View>
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={awayTeam}
                         sport={sport}

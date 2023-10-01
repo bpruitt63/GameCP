@@ -1,9 +1,9 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { GameDataContext } from './context';
 import ManualInputForm from './ManualInputForm';
 
-function Down({textStyle}) {
+function Down({textStyle, mainStyle}) {
 
     const {gameData, incrementDown, manualDataChange} = useContext(GameDataContext);
     const [formOpen, setFormOpen] = useState(false);
@@ -19,7 +19,7 @@ function Down({textStyle}) {
     };
 
     return (
-        <>
+        <View style={mainStyle}>
             {formOpen ? 
                 <>  
                     <Text style={textStyle}>Down</Text>
@@ -33,7 +33,7 @@ function Down({textStyle}) {
                     <Text style={textStyle}>{`Down ${gameData.down}`}</Text>
                 </TouchableOpacity>
             }  
-        </>
+        </View>
     );
 };
 

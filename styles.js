@@ -51,6 +51,18 @@ export const gameScreenStyles = StyleSheet.create({
         height: '50%',
         margin: 'auto',
         textAlign: 'center'
+    },
+    center: {
+        height: '35%'
+    },
+    underTimer: {
+        height: '15%',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    underTimerChild: {
+        flex: '1',
+        textAlign: 'center'
     }
 });
 
@@ -115,4 +127,4 @@ export const teamColorStyles = StyleSheet.create({
     NAText: {
         color: 'white'
     }
-})
+});
