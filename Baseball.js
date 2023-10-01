@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button, Text, TouchableOpacity} from 'react-native';
-import { appStyles } from './styles';
+import { appStyles, gameScreenStyles } from './styles';
 import { useSettings } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';
@@ -94,11 +94,14 @@ function Baseball() {
                 :
                     <Button title='Reset Data'
                         onPress={() => setResetOpen(true)} />}
-            <Text style={appStyles.text}>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
-            <Score score={score}
-                    position={baseballData.top ? 'home' : 'away'}
-                    manualSetScore={manualSetScore}
-                    textStyle={appStyles.text} />
+            <View style={gameScreenStyles.teamNameParent}>
+                <Text style={[gameScreenStyles.teamName, appStyles.text]}>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
+                <Score score={score}
+                        position={baseballData.top ? 'home' : 'away'}
+                        manualSetScore={manualSetScore}
+                        textStyle={appStyles.text}
+                        teamScore={gameScreenStyles.teamScore} />
+            </View>
         </View>
     );
 };
