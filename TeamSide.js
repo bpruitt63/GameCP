@@ -37,7 +37,7 @@ function TeamSide({scoreIntervals, team, sport}) {
                 {sport !== 'baseball' && gameData.possession === team.position &&
                     <Text style={textStyle}>Possession</Text>}
             </View>
-        </View>
+            </View>
     );
 };
 

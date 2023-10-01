@@ -21,11 +21,13 @@ export const gameScreenStyles = StyleSheet.create({
         flexDirection: 'column-reverse'
     }, 
     teamNameParent: {
+        height: '20%',
+        alignItems: 'center',
         display: 'flex',
         flexDirection: 'row'
     },
     teamName: {
-        flex: '3',
+        flex: '2',
         marginLeft: '10%'
     },
     teamScore: {
@@ -38,14 +40,15 @@ export const gameScreenStyles = StyleSheet.create({
     },
     scoreButtons: {
         width: '100%',
-        height: '50%',
+        height: '65%',
         display: 'flex',
         flexDirection: 'row'
     },
     scoreButton: {
-        border: '1px solid black',
+        border: '1px solid gray',
+        borderRadius: '20%',
         width: '20%',
-        height: '80%',
+        height: '50%',
         margin: 'auto',
         textAlign: 'center'
     }

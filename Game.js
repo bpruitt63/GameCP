@@ -62,9 +62,9 @@ function Game({route}) {
             <Timer defaultValues={defaultValues}
                     sport={sport}
                     textStyle={appStyles.text} />
-            <Possession />
             {sport === 'football' &&
                 <Down textStyle={appStyles.text} />}
+            <Possession />
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={awayTeam}
                         sport={sport}
