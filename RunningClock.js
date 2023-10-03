@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
+function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, styles}) {
 
     const navigation = useNavigation();
 
@@ -35,8 +35,9 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime}) {
     }, [currentTime, stopTimer, saveTime]);
 
     return (
-        <TouchableOpacity onPress={() => stopTimer(currentTime)} >
-            <Text>
+        <TouchableOpacity onPress={() => stopTimer(currentTime)} 
+                            style={styles.display}>
+            <Text style={styles.clockStyle}>
                 {`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}
             </Text>
         </TouchableOpacity>
