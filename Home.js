@@ -1,6 +1,6 @@
 import React, {useContext} from 'react';
 import {Button, View, Text} from 'react-native';
-import { appStyles } from './styles';
+import { appStyles } from './styles/appStyles';
 import { GameContext, LoginContext, UserContext } from './context';
 
 

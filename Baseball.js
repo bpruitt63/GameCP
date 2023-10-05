@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Button, Text, TouchableOpacity} from 'react-native';
-import { appStyles, gameScreenStyles } from './styles';
+import { appStyles } from './styles/appStyles';
+import { gameScreenStyles } from './styles/gameScreenStyles';
 import { useSettings } from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';

@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Button, Text, TouchableOpacity} from 'react-native';
-import { timerStyles } from './styles';
+import { timerStyles } from './styles/timerStyles';
 import { ScoreContext, TimeContext } from './context';
 import RunningClock from './RunningClock';
 import ManualTimerForm from './ManualTimerForm';
