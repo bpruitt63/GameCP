@@ -27,7 +27,8 @@ export const gameScreenStyles = StyleSheet.create({
         marginRight: '10%'
     },
     possession: {
-        height: '15%'
+        height: '15%',
+        paddingLeft: '20px'
     },
     scoreButtons: {
         width: '100%',
@@ -54,5 +55,11 @@ export const gameScreenStyles = StyleSheet.create({
     underTimerChild: {
         flex: '1',
         textAlign: 'center'
+    },
+    possessionIcon: {
+        maxWidth: '40px',
+        height: 'auto',
+        marginTop: 'auto',
+        marginBottom: 'auto'
     }
 });

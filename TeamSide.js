@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
+import { possessionIcons } from './assets/images/possessionIcons';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { teamColorStyles } from './styles/teamColorStyles';
 import { ScoreContext, GameDataContext } from './context';
@@ -36,7 +37,9 @@ function TeamSide({scoreIntervals, team, sport}) {
             </View>
             <View style={gameScreenStyles.possession}>
                 {sport !== 'baseball' && gameData.possession === team.position &&
-                    <Text style={textStyle}>Possession</Text>}
+                    <img style={gameScreenStyles.possessionIcon}
+                        src={possessionIcons[sport]} 
+                        alt='Icon indicating possession' />}
             </View>
             </View>
     );
