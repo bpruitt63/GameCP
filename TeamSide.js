@@ -6,7 +6,7 @@ import { teamColorStyles } from './styles/teamColorStyles';
 import { ScoreContext, GameDataContext } from './context';
 import Score from './Score';
 
-function TeamSide({scoreIntervals, team, sport}) {
+function TeamSide({scoreIntervals, team, sport, portrait}) {
 
     const {score, incrementScore, manualSetScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
@@ -14,7 +14,7 @@ function TeamSide({scoreIntervals, team, sport}) {
     const teamSideStyle = sport === 'baseball' ? 
                         StyleSheet.compose(gameScreenStyles[`teamSide_home`], colorStyle)
                             :
-                        StyleSheet.compose(gameScreenStyles[`teamSide_${team.position}`], colorStyle);
+                        StyleSheet.compose(gameScreenStyles[`teamSide_${team.position}${portrait ? '' : 'Landscape'}`], colorStyle);
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
     return(

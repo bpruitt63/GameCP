@@ -5,12 +5,26 @@ const teamSide_home = {
     height: '30%',
     backgroundColor: 'grey'
 };
+const landscape = {
+    flexDirection: 'row',
+    height: '100%',
+    width: '30%'
+};
 export const gameScreenStyles = StyleSheet.create({
     teamSide_home,
     teamSide_away: {
         ...teamSide_home,
         flexDirection: 'column-reverse'
-    }, 
+    },
+    teamSide_homeLandscape: {
+        ...teamSide_home,
+        ...landscape
+    },
+    teamSide_awayLandscape: {
+        ...teamSide_home,
+        ...landscape,
+        flexDirection: 'row-reverse'
+    },  
     teamNameParent: {
         height: '20%',
         alignItems: 'center',

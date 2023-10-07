@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Button} from 'react-native';
+import {View, Button, useWindowDimensions} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { storeBasedOnPlatform } from './helpers';
@@ -25,6 +25,8 @@ function Game({route}) {
     const {resetGame} = useContext(GameDataContext);
     const {time} = useContext(TimeContext);
     const {submitScores, apiErrors} = useContext(SportyContext);
+    const {height, width} = useWindowDimensions();
+    const [portrait, setPortrait] = useState(height > width);
 
     useEffect(() => {
         const setDefaults = async () => {
@@ -37,6 +39,10 @@ function Game({route}) {
         };
         setDefaults();
     }, [setHomeTeam, setAwayTeam, game, setDefaultValues]);
+
+    useEffect(() => {
+        setPortrait(height > width);
+    }, [height, width]);
 
     const fullReset = async () => {
         resetGame();
@@ -53,13 +59,14 @@ function Game({route}) {
     };
 
     return (
-        <View style={appStyles.app}>
+        <View style={portrait ? appStyles.app : appStyles.landscape}>
             {game && time && time.gameOver &&
                 <SubmitScores submitScores={submitAndReset}
                                 apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
-                        sport={sport} />
+                        sport={sport}
+                        portrait={portrait} />
             <View style={gameScreenStyles.center}>
                 <Timer defaultValues={defaultValues}
                         sport={sport}
@@ -75,7 +82,7 @@ function Game({route}) {
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={awayTeam}
                         sport={sport}
-                        textStyle={appStyles.text} />
+                        portrait={portrait} />
             {resetOpen ?
                     <>
                         <Button title='Confirm Reset'
