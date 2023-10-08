@@ -6,7 +6,7 @@ import RunningClock from './RunningClock';
 import ManualTimerForm from './ManualTimerForm';
 import ManualInputForm from './ManualInputForm';
 
-function Timer({defaultValues, sport, textStyle}) {
+function Timer({defaultValues, sport, textStyle, portrait}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const {score} = useContext(ScoreContext);
@@ -84,6 +84,24 @@ function Timer({defaultValues, sport, textStyle}) {
 
     return (
         <View style={timerStyles.container}>
+            <View style={timerStyles.period}>
+                {formOpen.period ?
+                    <>
+                        <Text style={textStyle}>{currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period' }</Text>
+                        <ManualInputForm initialValue={currentTime.period}
+                                        save={periodSave}
+                                        cancel={cancel} />
+                    </>
+                    :
+                    <TouchableOpacity style={timerStyles.periodButton}
+                                        onLongPress={() => openForm('period')}>
+                        <Text style={textStyle}>
+                            {currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period '}
+                            {currentTime.period <= currentTime.maxPeriod ? currentTime.period 
+                                            : `OT${currentTime.period - currentTime.maxPeriod}`}
+                        </Text>
+                    </TouchableOpacity>}
+            </View>
             <View style={timerStyles.clock}>
                 {isRunning && !formOpen.timer &&
                     <RunningClock currentTime={currentTime}
@@ -101,23 +119,6 @@ function Timer({defaultValues, sport, textStyle}) {
                     <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes : `0${currentTime.minutes}`, seconds: currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}}
                                     save={timerSave}
                                     cancel={cancel} />}
-            </View>
-            <View style={timerStyles.period}>
-                {formOpen.period ?
-                    <>
-                        <Text style={textStyle}>{currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period' }</Text>
-                        <ManualInputForm initialValue={currentTime.period}
-                                        save={periodSave}
-                                        cancel={cancel} />
-                    </>
-                    :
-                    <TouchableOpacity onLongPress={() => openForm('period')}>
-                        <Text style={textStyle}>
-                            {currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period '}
-                            {currentTime.period <= currentTime.maxPeriod ? currentTime.period 
-                                            : `OT${currentTime.period - currentTime.maxPeriod}`}
-                        </Text>
-                    </TouchableOpacity>}
             </View>
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
                 <Button title='End As Tie'

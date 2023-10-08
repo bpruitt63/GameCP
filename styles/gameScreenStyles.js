@@ -121,13 +121,20 @@ export const gameScreenStyles = StyleSheet.create({
         width: '35%'
     },
     underTimer: {
-        height: '15%',
+        height: '20%',
         display: 'flex',
         flexDirection: 'row'
     },
     underTimerChild: {
         flex: '1',
-        textAlign: 'center'
+        textAlign: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#212121',
+        marginLeft: '5%',
+        marginRight: '5%',
+        marginBottom: '2%',
+        marginTop: '2%',
+        borderRadius: '10%'
     },
     possessionIcon: {
         maxWidth: '40px',

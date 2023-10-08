@@ -9,7 +9,7 @@ function Possession({mainStyle, textStyle}) {
     return (
         <TouchableOpacity style={mainStyle}
                         onPress={changePossession}>
-            <Text style={textStyle}>Change Possession</Text>
+            <Text style={textStyle}>Possession</Text>
         </TouchableOpacity>
     );
 };
