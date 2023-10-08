@@ -70,7 +70,8 @@ function Game({route}) {
             <View style={portrait ? gameScreenStyles.center : gameScreenStyles.centerLandscape}>
                 <Timer defaultValues={defaultValues}
                         sport={sport}
-                        textStyle={appStyles.text} />
+                        textStyle={appStyles.text}
+                        portrait={portrait} />
                 <View style={gameScreenStyles.underTimer}>
                     <Possession mainStyle={gameScreenStyles.underTimerChild}
                                 textStyle={appStyles.text} />

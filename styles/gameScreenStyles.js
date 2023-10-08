@@ -28,6 +28,7 @@ const teamNameParent = {
     display: 'flex',
     flexDirection: 'row'
 };
+
 export const gameScreenStyles = StyleSheet.create({
     teamSide_home,
     teamSide_away: {
@@ -36,12 +37,15 @@ export const gameScreenStyles = StyleSheet.create({
     },
     teamSide_homeLandscape: {
         ...teamSide_home,
-        ...landscape
+        ...landscape,
+        paddingRight: '0',
+        paddingLeft: '0'
     },
     teamSide_awayLandscape: {
         ...teamSide_home,
         ...landscape,
-        flexDirection: 'row-reverse'
+        paddingRight: '0',
+        paddingLeft: '0'
     },  
     teamNameParent,
     teamNameParentLandscape: {
@@ -70,25 +74,35 @@ export const gameScreenStyles = StyleSheet.create({
     possessionAndScoreButtonsLandscapeHome: {
         height: '85%',
         width: '100%',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        paddingLeft: '5%',
+        paddingBottom: '15%'
     },
     possessionAndScoreButtonsLandscapeAway: {
         height: '85%',
         width: '100%',
-        flexDirection: 'row-reverse'
+        flexDirection: 'row-reverse',
+        paddingRight: '5%',
+        paddingBottom: '15%'
     },
     possession: {
         height: '15%',
         paddingLeft: '20px'
     },
+    possessionLandscape: {
+        height: '100%',
+        width: '15%',
+        marginTop: '10%'
+    },
     scoreButtons: {
         width: '100%',
-        height: '65%',
+        height: '85%',
         display: 'flex',
         flexDirection: 'row'
     },
     scoreButtonsLandscape: {
-        height: '80%',
+        width: '85%',
+        height: '100%',
         alignItems: 'center',
         display: 'flex',
         flexDirection: 'column'
@@ -96,7 +110,7 @@ export const gameScreenStyles = StyleSheet.create({
     scoreButton,
     scoreButtonLandscape: {
         ...scoreButton,
-        width: '50%',
+        width: '30%',
         height: '20%',
     },
     center: {
@@ -120,5 +134,10 @@ export const gameScreenStyles = StyleSheet.create({
         height: 'auto',
         marginTop: 'auto',
         marginBottom: 'auto'
+    },
+    possessionIconLandscape: {
+        maxWidth: '40px',
+        height: 'auto',
+        transform: 'rotate(90deg)'
     }
 });

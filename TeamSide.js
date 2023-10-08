@@ -21,11 +21,11 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
         possessionAndScoreButtonsHome, possessionAndScoreButtonsAway,
         possessionAndScoreButtonsLandscapeHome, possessionAndScoreButtonsLandscapeAway,
         scoreButtons, scoreButtonsLandscape, scoreButton, scoreButtonLandscape,
-        possession, possessionIcon} = gameScreenStyles;
+        possession, possessionLandscape, possessionIcon, possessionIconLandscape} = gameScreenStyles;
     const possessionAndScoreButtonsStyle = portrait && team.position === 'home' ? possessionAndScoreButtonsHome
                             : portrait && team.position === 'away' ? possessionAndScoreButtonsAway
                             : !portrait && team.position === 'home' ? possessionAndScoreButtonsLandscapeHome
-                            : possessionAndScoreButtonsAway;
+                            : possessionAndScoreButtonsLandscapeAway;
 
     return(
         <View style={teamSideStyle}>
@@ -46,9 +46,9 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                             <Text style={textStyle}>{`+${interval}`}</Text>      
                         </TouchableOpacity>)}
                 </View>
-                <View style={possession}>
+                <View style={portrait ? possession : possessionLandscape}>
                     {sport !== 'baseball' && gameData.possession === team.position &&
-                        <img style={possessionIcon}
+                        <img style={portrait ? possessionIcon : possessionIconLandscape}
                             src={possessionIcons[sport]} 
                             alt='Icon indicating possession' />}
                 </View>
