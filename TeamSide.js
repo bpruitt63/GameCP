@@ -17,31 +17,43 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                         StyleSheet.compose(gameScreenStyles[`teamSide_${team.position}${portrait ? '' : 'Landscape'}`], colorStyle);
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
+    const {teamNameParent, teamNameParentLandscape, teamName, teamScore, 
+        possessionAndScoreButtonsHome, possessionAndScoreButtonsAway,
+        possessionAndScoreButtonsLandscapeHome, possessionAndScoreButtonsLandscapeAway,
+        scoreButtons, scoreButtonsLandscape, scoreButton, scoreButtonLandscape,
+        possession, possessionIcon} = gameScreenStyles;
+    const possessionAndScoreButtonsStyle = portrait && team.position === 'home' ? possessionAndScoreButtonsHome
+                            : portrait && team.position === 'away' ? possessionAndScoreButtonsAway
+                            : !portrait && team.position === 'home' ? possessionAndScoreButtonsLandscapeHome
+                            : possessionAndScoreButtonsAway;
+
     return(
         <View style={teamSideStyle}>
-            <View style={gameScreenStyles.teamNameParent}>
-                <Text style={[gameScreenStyles.teamName, textStyle]}>{team.name}</Text>
+            <View style={portrait ? teamNameParent : teamNameParentLandscape}>
+                <Text style={[teamName, textStyle]}>{team.name}</Text>
                 <Score score={score}
                         position={team.position}
                         manualSetScore={manualSetScore}
                         textStyle={textStyle}
-                        teamScore={gameScreenStyles.teamScore} />
+                        teamScore={teamScore} />
             </View>
-            <View style={gameScreenStyles.scoreButtons}>
-                {scoreIntervals.map(interval =>
-                    <TouchableOpacity key={interval}
-                                    style={gameScreenStyles.scoreButton}
-                                    onPress={() => incrementScore(interval, team.position)}>
-                        <Text style={textStyle}>{`+${interval}`}</Text>      
-                    </TouchableOpacity>)}
+            <View style={possessionAndScoreButtonsStyle}>
+                <View style={portrait ? scoreButtons : scoreButtonsLandscape}>
+                    {scoreIntervals.map(interval =>
+                        <TouchableOpacity key={interval}
+                                        style={portrait ? scoreButton : scoreButtonLandscape}
+                                        onPress={() => incrementScore(interval, team.position)}>
+                            <Text style={textStyle}>{`+${interval}`}</Text>      
+                        </TouchableOpacity>)}
+                </View>
+                <View style={possession}>
+                    {sport !== 'baseball' && gameData.possession === team.position &&
+                        <img style={possessionIcon}
+                            src={possessionIcons[sport]} 
+                            alt='Icon indicating possession' />}
+                </View>
             </View>
-            <View style={gameScreenStyles.possession}>
-                {sport !== 'baseball' && gameData.possession === team.position &&
-                    <img style={gameScreenStyles.possessionIcon}
-                        src={possessionIcons[sport]} 
-                        alt='Icon indicating possession' />}
-            </View>
-            </View>
+        </View>
     );
 };
 

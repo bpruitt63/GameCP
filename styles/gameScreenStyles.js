@@ -3,12 +3,30 @@ import { StyleSheet } from "react-native";
 
 const teamSide_home = {
     height: '30%',
-    backgroundColor: 'grey'
+    backgroundColor: 'grey',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    display: 'flex',
+    flexDirection: 'column'
 };
 const landscape = {
-    flexDirection: 'row',
     height: '100%',
     width: '30%'
+};
+const scoreButton = {
+    border: '1px solid gray',
+    borderRadius: '20%',
+    width: '20%',
+    height: '50%',
+    margin: 'auto',
+    textAlign: 'center'
+};
+const teamNameParent = {
+    height: '20%',
+    width: '100%',
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'row'
 };
 export const gameScreenStyles = StyleSheet.create({
     teamSide_home,
@@ -25,11 +43,10 @@ export const gameScreenStyles = StyleSheet.create({
         ...landscape,
         flexDirection: 'row-reverse'
     },  
-    teamNameParent: {
-        height: '20%',
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'row'
+    teamNameParent,
+    teamNameParentLandscape: {
+        ...teamNameParent,
+        height: '15%'
     },
     teamName: {
         flex: '2',
@@ -39,6 +56,26 @@ export const gameScreenStyles = StyleSheet.create({
         flex: '1',
         textAlign: 'right',
         marginRight: '10%'
+    },
+    possessionAndScoreButtonsHome: {
+        height: '80%',
+        width: '100%',
+        flexDirection: 'column'
+    },
+    possessionAndScoreButtonsAway: {
+        height: '80%',
+        width: '100%',
+        flexDirection: 'column-reverse'
+    },
+    possessionAndScoreButtonsLandscapeHome: {
+        height: '85%',
+        width: '100%',
+        flexDirection: 'row'
+    },
+    possessionAndScoreButtonsLandscapeAway: {
+        height: '85%',
+        width: '100%',
+        flexDirection: 'row-reverse'
     },
     possession: {
         height: '15%',
@@ -50,16 +87,24 @@ export const gameScreenStyles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row'
     },
-    scoreButton: {
-        border: '1px solid gray',
-        borderRadius: '20%',
-        width: '20%',
-        height: '50%',
-        margin: 'auto',
-        textAlign: 'center'
+    scoreButtonsLandscape: {
+        height: '80%',
+        alignItems: 'center',
+        display: 'flex',
+        flexDirection: 'column'
+    },
+    scoreButton,
+    scoreButtonLandscape: {
+        ...scoreButton,
+        width: '50%',
+        height: '20%',
     },
     center: {
         height: '35%'
+    },
+    centerLandscape: {
+        height: '100%',
+        width: '35%'
     },
     underTimer: {
         height: '15%',

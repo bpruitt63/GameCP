@@ -67,7 +67,7 @@ function Game({route}) {
                         team={homeTeam}
                         sport={sport}
                         portrait={portrait} />
-            <View style={gameScreenStyles.center}>
+            <View style={portrait ? gameScreenStyles.center : gameScreenStyles.centerLandscape}>
                 <Timer defaultValues={defaultValues}
                         sport={sport}
                         textStyle={appStyles.text} />
