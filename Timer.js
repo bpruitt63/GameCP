@@ -6,7 +6,7 @@ import RunningClock from './RunningClock';
 import ManualTimerForm from './ManualTimerForm';
 import ManualInputForm from './ManualInputForm';
 
-function Timer({defaultValues, sport, textStyle, portrait}) {
+function Timer({defaultValues, sport, textStyle}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const {score} = useContext(ScoreContext);
@@ -14,7 +14,7 @@ function Timer({defaultValues, sport, textStyle, portrait}) {
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);
-    const clockStyle = [textStyle, {fontSize: '6em'}];
+    const clockStyle = [textStyle, {fontSize: 80}];
 
 
     useEffect(() => {
