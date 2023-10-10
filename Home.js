@@ -22,11 +22,11 @@ function Home({navigation}) {
                 <Text style={appStyles.text}>Current game: {game.title}</Text>}
             <Text style={appStyles.text}>Select a sport</Text>
             <Button title='Basketball'
-                    onPress={() => navigation.navigate('Game', {sport: 'basketball'})} />
+                    onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})} />
             <Button title='Football'
-                    onPress={() => navigation.navigate('Game', {sport: 'football'})} />
+                    onPress={() => navigation.navigate('Game', {sport: 'football', title: 'Football'})} />
             <Button title='Soccer'
-                    onPress={() => navigation.navigate('Game', {sport: 'soccer'})} />
+                    onPress={() => navigation.navigate('Game', {sport: 'soccer', title: 'Soccer'})} />
             <Button title='Baseball'
                     onPress={() => navigation.navigate('Baseball')} />
             <Text style={appStyles.text}>Or</Text>
