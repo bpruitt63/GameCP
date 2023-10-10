@@ -27,6 +27,6 @@ export const timerStyles = StyleSheet.create({
         marginRight: '5%',
         marginBottom: '2%',
         marginTop: '2%',
-        borderRadius: '10%'
+        borderRadius: 10
     }
 });

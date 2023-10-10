@@ -15,7 +15,7 @@ const landscape = {
 };
 const scoreButton = {
     border: '1px solid gray',
-    borderRadius: '20%',
+    borderRadius: 20,
     width: '20%',
     height: '50%',
     margin: 'auto',
@@ -53,11 +53,11 @@ export const gameScreenStyles = StyleSheet.create({
         height: '15%'
     },
     teamName: {
-        flex: '2',
+        flex: 2,
         marginLeft: '10%'
     },
     teamScore: {
-        flex: '1',
+        flex: 1,
         textAlign: 'right',
         marginRight: '10%'
     },
@@ -87,7 +87,7 @@ export const gameScreenStyles = StyleSheet.create({
     },
     possession: {
         height: '15%',
-        paddingLeft: '20px'
+        paddingLeft: 20
     },
     possessionLandscape: {
         height: '100%',
@@ -126,7 +126,7 @@ export const gameScreenStyles = StyleSheet.create({
         flexDirection: 'row'
     },
     underTimerChild: {
-        flex: '1',
+        flex: 1,
         textAlign: 'center',
         justifyContent: 'center',
         backgroundColor: '#212121',
@@ -134,7 +134,7 @@ export const gameScreenStyles = StyleSheet.create({
         marginRight: '5%',
         marginBottom: '2%',
         marginTop: '2%',
-        borderRadius: '10%'
+        borderRadius: 10
     },
     possessionIcon: {
         maxWidth: '40px',
