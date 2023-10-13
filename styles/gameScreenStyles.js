@@ -137,14 +137,19 @@ export const gameScreenStyles = StyleSheet.create({
         borderRadius: 10
     },
     possessionIcon: {
-        maxWidth: '40px',
+        maxWidth: 35,
         height: 'auto',
         marginTop: 'auto',
-        marginBottom: 'auto'
+        marginBottom: 'auto',
+        flexGrow: .9,
+        padding: 1,
+        margin: 2
     },
     possessionIconLandscape: {
-        maxWidth: '40px',
-        height: 'auto',
-        transform: 'rotate(90deg)'
+        maxHeight: 19,
+        width: 'auto',
+        transform: [{rotateZ: '90deg'}],
+        flexGrow: 1,
+        margin: -2
     }
 });

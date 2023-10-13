@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from 'react-native';
-import { possessionIcons } from './assets/images/possessionIcons';
+import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
+//import footballIcon from './assets/images/football.png';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { teamColorStyles } from './styles/teamColorStyles';
 import { ScoreContext, GameDataContext } from './context';
 import Score from './Score';
+
+const footballIcon = require('./assets/images/football.png')
 
 function TeamSide({scoreIntervals, team, sport, portrait}) {
 
@@ -48,8 +50,8 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                 </View>
                 <View style={portrait ? possession : possessionLandscape}>
                     {sport !== 'baseball' && gameData.possession === team.position &&
-                        <img style={portrait ? possessionIcon : possessionIconLandscape}
-                            src={possessionIcons[sport]} 
+                        <Image style={portrait ? possessionIcon : possessionIconLandscape}
+                            source={footballIcon} 
                             alt='Icon indicating possession' />}
                 </View>
             </View>
