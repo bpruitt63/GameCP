@@ -38,14 +38,14 @@ export const gameScreenStyles = StyleSheet.create({
     teamSide_homeLandscape: {
         ...teamSide_home,
         ...landscape,
-        paddingRight: '0',
-        paddingLeft: '0'
+        paddingRight: 0,
+        paddingLeft: 0
     },
     teamSide_awayLandscape: {
         ...teamSide_home,
         ...landscape,
-        paddingRight: '0',
-        paddingLeft: '0'
+        paddingRight: 0,
+        paddingLeft: 0
     },  
     teamNameParent,
     teamNameParentLandscape: {
