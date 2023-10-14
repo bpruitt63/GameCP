@@ -1,12 +1,15 @@
 import React, { useContext } from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
-//import footballIcon from './assets/images/football.png';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { teamColorStyles } from './styles/teamColorStyles';
 import { ScoreContext, GameDataContext } from './context';
 import Score from './Score';
 
-const footballIcon = require('./assets/images/football.png')
+const icons = {
+    football: require('./assets/images/football.png'),
+    basketball: require('./assets/images/basketball.png'),
+    soccer: require('./assets/images/soccer.png')
+};
 
 function TeamSide({scoreIntervals, team, sport, portrait}) {
 
@@ -28,6 +31,9 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                             : portrait && team.position === 'away' ? possessionAndScoreButtonsAway
                             : !portrait && team.position === 'home' ? possessionAndScoreButtonsLandscapeHome
                             : possessionAndScoreButtonsLandscapeAway;
+    const possessionIconStyle = [portrait ? possessionIcon : possessionIconLandscape, 
+                                sport === 'football' ? portrait ? {maxWidth: 33} : {maxHeight: 19}
+                                                    : portrait ? {maxWidth: 20} : {maxHeight : 32}];
 
     return(
         <View style={teamSideStyle}>
@@ -50,8 +56,8 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                 </View>
                 <View style={portrait ? possession : possessionLandscape}>
                     {sport !== 'baseball' && gameData.possession === team.position &&
-                        <Image style={portrait ? possessionIcon : possessionIconLandscape}
-                            source={footballIcon} 
+                        <Image style={possessionIconStyle}
+                            source={icons[sport]} 
                             alt='Icon indicating possession' />}
                 </View>
             </View>
