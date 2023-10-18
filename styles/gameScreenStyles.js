@@ -148,5 +148,11 @@ export const gameScreenStyles = StyleSheet.create({
         width: 'auto',
         transform: [{rotateZ: '90deg'}],
         flexGrow: 1
+    },
+    resetContainer: {
+        maxHeight: '10%',
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'row'
     }
 });

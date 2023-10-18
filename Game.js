@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Button, useWindowDimensions} from 'react-native';
+import {View, Text, TouchableOpacity, useWindowDimensions} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { storeBasedOnPlatform } from './helpers';
@@ -83,16 +83,24 @@ function Game({route}) {
                         team={awayTeam}
                         sport={sport}
                         portrait={portrait} />
-            {resetOpen ?
-                    <>
-                        <Button title='Confirm Reset'
-                                onPress={fullReset} />
-                        <Button title='Cancel Reset'
-                                onPress={() => setResetOpen(false)} />
-                    </>
-                :
-                    <Button title='Reset Data'
-                        onPress={() => setResetOpen(true)} />}
+            <View style={gameScreenStyles.resetContainer}>
+                {resetOpen ?
+                        <>
+                            <TouchableOpacity onPress={fullReset}
+                                            style={gameScreenStyles.underTimerChild}>
+                                <Text style={appStyles.text}>Confirm Reset</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity onPress={() => setResetOpen(false)}
+                                                style={gameScreenStyles.underTimerChild}>
+                                <Text style={appStyles.text}>Cancel Reset</Text>
+                            </TouchableOpacity>
+                        </>
+                    :
+                        <TouchableOpacity onPress={() => setResetOpen(true)}
+                                        style={gameScreenStyles.underTimerChild}>
+                            <Text style={appStyles.text}>Reset Data</Text>    
+                        </TouchableOpacity>}
+            </View>
         </View>
     );
 };
