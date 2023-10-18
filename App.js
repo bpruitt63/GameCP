@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
-import { appStyles } from './styles/appStyles';
 import { ScoreContext, UserContext, LoginContext, 
 		GameContext, GameDataContext, BaseballContext,
 		TimeContext, SportyContext } from './context';
@@ -96,6 +95,7 @@ export default function App() {
         };
 	};
 
+
 	return (
 		<NavigationContainer>
 			<UserContext.Provider value={user}>
@@ -111,32 +111,18 @@ export default function App() {
 			<TimeContext.Provider value={{time, setTime, saveTime}}>
 			<SportyContext.Provider value={{submitScores, apiErrors}}>
 				<Stack.Navigator initialRouteName='Home'>
-					{/* <Stack.Screen name='Home' component={Home}
-											options={{title: 'Home',
-												headerStyle: appStyles.headerStyle,
-												headerTintColor: appStyles.headerTintColor.color}} /> */}
 					<Stack.Screen name='Home' component={Home}
 											options={{header: () => <Header title={'Home'} />}} />
 					<Stack.Screen name='Game' component={Game}
-											options={({route}) => ({title: route.params.title,
-																headerStyle: appStyles.headerStyle,
-																headerTintColor: appStyles.headerTintColor.color})} />
+											options={{header: ({route}) => <Header title={route.params.title} />}} />
 					<Stack.Screen name='Baseball' component={Baseball}
-											options={{title: 'Baseball',
-												headerStyle: appStyles.headerStyle,
-												headerTintColor: appStyles.headerTintColor.color}} />
+											options={{header: () => <Header title={'Baseball'} />}} />
 					<Stack.Screen name='Login' component={Login}
-											options={{title: 'Log In',
-												headerStyle: appStyles.headerStyle,
-												headerTintColor: appStyles.headerTintColor.color}} />
+											options={{header: () => <Header title={'Log In'} />}} />
 					<Stack.Screen name='Select' component={Select}
-											options={{title: 'Change Information',
-												headerStyle: appStyles.headerStyle,
-												headerTintColor: appStyles.headerTintColor.color}} />
+											options={{header: () => <Header title={'Change Information'} />}} />
 					<Stack.Screen name='Settings' component={Settings}
-											options={{title: 'Edit Default Settings',
-												headerStyle: appStyles.headerStyle,
-												headerTintColor: appStyles.headerTintColor.color}} />
+											options={{header: () => <Header title={'Edit Default Settings'} />}} />
 				</Stack.Navigator>
 			</SportyContext.Provider>
 			</TimeContext.Provider>

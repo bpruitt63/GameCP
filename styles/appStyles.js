@@ -14,12 +14,5 @@ export const appStyles = StyleSheet.create({
     },
     text: {
         color: 'white'
-    },
-    headerStyle: {
-        backgroundColor: 'black',
-        borderBottomColor: 'black'
-    },
-    headerTintColor: {
-        color: '#fff'
     }
 });
