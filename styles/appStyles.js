@@ -13,6 +13,7 @@ export const appStyles = StyleSheet.create({
         flexDirection: 'row'
     },
     text: {
-        color: 'white'
+        color: 'white',
+        textAlign: 'center'
     }
 });

@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 
 
 const teamSide_home = {
-    height: '30%',
+    height: '29%',
     backgroundColor: 'grey',
     paddingLeft: '5%',
     paddingRight: '5%',
@@ -150,7 +150,6 @@ export const gameScreenStyles = StyleSheet.create({
         flexGrow: 1
     },
     resetContainer: {
-        maxHeight: '10%',
         display: 'flex',
         flex: 1,
         flexDirection: 'row'
