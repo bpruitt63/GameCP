@@ -11,7 +11,7 @@ const teamSide_home = {
 };
 const landscape = {
     height: '100%',
-    width: '30%'
+    width: '29%'
 };
 const scoreButton = {
     border: '1px solid gray',
@@ -153,5 +153,23 @@ export const gameScreenStyles = StyleSheet.create({
         display: 'flex',
         flex: 1,
         flexDirection: 'row'
+    },
+    resetContainerLandscape: {
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column'
+    },
+    resetButtonLandscape: {
+        flex: 1,
+        textAlign: 'left',
+        justifyContent: 'center',
+        backgroundColor: '#212121',
+        marginLeft: '10%',
+        marginRight: '10%',
+        marginBottom: '15%',
+        marginTop: '15%',
+        borderRadius: 10,
+        flexWrap: 'wrap',
+        padding: 0
     }
 });
