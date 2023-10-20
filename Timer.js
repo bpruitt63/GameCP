@@ -84,13 +84,15 @@ function Timer({defaultValues, sport, textStyle}) {
 
     return (
         <View style={timerStyles.container}>
-            <View style={timerStyles.period}>
+            <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
-                        <Text style={textStyle}>{currentTime.maxPeriod === 4 ? 'Quarter ' : 'Period' }</Text>
-                        <ManualInputForm initialValue={currentTime.period}
+                        <Text style={textStyle}>{currentTime.maxPeriod === 4 ? 'Quarter:' : 'Period' }</Text>
+                        <ManualInputForm initialValue={currentTime.period.toString()}
                                         save={periodSave}
-                                        cancel={cancel} />
+                                        cancel={cancel}
+                                        textStyle={textStyle}
+                                        formStyle={timerStyles.manualQuarterInput} />
                     </>
                     :
                     <TouchableOpacity style={timerStyles.periodButton}

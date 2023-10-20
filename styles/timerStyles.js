@@ -16,6 +16,12 @@ export const timerStyles = StyleSheet.create({
         height: '20%',
         textAlign: 'center'
     },
+    periodFormOpen: {
+        display: 'flex', 
+        flexDirection: 'row', 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
     clockDisplay: {
         height: '80%'
     },
@@ -28,5 +34,23 @@ export const timerStyles = StyleSheet.create({
         marginBottom: '2%',
         marginTop: '2%',
         borderRadius: 10
+    },
+    manualQuarterInput: {
+        view: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '70%'
+        },
+        textInput: {
+            maxWidth: '30%',
+            backgroundColor: 'white',
+            borderRadius: 4
+        },
+        button: {
+            backgroundColor: '#212121',
+            padding: 5,
+            borderRadius: 4
+        }
     }
 });
