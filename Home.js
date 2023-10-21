@@ -1,6 +1,7 @@
-import React, {useContext} from 'react';
-import {TouchableOpacity, View, Text} from 'react-native';
+import React, {useContext, useState, useEffect} from 'react';
+import {TouchableOpacity, View, Text, StyleSheet, useWindowDimensions} from 'react-native';
 import { appStyles } from './styles/appStyles';
+import { menuStyles } from './styles/menuStyles';
 import { GameContext, LoginContext, UserContext } from './context';
 
 
@@ -9,18 +10,28 @@ function Home({navigation}) {
         const user = useContext(UserContext);
         const {organization, season, game} = useContext(GameContext);
         const {logoutUser} = useContext(LoginContext);
+        const {height, width} = useWindowDimensions();
+        const [portrait, setPortrait] = useState(height > width);
+
+        const dataTextStyle = StyleSheet.compose(appStyles.text, menuStyles.gameDataItem);
+
+        useEffect(() => {
+            setPortrait(height > width);
+        }, [height, width]);
 
     return (
         <View style={appStyles.app}>
             {user &&
-                <Text style={appStyles.text}>Logged in as {`${user.firstName} ${user.lastName}`}</Text>}
-            {organization &&
-                <Text style={appStyles.text}>Current organization: {organization.orgName}</Text>}
-            {season &&
-                <Text style={appStyles.text}>Current season: {season.title}</Text>}
-            {game &&
-                <Text style={appStyles.text}>Current game: {game.title}</Text>}
-            <Text style={appStyles.text}>Select a sport</Text>
+                <View style={portrait ? menuStyles.gameData : menuStyles.gameDataLandscape}>
+                    <Text style={dataTextStyle}>{`${user.firstName} ${user.lastName}`}</Text>
+                    {organization &&
+                        <Text style={dataTextStyle}>{organization.orgName}</Text>}
+                    {season &&
+                        <Text style={dataTextStyle}>{season.title}</Text>}
+                    {game &&
+                        <Text style={dataTextStyle}>{game.title}</Text>}
+                </View>}
+            <Text style={[appStyles.text, {fontSize: 18}]}>Select a sport</Text>
             <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})}>
                 <Text style={appStyles.text}>Basketball</Text>    
             </TouchableOpacity>
