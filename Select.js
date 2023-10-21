@@ -3,6 +3,7 @@ import { Button, View } from 'react-native';
 import { GameContext, UserContext } from './context';
 import {useErrors} from './hooks';
 import { storeBasedOnPlatform } from './helpers';
+import { appStyles } from './styles/appStyles';
 import SelectList from './SelectList';
 import Errors from './Errors';
 import API from './Api';
@@ -90,6 +91,20 @@ function Select({navigation}) {
         return formattedGames;
     };
 
+    const removeGame = () => {
+        if (game) {
+            setGame(null);
+            storeBasedOnPlatform('remove', 'game');
+        };
+    };
+
+    const removeSeason = () => {
+        if (season) {
+            setSeason(null);
+            storeBasedOnPlatform('remove', 'season');
+        };
+    };
+
     const selectOrg = async (id) => {
         setApiErrors({});
         setErrors({});
@@ -97,6 +112,8 @@ function Select({navigation}) {
         setOrganization(currentOrg);
         const orgString = JSON.stringify(currentOrg);
         storeBasedOnPlatform('store', 'organization', orgString);
+        removeGame();
+        removeSeason();
         const seasonsRes = await getSeasons(id);
         if (seasonsRes) setStep(2);
     };
@@ -109,6 +126,7 @@ function Select({navigation}) {
         setSeason(currentSeason);
         const seasonString = JSON.stringify(currentSeason);
         storeBasedOnPlatform('store', 'season', seasonString);
+        removeGame();
         const gamesRes = await getGames(organization.orgId, currentSeason.seasonId);
         if (gamesRes) setStep(3);
     };
@@ -131,7 +149,7 @@ function Select({navigation}) {
     };
 
     return (
-        <View>
+        <View style={appStyles.app}>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
             {step === 1 &&
