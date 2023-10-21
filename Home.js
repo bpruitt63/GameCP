@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Button, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { GameContext, LoginContext, UserContext } from './context';
 
@@ -21,28 +21,36 @@ function Home({navigation}) {
             {game &&
                 <Text style={appStyles.text}>Current game: {game.title}</Text>}
             <Text style={appStyles.text}>Select a sport</Text>
-            <Button title='Basketball'
-                    onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})} />
-            <Button title='Football'
-                    onPress={() => navigation.navigate('Game', {sport: 'football', title: 'Football'})} />
-            <Button title='Soccer'
-                    onPress={() => navigation.navigate('Game', {sport: 'soccer', title: 'Soccer'})} />
-            <Button title='Baseball'
-                    onPress={() => navigation.navigate('Baseball')} />
+            <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})}>
+                <Text style={appStyles.text}>Basketball</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'football', title: 'Football'})}>
+                <Text style={appStyles.text}>Football</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'soccer', title: 'Soccer'})}>
+                <Text style={appStyles.text}>Soccer</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('Baseball')}>
+                <Text style={appStyles.text}>Baseball</Text>    
+            </TouchableOpacity>
             <Text style={appStyles.text}>Or</Text>
             {user ? 
                 <>
-					<Button title='Select or Change Game'
-							onPress={() => navigation.navigate('Select')} />
-                    <Button title='Log Out'
-                    		onPress={logoutUser} />
+					<TouchableOpacity onPress={() => navigation.navigate('Select')}>
+                        <Text style={appStyles.text}>Select or Change Game</Text>    
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={logoutUser}>
+                        <Text style={appStyles.text}>Log Out</Text>    
+                    </TouchableOpacity>
                 </>
                 :
-                <Button title='Log in to Sporty'
-                   	 	onPress={() => navigation.navigate('Login')} />
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <Text style={appStyles.text}>Log in to Sporty</Text>
+                </TouchableOpacity> 
         	}
-            <Button title='Set Defaults'
-                    onPress={() => navigation.navigate('Settings')} />
+            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
+                <Text style={appStyles.text}>Set Defaults</Text>
+            </TouchableOpacity> 
         </View>
     );
 };
