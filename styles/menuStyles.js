@@ -19,5 +19,25 @@ export const menuStyles = StyleSheet.create({
     gameDataItem: {
         paddingTop: 5,
         minWidth: 200
+    },
+    homeScreenMain: {
+        marginTop: 10,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        flex: 1
+    },
+    homeScreenMainSection: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-around',
+        flex: 1,
+        alignItems: 'center'
+    },
+    menuButton: {
+        backgroundColor: '#212121',
+        borderRadius: 5,
+        padding: 8,
+        width: '70%'
     }
 })

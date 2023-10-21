@@ -31,37 +31,51 @@ function Home({navigation}) {
                     {game &&
                         <Text style={dataTextStyle}>{game.title}</Text>}
                 </View>}
-            <Text style={[appStyles.text, {fontSize: 18}]}>Select a sport</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})}>
-                <Text style={appStyles.text}>Basketball</Text>    
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'football', title: 'Football'})}>
-                <Text style={appStyles.text}>Football</Text>    
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Game', {sport: 'soccer', title: 'Soccer'})}>
-                <Text style={appStyles.text}>Soccer</Text>    
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('Baseball')}>
-                <Text style={appStyles.text}>Baseball</Text>    
-            </TouchableOpacity>
-            <Text style={appStyles.text}>Or</Text>
-            {user ? 
-                <>
-					<TouchableOpacity onPress={() => navigation.navigate('Select')}>
-                        <Text style={appStyles.text}>Select or Change Game</Text>    
+            <View style={[menuStyles.homeScreenMain, portrait ? '' : {flexDirection: 'row'}]}>
+                <View style={menuStyles.homeScreenMainSection}>
+                    <Text style={[appStyles.text, {fontSize: 18}]}>Select a sport</Text>
+                    <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})}>
+                        <Text style={appStyles.text}>Basketball</Text>    
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={logoutUser}>
-                        <Text style={appStyles.text}>Log Out</Text>    
+                    <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={() => navigation.navigate('Game', {sport: 'football', title: 'Football'})}>
+                        <Text style={appStyles.text}>Football</Text>    
                     </TouchableOpacity>
-                </>
-                :
-                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-                    <Text style={appStyles.text}>Log in to Sporty</Text>
+                    <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={() => navigation.navigate('Game', {sport: 'soccer', title: 'Soccer'})}>
+                        <Text style={appStyles.text}>Soccer</Text>    
+                    </TouchableOpacity>
+                    <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={() => navigation.navigate('Baseball')}>
+                        <Text style={appStyles.text}>Baseball</Text>    
+                    </TouchableOpacity>
+                </View>
+                <View style={menuStyles.homeScreenMainSection}>
+                    <Text style={[appStyles.text, {fontSize: 18}]}>Or</Text>
+                    {user ? 
+                        <>
+                            <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={() => navigation.navigate('Select')}>
+                                <Text style={appStyles.text}>Select or Change Game</Text>    
+                            </TouchableOpacity>
+                            <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={logoutUser}>
+                                <Text style={appStyles.text}>Log Out</Text>    
+                            </TouchableOpacity>
+                        </>
+                        :
+                        <TouchableOpacity style={menuStyles.menuButton}
+                                        onPress={() => navigation.navigate('Login')}>
+                            <Text style={appStyles.text}>Log in to Sporty</Text>
+                        </TouchableOpacity> 
+                    }
+                    <TouchableOpacity style={menuStyles.menuButton}
+                                    onPress={() => navigation.navigate('Settings')}>
+                        <Text style={appStyles.text}>Set Defaults</Text>
                 </TouchableOpacity> 
-        	}
-            <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
-                <Text style={appStyles.text}>Set Defaults</Text>
-            </TouchableOpacity> 
+                </View>
+            </View>
         </View>
     );
 };
