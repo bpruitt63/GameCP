@@ -31,9 +31,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                             : portrait && team.position === 'away' ? possessionAndScoreButtonsAway
                             : !portrait && team.position === 'home' ? possessionAndScoreButtonsLandscapeHome
                             : possessionAndScoreButtonsLandscapeAway;
-    const possessionIconStyle = [portrait ? possessionIcon : possessionIconLandscape, 
-                                sport === 'football' ? portrait ? {maxWidth: 33} : {maxHeight: 19}
-                                                    : portrait ? {maxWidth: 20} : {maxHeight : 32}];
+
 
     return(
         <View style={teamSideStyle}>
@@ -56,7 +54,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                 </View>
                 <View style={portrait ? possession : possessionLandscape}>
                     {sport !== 'baseball' && gameData.possession === team.position &&
-                        <Image style={possessionIconStyle}
+                        <Image style={portrait ? possessionIcon : possessionIconLandscape}
                             source={icons[sport]} 
                             alt='Icon indicating possession' />}
                 </View>

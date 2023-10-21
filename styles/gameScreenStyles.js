@@ -93,7 +93,9 @@ export const gameScreenStyles = StyleSheet.create({
     possessionLandscape: {
         height: '100%',
         width: '15%',
-        marginTop: '10%'
+        marginTop: '10%',
+        paddingRight: 5,
+        paddingLeft: 5
     },
     scoreButtons: {
         width: '100%',
@@ -138,14 +140,13 @@ export const gameScreenStyles = StyleSheet.create({
         borderRadius: 10
     },
     possessionIcon: {
-        maxWidth: 20,
-        maxHeight: '80%',
+        maxWidth: 22,
         marginTop: 'auto',
         marginBottom: 'auto',
         flexGrow: .9
     },
     possessionIconLandscape: {
-        maxHeight: 19,
+        maxHeight: 20,
         width: 'auto',
         transform: [{rotateZ: '90deg'}],
         flexGrow: 1
