@@ -19,7 +19,8 @@ const scoreButton = {
     width: '20%',
     height: '50%',
     margin: 'auto',
-    textAlign: 'center'
+    textAlign: 'center',
+    justifyContent: 'center'
 };
 const teamNameParent = {
     height: '20%',
@@ -105,7 +106,7 @@ export const gameScreenStyles = StyleSheet.create({
         height: '100%',
         alignItems: 'center',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column-reverse'
     },
     scoreButton,
     scoreButtonLandscape: {
