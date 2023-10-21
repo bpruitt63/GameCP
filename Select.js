@@ -1,16 +1,17 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { Button, View } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { GameContext, UserContext } from './context';
 import {useErrors} from './hooks';
 import { storeBasedOnPlatform } from './helpers';
 import { appStyles } from './styles/appStyles';
+import { menuStyles } from './styles/menuStyles';
 import SelectList from './SelectList';
 import Errors from './Errors';
 import API from './Api';
 
 function Select({navigation}) {
 
-    const [step, setStep] = useState(1);
+    const [step, setStep] = useState(0);
     const [seasons, setSeasons] = useState([]);
     const [games, setGames] = useState([]);
     const [tournamentRounds, setTournamentRounds] = useState([]);
@@ -25,15 +26,15 @@ function Select({navigation}) {
     useEffect(() => {
         const getCurrentStep = () => {
             if (game) {
-                setStep(4);
+                goToStep(3);
             } else if (season) {
-                setStep(3);
+                goToStep(2);
             } else if (organization) {
-                setStep(2);
+                goToStep(1);
             };
         };
         getCurrentStep();
-    }, [setStep]);
+    }, [goToStep]);
 
 
     const goToStep = async (step) => {
@@ -152,30 +153,41 @@ function Select({navigation}) {
         <View style={appStyles.app}>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            {step === 1 &&
-                <SelectList data={userOrgs}
-                            press={selectOrg} />}
-            {step === 2 &&
-                <SelectList data={seasons}
-                            press={selectSeason} />}
-            {step === 3 &&
-                <>
-                    {tournamentRounds.map(r =>
-                        <Button key={r}
-                                title={r}
-                                onPress={() => setRound(r)} />)}
-                    <SelectList data={games}
-                                press={selectGame} />
-                </>}
-            {step >= 1 &&
-                <Button title='Change Organization'
-                        onPress={() => setStep(1)} />}
-            {step >= 2 &&
-                <Button title='Change Season'
-                        onPress={() => goToStep(2)} />}
-            {step >= 3 &&
-                <Button title='Change Game'
-                        onPress={() => goToStep(3)} />}
+            <View style={menuStyles.menuSection}>
+                {step === 1 &&
+                    <SelectList data={userOrgs}
+                                press={selectOrg} />}
+                {step === 2 &&
+                    <SelectList data={seasons}
+                                press={selectSeason} />}
+                {step === 3 &&
+                    <>
+                        {tournamentRounds.map(r =>
+                            <TouchableOpacity key={r}
+                                            onPress={() => setRound(r)}>
+                                <Text style={appStyles.text}>{r}</Text>
+                            </TouchableOpacity>)}
+                        <SelectList data={games}
+                                    press={selectGame} />
+                    </>}
+            </View>
+            <View style={[menuStyles.menuSection, {maxHeight: 250}]}>
+                {step !== 1 &&
+                    <TouchableOpacity onPress={() => setStep(1)}
+                                        style={menuStyles.menuButton}>
+                        <Text style={appStyles.text}>Change Organization</Text>
+                    </TouchableOpacity>}
+                {step > 2 &&
+                    <TouchableOpacity onPress={() => goToStep(2)}
+                                        style={menuStyles.menuButton}>
+                        <Text style={appStyles.text}>Change Season</Text>
+                    </TouchableOpacity>}
+                {step > 3 &&
+                    <TouchableOpacity onPress={() => goToStep(3)}
+                                        style={menuStyles.menuButton}>
+                        <Text style={appStyles.text}>Change Game</Text>
+                    </TouchableOpacity>}
+            </View>
         </View>
     );
 };
