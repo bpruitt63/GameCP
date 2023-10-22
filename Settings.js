@@ -1,9 +1,11 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { Button, View } from 'react-native';
+import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
 import { defaultData } from './defaultData';
 import { useSettings } from './hooks';
 import ManualTimerForm from './ManualTimerForm';
 import ManualInputForm from './ManualInputForm';
+import { appStyles } from './styles/appStyles';
+import { menuStyles } from './styles/menuStyles';
 import { BaseballContext } from './context';
 
 function Settings() {
@@ -16,6 +18,8 @@ function Settings() {
     const [compiledDefaults, setCompiledDefaults] = useState(defaultData);
     const [getStoredDefaults, defaultValues, setDefaultValues, updateDefaults] = useSettings();
     const {baseballData, manualBaseballChange} = useContext(BaseballContext);
+
+    const viewStyles = StyleSheet.compose(appStyles.app, menuStyles.menuSection);
 
     useEffect(() => {
         const checkStoredDefaults = async () => {
@@ -66,62 +70,90 @@ function Settings() {
     const cancel = () => setOpenForm(initialOpen);
 
     return (
-        <View>
+        <View style={viewStyles}>
             {openForm.basketballTimer ?
-                <ManualTimerForm initialValue={{minutes: compiledDefaults.basketball.minutes,
-                                                seconds: compiledDefaults.basketball.seconds > 9 ? compiledDefaults.basketball.seconds : `0${compiledDefaults.basketball.seconds}`,
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.basketball.minutes.toString(),
+                                                seconds: compiledDefaults.basketball.seconds > 9 ? compiledDefaults.basketball.seconds.toString() : `0${compiledDefaults.basketball.seconds}`,
                                                 sport: 'basketball'}}
                                                 save={saveTime}
-                                                cancel={cancel} />
+                                                cancel={cancel}
+                                                textStyle={appStyles.text}
+                                                formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Basketball Quarter Length'
-                        onPress={() => toggleOpen('basketballTimer')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('basketballTimer')}>
+                    <Text style={appStyles.text}>Default Basketball Quarter Length</Text>
+                </TouchableOpacity>}
             {openForm.basketballLength ?
-                <ManualInputForm initialValue={compiledDefaults.basketball.maxPeriod}
+                <ManualInputForm initialValue={compiledDefaults.basketball.maxPeriod.toString()}
                                 save={saveBasketballLength}
-                                cancel={cancel} />
+                                cancel={cancel}
+                                textStyle={appStyles.text}
+                                formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Basketball Periods'
-                        onPress={() => toggleOpen('basketballLength')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('basketballLength')}>
+                    <Text style={appStyles.text}>Default Basketball Periods</Text>
+                </TouchableOpacity>}
             {openForm.footballTimer ?
-                <ManualTimerForm initialValue={{minutes: compiledDefaults.football.minutes,
-                                                seconds: compiledDefaults.football.seconds > 9 ? compiledDefaults.football.seconds : `0${compiledDefaults.football.seconds}`,
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.football.minutes.toString(),
+                                                seconds: compiledDefaults.football.seconds > 9 ? compiledDefaults.football.seconds.toString() : `0${compiledDefaults.football.seconds}`,
                                                 sport: 'football'}}
                                                 save={saveTime}
-                                                cancel={cancel} />
+                                                cancel={cancel}
+                                                textStyle={appStyles.text}
+                                                formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Football Quarter Length'
-                        onPress={() => toggleOpen('footballTimer')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('footballTimer')}>
+                    <Text style={appStyles.text}>Default Football Quarter Length</Text>
+                </TouchableOpacity>}
             {openForm.footballLength ?
-                <ManualInputForm initialValue={compiledDefaults.football.maxPeriod}
+                <ManualInputForm initialValue={compiledDefaults.football.maxPeriod.toString()}
                                 save={saveFootballLength}
-                                cancel={cancel} />
+                                cancel={cancel}
+                                textStyle={appStyles.text}
+                                formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Football Periods'
-                        onPress={() => toggleOpen('footballLength')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('footballLength')}>
+                    <Text style={appStyles.text}>Default Football Periods</Text>
+                </TouchableOpacity>}
             {openForm.soccerTimer ?
-                <ManualTimerForm initialValue={{minutes: compiledDefaults.soccer.minutes,
-                                                seconds: compiledDefaults.soccer.seconds > 9 ? compiledDefaults.soccer.seconds : `0${compiledDefaults.soccer.seconds}`,
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.soccer.minutes.toString(),
+                                                seconds: compiledDefaults.soccer.seconds > 9 ? compiledDefaults.soccer.seconds.toString() : `0${compiledDefaults.soccer.seconds}`,
                                                 sport: 'soccer'}}
                                                 save={saveTime}
-                                                cancel={cancel} />
+                                                cancel={cancel}
+                                                textStyle={appStyles.text}
+                                                formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Soccer Period Length'
-                        onPress={() => toggleOpen('soccerTimer')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('soccerTimer')}>
+                    <Text style={appStyles.text}>Default Soccer Period Length</Text>
+                </TouchableOpacity>}
             {openForm.soccerLength ?
-                <ManualInputForm initialValue={compiledDefaults.soccer.maxPeriod}
+                <ManualInputForm initialValue={compiledDefaults.soccer.maxPeriod.toString()}
                                 save={saveSoccerLength}
-                                cancel={cancel} />
+                                cancel={cancel}
+                                textStyle={appStyles.text}
+                                formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Soccer Periods'
-                        onPress={() => toggleOpen('soccerLength')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('soccerLength')}>
+                    <Text style={appStyles.text}>Default Soccer Periods</Text>
+                </TouchableOpacity>}
             {openForm.baseballLength ?
-                <ManualInputForm initialValue={compiledDefaults.baseball.length}
+                <ManualInputForm initialValue={compiledDefaults.baseball.length.toString()}
                                     save={saveBaseballLength}
-                                    cancel={cancel} />
+                                    cancel={cancel}
+                                    textStyle={appStyles.text}
+                                    formStyle={menuStyles.periodSettings} />
             :
-                <Button title='Default Innings'
-                        onPress={() => toggleOpen('baseballLength')} />}
+                <TouchableOpacity style={menuStyles.menuButton}
+                                onPress={() => toggleOpen('baseballLength')}>
+                    <Text style={appStyles.text}>Default Innings</Text>
+                </TouchableOpacity>}
         </View>
     );
 };

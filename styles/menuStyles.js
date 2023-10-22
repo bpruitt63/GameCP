@@ -47,5 +47,23 @@ export const menuStyles = StyleSheet.create({
         marginBottom: 15,
         paddingBottom: 25,
         marginTop: 20
+    },
+    periodSettings: {
+        view: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '70%'
+        },
+        textInput: {
+            maxWidth: '30%',
+            backgroundColor: 'white',
+            borderRadius: 4
+        },
+        button: {
+            backgroundColor: '#212121',
+            padding: 5,
+            borderRadius: 4
+        }
     }
 })

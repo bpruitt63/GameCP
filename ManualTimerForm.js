@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
-import { TextInput, Button, Text } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 
-function ManualTimerForm({initialValue, save, cancel}) {
+function ManualTimerForm({initialValue, save, cancel, textStyle, formStyle}) {
 
     const [value, setValue] = useState(initialValue);
     const ref1 = useRef();
@@ -19,26 +19,32 @@ function ManualTimerForm({initialValue, save, cancel}) {
     };
 
     return (
-        <>
+        <View style={formStyle.view}>
             <TextInput inputMode='numeric'
                 maxLength={2}
                 onChangeText={handleMinuteChange}
                 value={value.minutes}
                 autoFocus
                 selectTextOnFocus
-                ref={ref1} />
-            <Text>:</Text>
+                ref={ref1}
+                style={formStyle.textInput} />
+            <Text style={textStyle}>:</Text>
             <TextInput inputMode='numeric'
                 maxLength={2}
                 onChangeText={handleSecondChange}
                 value={value.seconds}
                 selectTextOnFocus
-                ref={ref2} />
-            <Button title='Confirm'
-                    onPress={() => save(value)} />
-            <Button title='Cancel'
-                    onPress={cancel} />
-        </>
+                ref={ref2}
+                style={formStyle.textInput} />
+            <TouchableOpacity style={formStyle.button}
+                            onPress={() => save(value)}>
+                <Text style={textStyle}>Confirm</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity style={formStyle.button}
+                            onPress={cancel}>
+                <Text style={textStyle}>Cancel</Text>                    
+            </TouchableOpacity>
+        </View>
     );
 };
 
