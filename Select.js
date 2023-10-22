@@ -155,9 +155,12 @@ function Select({navigation}) {
 
     return (
         <ScrollView style={[appStyles.app, {paddingTop: 20}]}>
-            <Errors formErrors={errors}
-                    apiErrors={apiErrors} />
-            {!Object.keys(errors)[0] && 
+            {Object.keys(errors)[0] ?
+                <Errors formErrors={errors}
+                        apiErrors={apiErrors}
+                        viewStyles={appStyles.errors}
+                        textStyles={appStyles.errorText} />
+                :
                 <View style={[menuStyles.menuSection, {width: '100%', marginTop: 20}]}>
                     {step === 1 &&
                         <SelectList data={userOrgs}

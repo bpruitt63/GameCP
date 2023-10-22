@@ -15,5 +15,16 @@ export const appStyles = StyleSheet.create({
     text: {
         color: 'white',
         textAlign: 'center'
+    },
+    errors: {
+        backgroundColor: 'gray',
+        textAlign: 'center',
+        padding: 8,
+        marginRight: 'auto',
+        marginLeft: 'auto',
+        borderRadius: 3
+    },
+    errorText: {
+        color: 'white'
     }
 });
