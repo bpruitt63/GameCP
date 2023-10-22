@@ -27,7 +27,7 @@ export const menuStyles = StyleSheet.create({
         justifyContent: 'space-around',
         flex: 1
     },
-    homeScreenMainSection: {
+    menuSection: {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
@@ -39,5 +39,13 @@ export const menuStyles = StyleSheet.create({
         borderRadius: 5,
         padding: 8,
         width: '70%'
+    },
+    selectList: {
+        width: '100%', 
+        borderBottomColor: '#212121', 
+        borderBottomWidth: 1,
+        marginBottom: 15,
+        paddingBottom: 25,
+        marginTop: 20
     }
 })

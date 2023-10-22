@@ -32,7 +32,7 @@ function Home({navigation}) {
                         <Text style={dataTextStyle}>{game.title}</Text>}
                 </View>}
             <View style={[menuStyles.homeScreenMain, portrait ? '' : {flexDirection: 'row'}]}>
-                <View style={menuStyles.homeScreenMainSection}>
+                <View style={menuStyles.menuSection}>
                     <Text style={[appStyles.text, {fontSize: 18}]}>Select a sport</Text>
                     <TouchableOpacity style={menuStyles.menuButton}
                                     onPress={() => navigation.navigate('Game', {sport: 'basketball', title: 'Basketball'})}>
@@ -51,7 +51,7 @@ function Home({navigation}) {
                         <Text style={appStyles.text}>Baseball</Text>    
                     </TouchableOpacity>
                 </View>
-                <View style={menuStyles.homeScreenMainSection}>
+                <View style={menuStyles.menuSection}>
                     <Text style={[appStyles.text, {fontSize: 18}]}>Or</Text>
                     {user ? 
                         <>

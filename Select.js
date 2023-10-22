@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
 import { GameContext, UserContext } from './context';
 import {useErrors} from './hooks';
 import { storeBasedOnPlatform } from './helpers';
@@ -38,7 +38,11 @@ function Select({navigation}) {
 
 
     const goToStep = async (step) => {
+        setErrors({});
+        setApiErrors({});
         switch (step) {
+            case 1:
+                break;
             case 2:
                 await getSeasons(organization.orgId);
                 break;
@@ -150,31 +154,36 @@ function Select({navigation}) {
     };
 
     return (
-        <View style={appStyles.app}>
+        <ScrollView style={[appStyles.app, {paddingTop: 20}]}>
             <Errors formErrors={errors}
                     apiErrors={apiErrors} />
-            <View style={menuStyles.menuSection}>
-                {step === 1 &&
-                    <SelectList data={userOrgs}
-                                press={selectOrg} />}
-                {step === 2 &&
-                    <SelectList data={seasons}
-                                press={selectSeason} />}
-                {step === 3 &&
-                    <>
-                        {tournamentRounds.map(r =>
-                            <TouchableOpacity key={r}
-                                            onPress={() => setRound(r)}>
-                                <Text style={appStyles.text}>{r}</Text>
-                            </TouchableOpacity>)}
-                        <SelectList data={games}
-                                    press={selectGame} />
-                    </>}
-            </View>
-            <View style={[menuStyles.menuSection, {maxHeight: 250}]}>
+            {!Object.keys(errors)[0] && 
+                <View style={[menuStyles.menuSection, {width: '100%', marginTop: 20}]}>
+                    {step === 1 &&
+                        <SelectList data={userOrgs}
+                                    press={selectOrg}
+                                    textStyle={appStyles.text} />}
+                    {step === 2 &&
+                        <SelectList data={seasons}
+                                    press={selectSeason}
+                                    textStyle={appStyles.text} />}
+                    {step === 3 &&
+                        <>
+                            {tournamentRounds.map(r =>
+                                <TouchableOpacity key={r}
+                                                onPress={() => setRound(r)}
+                                                style={[menuStyles.menuButton, {marginBottom: 20}]}>
+                                    <Text style={appStyles.text}>{r}</Text>
+                                </TouchableOpacity>)}
+                            <SelectList data={games}
+                                        press={selectGame}
+                                        textStyle={appStyles.text} />
+                        </>}
+                </View>}
+            <View style={[menuStyles.menuSection, {maxHeight: 100, marginTop: 20, marginBottom: 20}]}>
                 {step !== 1 &&
-                    <TouchableOpacity onPress={() => setStep(1)}
-                                        style={menuStyles.menuButton}>
+                    <TouchableOpacity onPress={() => goToStep(1)}
+                                        style={[menuStyles.menuButton, {marginBottom: 25}]}>
                         <Text style={appStyles.text}>Change Organization</Text>
                     </TouchableOpacity>}
                 {step > 2 &&
@@ -182,13 +191,8 @@ function Select({navigation}) {
                                         style={menuStyles.menuButton}>
                         <Text style={appStyles.text}>Change Season</Text>
                     </TouchableOpacity>}
-                {step > 3 &&
-                    <TouchableOpacity onPress={() => goToStep(3)}
-                                        style={menuStyles.menuButton}>
-                        <Text style={appStyles.text}>Change Game</Text>
-                    </TouchableOpacity>}
             </View>
-        </View>
+        </ScrollView>
     );
 };
 
