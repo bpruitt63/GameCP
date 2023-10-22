@@ -155,7 +155,7 @@ function Select({navigation}) {
 
     return (
         <ScrollView style={[appStyles.app, {paddingTop: 20}]}>
-            {Object.keys(errors)[0] || Object.keys(apiErrors)[0] ?
+            {(Object.keys(errors)[0] || Object.keys(apiErrors)[0]) ?
                 <Errors formErrors={errors}
                         apiErrors={apiErrors}
                         viewStyles={appStyles.errors}

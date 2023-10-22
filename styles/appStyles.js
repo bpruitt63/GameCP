@@ -25,6 +25,8 @@ export const appStyles = StyleSheet.create({
         borderRadius: 3
     },
     errorText: {
-        color: 'white'
+        color: 'white',
+        marginTop: 5,
+        marginBottom: 5
     }
 });

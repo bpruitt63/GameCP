@@ -1,7 +1,9 @@
 import React, {useState, useContext} from 'react';
-import { TextInput, View, Button } from 'react-native';
+import { TextInput, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LoginContext } from './context';
 import { useErrors } from './hooks';
+import { appStyles } from './styles/appStyles';
+import { loginStyles } from './styles/loginStyles';
 import Errors from './Errors';
 import API from './Api';
 
@@ -12,6 +14,8 @@ function Login({navigation}) {
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
     const {loginUser} = useContext(LoginContext);
+
+    const viewStyles = StyleSheet.compose(appStyles.app, loginStyles.container);
 
     const handleLogin = async () => {
         setErrors({});
@@ -51,22 +55,29 @@ function Login({navigation}) {
     };
 
     return (
-        <View>
+        <View style={viewStyles}>
             <TextInput
                     onChangeText={val => setData(d => { return {...d, email: val}})}
                     name='email'
                     value={data.email}
-                    placeholder='Email' />
+                    placeholder='Email'
+                    style={loginStyles.textInput} />
             <TextInput
                     onChangeText={val => setData(d => { return {...d, pwd: val}})}
                     name='pwd'
                     value={data.pwd}
                     placeholder='Password'
-                    secureTextEntry />
-            <Button title='Login'
-                    onPress={handleLogin} />
-            <Errors formErrors={errors}
-                    apiErrors={apiErrors} />
+                    secureTextEntry
+                    style={loginStyles.textInput} />
+            <TouchableOpacity style={loginStyles.button}
+                            onPress={handleLogin}>
+                <Text style={appStyles.text}>Login</Text>
+            </TouchableOpacity>
+            {(Object.keys(errors)[0] || Object.keys(apiErrors)[0]) &&
+                <Errors formErrors={errors}
+                        apiErrors={apiErrors}
+                        viewStyles={appStyles.errors}
+                        textStyles={appStyles.errorText} />}
         </View>
     );
 };
