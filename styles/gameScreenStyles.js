@@ -140,7 +140,8 @@ export const gameScreenStyles = StyleSheet.create({
         borderRadius: 10
     },
     possessionIcon: {
-        maxWidth: 22,
+        maxWidth: 20,
+        height: 'auto',
         marginTop: 'auto',
         marginBottom: 'auto',
         flexGrow: .9
@@ -149,7 +150,7 @@ export const gameScreenStyles = StyleSheet.create({
         maxHeight: 20,
         width: 'auto',
         transform: [{rotateZ: '90deg'}],
-        flexGrow: 1
+        flexGrow: .9
     },
     resetContainer: {
         display: 'flex',
