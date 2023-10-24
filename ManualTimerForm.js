@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 
-function ManualTimerForm({initialValue, save, cancel, textStyle, formStyle}) {
+function ManualTimerForm({initialValue, save, cancel, textStyle, formStyle, colonStyle}) {
 
     const [value, setValue] = useState(initialValue);
     const ref1 = useRef();
@@ -29,7 +29,7 @@ function ManualTimerForm({initialValue, save, cancel, textStyle, formStyle}) {
                     selectTextOnFocus
                     ref={ref1}
                     style={formStyle.textInput} />
-                <Text style={textStyle}>:</Text>
+                <Text style={colonStyle}>:</Text>
                 <TextInput inputMode='numeric'
                     maxLength={2}
                     onChangeText={handleSecondChange}

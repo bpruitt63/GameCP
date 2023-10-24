@@ -78,7 +78,8 @@ function Settings() {
                                                 save={saveTime}
                                                 cancel={cancel}
                                                 textStyle={appStyles.text}
-                                                formStyle={menuStyles.timerSettings} />
+                                                formStyle={menuStyles.timerSettings}
+                                                colonStyle={appStyles.text} />
             :
                 <TouchableOpacity style={menuStyles.menuButton}
                                 onPress={() => toggleOpen('basketballTimer')}>
@@ -102,7 +103,8 @@ function Settings() {
                                                 save={saveTime}
                                                 cancel={cancel}
                                                 textStyle={appStyles.text}
-                                                formStyle={menuStyles.timerSettings} />
+                                                formStyle={menuStyles.timerSettings}
+                                                colonStyle={appStyles.text} />
             :
                 <TouchableOpacity style={menuStyles.menuButton}
                                 onPress={() => toggleOpen('footballTimer')}>
@@ -126,7 +128,8 @@ function Settings() {
                                                 save={saveTime}
                                                 cancel={cancel}
                                                 textStyle={appStyles.text}
-                                                formStyle={menuStyles.timerSettings} />
+                                                formStyle={menuStyles.timerSettings}
+                                                colonStyle={appStyles.text} />
             :
                 <TouchableOpacity style={menuStyles.menuButton}
                                 onPress={() => toggleOpen('soccerTimer')}>

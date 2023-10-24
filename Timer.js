@@ -124,7 +124,8 @@ function Timer({defaultValues, sport, textStyle}) {
                                     save={timerSave}
                                     cancel={cancel}
                                     formStyle={timerStyles.manualTimerInput}
-                                    textStyle={textStyle} />}
+                                    textStyle={textStyle}
+                                    colonStyle={[textStyle, {fontSize: 40}]} />}
             </View>
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
                 <Button title='End As Tie'
