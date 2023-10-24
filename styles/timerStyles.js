@@ -10,7 +10,9 @@ export const timerStyles = StyleSheet.create({
         textAlign: 'center',
         display: 'flex',
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        flex: 1,
+        alignItems: 'center'
     },
     period: {
         height: '20%',
@@ -23,7 +25,10 @@ export const timerStyles = StyleSheet.create({
         alignItems: 'center'
     },
     clockDisplay: {
-        height: '80%'
+        height: '80%',
+        display: 'flex', 
+        flexDirection: 'column', 
+        justifyContent: 'center',
     },
     periodButton: {
         height: '100%',
@@ -50,6 +55,33 @@ export const timerStyles = StyleSheet.create({
         button: {
             backgroundColor: '#212121',
             padding: 5,
+            borderRadius: 4
+        }
+    },
+    manualTimerInput: {
+        container: {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around',
+            margin: 'auto',
+            width: '70%',
+            height: '100%'
+        },
+        view: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '100%'
+        },
+        textInput: {
+            fontSize: 40,
+            maxWidth: '30%',
+            backgroundColor: 'white',
+            borderRadius: 4
+        },
+        button: {
+            backgroundColor: '#212121',
+            padding: 10,
             borderRadius: 4
         }
     }

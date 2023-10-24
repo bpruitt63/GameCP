@@ -65,5 +65,29 @@ export const menuStyles = StyleSheet.create({
             padding: 5,
             borderRadius: 4
         }
+    },
+    timerSettings: {
+        container: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '70%'
+        },
+        view: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '50%'
+        },
+        textInput: {
+            maxWidth: '30%',
+            backgroundColor: 'white',
+            borderRadius: 4
+        },
+        button: {
+            backgroundColor: '#212121',
+            padding: 5,
+            borderRadius: 4
+        }
     }
 })

@@ -14,6 +14,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);
+    
     const clockStyle = [textStyle, {fontSize: 80}];
 
 
@@ -118,9 +119,12 @@ function Timer({defaultValues, sport, textStyle}) {
                         <Text style={clockStyle}>{`${currentTime.minutes}:${currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}`}</Text>
                     </TouchableOpacity>}
                 {!isRunning && formOpen.timer &&
-                    <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes : `0${currentTime.minutes}`, seconds: currentTime.seconds > 9 ? currentTime.seconds : `0${currentTime.seconds}`}}
+                    <ManualTimerForm initialValue={{minutes: currentTime.minutes > 9 ? currentTime.minutes.toString() : `0${currentTime.minutes}`,
+                                                    seconds: currentTime.seconds > 9 ? currentTime.seconds.toString() : `0${currentTime.seconds}`}}
                                     save={timerSave}
-                                    cancel={cancel} />}
+                                    cancel={cancel}
+                                    formStyle={timerStyles.manualTimerInput}
+                                    textStyle={textStyle} />}
             </View>
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
                 <Button title='End As Tie'
