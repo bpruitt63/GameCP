@@ -60,9 +60,6 @@ function Game({route}) {
 
     return (
         <View style={portrait ? appStyles.app : appStyles.landscape}>
-            {game && time && time.gameOver &&
-                <SubmitScores submitScores={submitAndReset}
-                                apiErrors={apiErrors} />}
             <TeamSide scoreIntervals={defaultValues.scoreIntervals}
                         team={homeTeam}
                         sport={sport}
@@ -84,22 +81,27 @@ function Game({route}) {
                         sport={sport}
                         portrait={portrait} />
             <View style={portrait ? gameScreenStyles.resetContainer : gameScreenStyles.resetContainerLandscape}>
+                {game && time && time.gameOver &&
+                    <SubmitScores submitScores={submitAndReset}
+                                    apiErrors={apiErrors}
+                                    buttonStyle={portrait ? gameScreenStyles.underTimerChild : [gameScreenStyles.resetButtonLandscape, {maxHeight: '40%', marginBottom: '60%'}]}
+                                    textStyle={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]} />}
                 {resetOpen ?
-                        <>
-                            <TouchableOpacity onPress={() => setResetOpen(false)}
-                                                style={portrait ? gameScreenStyles.underTimerChild : gameScreenStyles.resetButtonLandscape}>
-                                <Text style={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]}>Cancel Reset</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={fullReset}
+                    <>
+                        <TouchableOpacity onPress={() => setResetOpen(false)}
                                             style={portrait ? gameScreenStyles.underTimerChild : gameScreenStyles.resetButtonLandscape}>
-                                <Text style={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]}>Confirm Reset</Text>
-                            </TouchableOpacity>
-                        </>
-                    :
-                        <TouchableOpacity onPress={() => setResetOpen(true)}
-                                        style={portrait ? gameScreenStyles.underTimerChild : [gameScreenStyles.resetButtonLandscape, {maxHeight: '40%', marginBottom: '60%'}]}>
-                            <Text style={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]}>Reset Data</Text>    
-                        </TouchableOpacity>}
+                            <Text style={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]}>Cancel Reset</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={fullReset}
+                                        style={portrait ? gameScreenStyles.underTimerChild : gameScreenStyles.resetButtonLandscape}>
+                            <Text style={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]}>Confirm Reset</Text>
+                        </TouchableOpacity>
+                    </>
+                :
+                    <TouchableOpacity onPress={() => setResetOpen(true)}
+                                    style={portrait ? gameScreenStyles.underTimerChild : [gameScreenStyles.resetButtonLandscape, {maxHeight: '40%', marginBottom: '60%'}]}>
+                        <Text style={portrait ? appStyles.text : [appStyles.text, {transform: [{rotateZ: '270deg'}]}]}>Reset Data</Text>    
+                    </TouchableOpacity>}
             </View>
         </View>
     );

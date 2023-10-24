@@ -1,13 +1,15 @@
 import React from 'react';
-import { Button } from 'react-native';
+import { Text, TouchableOpacity } from 'react-native';
 import Errors from './Errors';
 
-function SubmitScores({submitScores, apiErrors}) {
+function SubmitScores({submitScores, apiErrors, buttonStyle, textStyle}) {
 
     return (
         <>
-            <Button title='Save to Sporty'
-                    onPress={submitScores} />
+            <TouchableOpacity onPress={submitScores}
+                            style={buttonStyle}>
+                <Text style={textStyle}>Save to Sporty</Text>    
+            </TouchableOpacity>
             <Errors apiErrors={apiErrors} />
         </>
     );
