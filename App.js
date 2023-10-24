@@ -73,6 +73,7 @@ export default function App() {
 	};
 
 	const resetGame = () => {
+		setApiErrors({});
 		resetScore();
 		resetGameData();
 		resetBaseballData();
@@ -90,8 +91,10 @@ export default function App() {
 			resetGame();
 			await storeBasedOnPlatform('remove', 'game');
 			setGame(null);
+			return true;
 		} catch (err) {
             getApiErrors(err);
+			return false;
         };
 	};
 

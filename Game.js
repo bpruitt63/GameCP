@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Text, TouchableOpacity, useWindowDimensions} from 'react-native';
+import {View, Text, TouchableOpacity, useWindowDimensions, StyleSheet} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { storeBasedOnPlatform } from './helpers';
@@ -10,6 +10,7 @@ import Down from './Down';
 import { GameContext, GameDataContext, TimeContext, SportyContext } from './context';
 import Timer from './Timer';
 import SubmitScores from './SubmitScores';
+import Errors from './Errors';
 
 
 function Game({route}) {
@@ -27,6 +28,8 @@ function Game({route}) {
     const {submitScores, apiErrors} = useContext(SportyContext);
     const {height, width} = useWindowDimensions();
     const [portrait, setPortrait] = useState(height > width);
+
+    const errorStyle = StyleSheet.compose(appStyles.errors, appStyles.sportyError);
 
     useEffect(() => {
         const setDefaults = async () => {
@@ -53,9 +56,11 @@ function Game({route}) {
     };
 
     const submitAndReset = async () => {
-        await submitScores();
-        setHomeTeam(defaultHome);
-        setAwayTeam(defaultAway);
+        const success = await submitScores();
+        if (success) {
+            setHomeTeam(defaultHome);
+            setAwayTeam(defaultAway);
+        };
     };
 
     return (
@@ -80,6 +85,10 @@ function Game({route}) {
                         team={awayTeam}
                         sport={sport}
                         portrait={portrait} />
+            {Object.keys(apiErrors)[0] &&
+                <Errors apiErrors={apiErrors}
+                        viewStyles={errorStyle}
+                        textStyles={appStyles.errorText} />}
             <View style={portrait ? gameScreenStyles.resetContainer : gameScreenStyles.resetContainerLandscape}>
                 {game && time && time.gameOver &&
                     <SubmitScores submitScores={submitAndReset}
