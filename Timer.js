@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Button, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import { timerStyles } from './styles/timerStyles';
 import { ScoreContext, TimeContext } from './context';
 import RunningClock from './RunningClock';
@@ -127,12 +127,18 @@ function Timer({defaultValues, sport, textStyle}) {
                                     textStyle={textStyle}
                                     colonStyle={[textStyle, {fontSize: 40}]} />}
             </View>
-            {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.regulation && score.homeScore === score.awayScore && !currentTime.gameOver &&
-                <Button title='End As Tie'
-                        onPress={gameOver} />}
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver &&
-                <Button title={!currentTime.regulation && score.homeScore === score.awayScore ? '+ Overtime' : 'Next Period'}
-                        onPress={nextPeriod} />}
+                <View style={timerStyles.periodOverButtonsContainer}>
+                    {!currentTime.regulation && score.homeScore === score.awayScore &&
+                        <TouchableOpacity onPress={gameOver}
+                                            style={timerStyles.periodOverButton}>
+                            <Text style={textStyle}>End As Tie</Text>
+                        </TouchableOpacity>}
+                    <TouchableOpacity onPress={nextPeriod}
+                                        style={timerStyles.periodOverButton}>
+                        <Text style={textStyle}>{!currentTime.regulation && score.homeScore === score.awayScore ? '+ Overtime' : 'Next Period'}</Text>    
+                    </TouchableOpacity>
+                </View>}
         </View>
     );
 };

@@ -40,6 +40,22 @@ export const timerStyles = StyleSheet.create({
         marginTop: '2%',
         borderRadius: 10
     },
+    periodOverButtonsContainer: {
+        height: '20%',
+        display: 'flex',
+        flexDirection: 'row',
+        marginBottom: '2%',
+        marginTop: '2%'
+    },
+    periodOverButton: {
+        flex: 1,
+        height: '100%',
+        justifyContent: 'center',
+        backgroundColor: '#212121',
+        borderRadius: 10,
+        marginLeft: '5%',
+        marginRight: '5%'
+    },
     manualQuarterInput: {
         view: {
             display: 'flex',
