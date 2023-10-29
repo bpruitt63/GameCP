@@ -75,7 +75,7 @@ function Timer({defaultValues, sport, textStyle}) {
     };
 
     const periodSave = (newPeriod) => {
-        const newCurrentTime = {...currentTime, period: newPeriod};
+        const newCurrentTime = {...currentTime, period: +newPeriod};
         setCurrentTime(newCurrentTime);
         saveTime(newCurrentTime);
         setFormOpen(intitialFormOpen);

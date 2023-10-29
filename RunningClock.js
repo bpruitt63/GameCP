@@ -9,7 +9,7 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, styles}
     useEffect(() => {
         const getTime = () => {
             const newTime = {...currentTime};
-            if (newTime.seconds > 1) {
+            if (newTime.seconds > 1 || (newTime.minutes >= 1 && newTime.seconds === 1) ) {
                 newTime.seconds--;
             } else if (newTime.minutes > 0) {
                 newTime.minutes--;
@@ -18,21 +18,23 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, styles}
                 newTime.minutes = 0;
                 newTime.seconds = 0;
                 if (newTime.period >= newTime.maxPeriod) newTime.regulation = false;
+                else newTime.regulation = true;
                 stopTimer(newTime);
             };
             setCurrentTime(newTime);
+            const saveOnNavigate = () => {
+                navigation.addListener('beforeRemove', (e) => {
+                    e.preventDefault();
+                    saveTime(newTime);
+                    navigation.dispatch(e.data.action);
+                });
+            };
+            return saveOnNavigate();
         };
-        const saveOnNavigate = () => {
-            navigation.addListener('beforeRemove', (e) => {
-                e.preventDefault();
-                saveTime(currentTime);
-                navigation.dispatch(e.data.action);
-            });
-        };
-        saveOnNavigate();
         const interval = setInterval(() => getTime(), 1000);
         return () => clearInterval(interval);
-    }, [currentTime, stopTimer, saveTime]);
+    }, [navigation, currentTime, stopTimer, saveTime]);
+
 
     return (
         <TouchableOpacity onPress={() => stopTimer(currentTime)} 
