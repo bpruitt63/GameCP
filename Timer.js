@@ -15,7 +15,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);
     
-    const clockStyle = [textStyle, {fontSize: 80}];
+    const clockStyle = [textStyle, {fontSize: currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver ? 60 : 80}];
 
 
     useEffect(() => {
@@ -105,7 +105,8 @@ function Timer({defaultValues, sport, textStyle}) {
                         </Text>
                     </TouchableOpacity>}
             </View>
-            <View style={timerStyles.clock}>
+            <View style={[timerStyles.clock, 
+                        currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver ? {height: '60%'} : '']}>
                 {isRunning && !formOpen.timer &&
                     <RunningClock currentTime={currentTime}
                                 setCurrentTime={setCurrentTime}
