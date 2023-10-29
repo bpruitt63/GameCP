@@ -56,7 +56,7 @@ export const gameScreenStyles = StyleSheet.create({
         height: '15%'
     },
     teamName: {
-        flex: 2,
+        flex: 1,
         marginLeft: '10%'
     },
     teamScore: {
@@ -179,5 +179,24 @@ export const gameScreenStyles = StyleSheet.create({
         borderRadius: 10,
         flexWrap: 'wrap',
         padding: 0
+    },
+    manualScoreInput: {
+        view: {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-around',
+            width: '140%',
+            marginLeft: '-20%'
+        },
+        textInput: {
+            maxWidth: '15%',
+            backgroundColor: 'white',
+            borderRadius: 4
+        },
+        button: {
+            backgroundColor: '#212121',
+            padding: 5,
+            borderRadius: 5
+        }
     }
 });
