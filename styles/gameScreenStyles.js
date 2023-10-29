@@ -4,8 +4,6 @@ import { StyleSheet } from "react-native";
 const teamSide_home = {
     height: '29%',
     backgroundColor: 'grey',
-    paddingLeft: '5%',
-    paddingRight: '5%',
     display: 'flex',
     flexDirection: 'column'
 };
@@ -14,7 +12,7 @@ const landscape = {
     width: '29%'
 };
 const scoreButton = {
-    borderColor: 'gray',
+    borderColor: '#212121',
     borderWidth: 1,
     borderRadius: 20,
     width: '20%',
@@ -29,7 +27,9 @@ const teamNameParent = {
     width: '100%',
     alignItems: 'center',
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    paddingLeft: '5%',
+    paddingRight: '5%'
 };
 
 export const gameScreenStyles = StyleSheet.create({
@@ -40,15 +40,11 @@ export const gameScreenStyles = StyleSheet.create({
     },
     teamSide_homeLandscape: {
         ...teamSide_home,
-        ...landscape,
-        paddingRight: 0,
-        paddingLeft: 0
+        ...landscape
     },
     teamSide_awayLandscape: {
         ...teamSide_home,
-        ...landscape,
-        paddingRight: 0,
-        paddingLeft: 0
+        ...landscape
     },  
     teamNameParent,
     teamNameParentLandscape: {
@@ -67,12 +63,16 @@ export const gameScreenStyles = StyleSheet.create({
     possessionAndScoreButtonsHome: {
         height: '80%',
         width: '100%',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        paddingLeft: '5%',
+        paddingRight: '5%'
     },
     possessionAndScoreButtonsAway: {
         height: '80%',
         width: '100%',
-        flexDirection: 'column-reverse'
+        flexDirection: 'column-reverse',
+        paddingLeft: '5%',
+        paddingRight: '5%'
     },
     possessionAndScoreButtonsLandscapeHome: {
         height: '85%',

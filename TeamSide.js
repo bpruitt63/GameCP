@@ -16,10 +16,9 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
     const {score, incrementScore, manualSetScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
     const colorStyle = team.color === 'N/A' ? teamColorStyles.NA : teamColorStyles[team.color];
-    const teamSideStyle = sport === 'baseball' ? 
-                        StyleSheet.compose(gameScreenStyles[`teamSide_home`], colorStyle)
+    const teamSideStyle = sport === 'baseball' ? gameScreenStyles[`teamSide_home`]
                             :
-                        StyleSheet.compose(gameScreenStyles[`teamSide_${team.position}${portrait ? '' : 'Landscape'}`], colorStyle);
+                        gameScreenStyles[`teamSide_${team.position}${portrait ? '' : 'Landscape'}`];
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
     const {teamNameParent, teamNameParentLandscape, teamName, teamScore, 
@@ -35,7 +34,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
 
     return(
         <View style={teamSideStyle}>
-            <View style={portrait ? teamNameParent : teamNameParentLandscape}>
+            <View style={[portrait ? teamNameParent : teamNameParentLandscape, colorStyle]}>
                 <Text style={[teamName, textStyle]}>{team.name}</Text>
                 <Score score={score}
                         position={team.position}
@@ -47,7 +46,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                 <View style={portrait ? scoreButtons : scoreButtonsLandscape}>
                     {scoreIntervals.map(interval =>
                         <TouchableOpacity key={interval}
-                                        style={portrait ? scoreButton : scoreButtonLandscape}
+                                        style={[portrait ? scoreButton : scoreButtonLandscape, colorStyle]}
                                         onPress={() => incrementScore(interval, team.position)}>
                             <Text style={textStyle}>{`+${interval}`}</Text>      
                         </TouchableOpacity>)}
