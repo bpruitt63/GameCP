@@ -14,13 +14,15 @@ const landscape = {
     width: '29%'
 };
 const scoreButton = {
-    border: '1px solid gray',
+    borderColor: 'gray',
+    borderWidth: 1,
     borderRadius: 20,
     width: '20%',
     height: '50%',
     margin: 'auto',
     textAlign: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
 };
 const teamNameParent = {
     height: '20%',
@@ -101,14 +103,17 @@ export const gameScreenStyles = StyleSheet.create({
         width: '100%',
         height: '85%',
         display: 'flex',
-        flexDirection: 'row'
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center'
     },
     scoreButtonsLandscape: {
         width: '85%',
         height: '100%',
         alignItems: 'center',
         display: 'flex',
-        flexDirection: 'column-reverse'
+        flexDirection: 'column-reverse',
+        justifyContent: 'space-around'
     },
     scoreButton,
     scoreButtonLandscape: {
