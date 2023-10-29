@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import {Text, View, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import {Text, View, TouchableOpacity, Image} from 'react-native';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { teamColorStyles } from './styles/teamColorStyles';
 import { ScoreContext, GameDataContext } from './context';

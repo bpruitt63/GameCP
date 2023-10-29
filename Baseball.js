@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Button, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, useWindowDimensions} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { useSettings } from './hooks';
@@ -26,6 +26,8 @@ function Baseball() {
     const {score, manualSetScore} = useContext(ScoreContext);
     const {submitScores, apiErrors} = useContext(SportyContext);
     const sport = 'baseball';
+    const {height, width} = useWindowDimensions();
+    const [portrait, setPortrait] = useState(height > width);
 
     useEffect(() => {
         const setDefaults = async () => {
@@ -39,6 +41,10 @@ function Baseball() {
         };
         setDefaults();
     }, [setHomeTeam, setAwayTeam, game, baseballData]);
+
+    useEffect(() => {
+        setPortrait(height > width);
+    }, [height, width]);
 
     const submitAndReset = async () => {
         await submitScores();
@@ -63,7 +69,7 @@ function Baseball() {
     const cancel = () => setFormOpen(false);
 
     return (
-        <View style={appStyles.app}>
+        <View style={portrait ? appStyles.app : appStyles.landscape}>
             {game && baseballData && baseballData.gameOver &&
                 <SubmitScores submitScores={submitAndReset}
                                 apiErrors={apiErrors} />}
@@ -79,22 +85,28 @@ function Baseball() {
                     <Text style={appStyles.text}>Inning: {baseballData.top ? 'Top ' : 'Bottom '}
                             {baseballData.inning}</Text>
                 </TouchableOpacity>}
-            <Button title={`Balls: ${baseballData.balls}`}
-                    onPress={incrementBalls} />
-            <Button title={`Strikes: ${baseballData.strikes}`}
-                    onPress={() => incrementStrikes(score)} />
-            <Button title={`Outs: ${baseballData.outs}`}
-                    onPress={() => incrementOuts(score)} />
+            <TouchableOpacity onPress={incrementBalls}>
+                <Text style={appStyles.text}>{`Balls: ${baseballData.balls}`}</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => incrementStrikes(score)}>
+                <Text style={appStyles.text}>{`Strikes: ${baseballData.strikes}`}</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => incrementOuts(score)}>
+                <Text style={appStyles.text}>{`Outs: ${baseballData.outs}`}</Text>    
+            </TouchableOpacity>
             {resetOpen ? 
                     <>
-                        <Button title='Confirm Reset'
-                                onPress={fullReset} />
-                        <Button title='Cancel Reset'
-                                onPress={() => setResetOpen(false)} />
+                        <TouchableOpacity onPress={fullReset}>
+                            <Text style={appStyles.text}>Confirm Reset</Text>    
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => setResetOpen(false)}>
+                            <Text style={appStyles.text}>Cancel Reset</Text>    
+                        </TouchableOpacity>
                     </>
                 :
-                    <Button title='Reset Data'
-                        onPress={() => setResetOpen(true)} />}
+                    <TouchableOpacity onPress={() => setResetOpen(true)}>
+                        <Text  style={appStyles.text}>Reset Data</Text>
+                    </TouchableOpacity>}
             <View style={gameScreenStyles.teamNameParent}>
                 <Text style={[gameScreenStyles.teamName, appStyles.text]}>{baseballData.top ? homeTeam.name : awayTeam.name}</Text>
                 <Score score={score}
