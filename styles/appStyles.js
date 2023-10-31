@@ -16,6 +16,11 @@ export const appStyles = StyleSheet.create({
         color: 'white',
         textAlign: 'center'
     },
+    textLandscape: {
+        width: 124, 
+        height: 42, 
+        transform: [{rotateZ: '270deg'}, {translateY: -31}]
+    },
     errors: {
         backgroundColor: 'gray',
         textAlign: 'center',
