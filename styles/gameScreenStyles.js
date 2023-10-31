@@ -3,7 +3,6 @@ import { StyleSheet } from "react-native";
 
 const teamSide_home = {
     height: '29%',
-    backgroundColor: 'grey',
     display: 'flex',
     flexDirection: 'column'
 };
