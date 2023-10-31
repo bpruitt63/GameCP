@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const teamColorStyles = StyleSheet.create({
     black: {
-        backgroundColor: 'black'
+        backgroundColor: '#212121'
     },
     blackText: {
         color: 'white'

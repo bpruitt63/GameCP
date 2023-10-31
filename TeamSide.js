@@ -35,7 +35,10 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
     return(
         <View style={teamSideStyle}>
             <View style={[portrait ? teamNameParent : teamNameParentLandscape, colorStyle]}>
-                <Text style={[teamName, textStyle]}>{team.name}</Text>
+                <Text style={[teamName, textStyle]}
+                        numberOfLines={2}>
+                            {team.name}
+                </Text>
                 <Score score={score}
                         position={team.position}
                         manualSetScore={manualSetScore}

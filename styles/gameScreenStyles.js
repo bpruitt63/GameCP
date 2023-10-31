@@ -11,8 +11,6 @@ const landscape = {
     width: '29%'
 };
 const scoreButton = {
-    borderColor: '#212121',
-    borderWidth: 1,
     borderRadius: 20,
     width: '20%',
     height: '50%',
