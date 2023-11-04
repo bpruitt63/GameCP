@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Text, TouchableOpacity, useWindowDimensions, StyleSheet} from 'react-native';
+import {View, useWindowDimensions, StyleSheet} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { storeBasedOnPlatform } from './helpers';
@@ -24,6 +24,7 @@ function Game({route}) {
     const [resetOpen, setResetOpen] = useState(false);
     const {game} = useContext(GameContext);
     const {resetGame} = useContext(GameDataContext);
+    const {time} = useContext(TimeContext);
     const {submitScores, apiErrors} = useContext(SportyContext);
     const {height, width} = useWindowDimensions();
     const [portrait, setPortrait] = useState(height > width);
@@ -89,12 +90,14 @@ function Game({route}) {
                         viewStyles={errorStyle}
                         textStyles={appStyles.errorText} />}
             <GameScreenBottom game={game}
+                                data={time}
                                 resetOpen={resetOpen}
                                 setResetOpen={setResetOpen}
                                 fullReset={fullReset}
                                 submitAndReset={submitAndReset}
                                 portrait={portrait}
-                                apiErrors={apiErrors} />
+                                apiErrors={apiErrors}
+                                sport={sport} />
         </View>
     );
 };

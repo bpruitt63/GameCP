@@ -11,6 +11,8 @@ import { BaseballContext, GameContext, ScoreContext, SportyContext } from './con
 import Score from './Score';
 import SubmitScores from './SubmitScores';
 import ManualBaseballForm from './ManualBaseballForm';
+import GameScreenBottom from './GameScreenBottom';
+import Errors from './Errors';
 
 function Baseball() {
 
@@ -116,24 +118,19 @@ function Baseball() {
                         textStyle={fieldingTeamText}
                         teamScore={gameScreenStyles.teamScore} />
             </View>
-            <View style={portrait ? gameScreenStyles.resetContainer : gameScreenStyles.resetContainerLandscape}>
-                {game && baseballData && baseballData.gameOver &&
-                    <SubmitScores submitScores={submitAndReset}
-                                    apiErrors={apiErrors} />}
-                {resetOpen ? 
-                        <>
-                            <TouchableOpacity onPress={fullReset}>
-                                <Text style={appStyles.text}>Confirm Reset</Text>    
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => setResetOpen(false)}>
-                                <Text style={appStyles.text}>Cancel Reset</Text>    
-                            </TouchableOpacity>
-                        </>
-                    :
-                        <TouchableOpacity onPress={() => setResetOpen(true)}>
-                            <Text style={appStyles.text}>Reset Data</Text>
-                        </TouchableOpacity>}
-            </View>
+            {Object.keys(apiErrors)[0] &&
+                <Errors apiErrors={apiErrors}
+                        viewStyles={errorStyle}
+                        textStyles={appStyles.errorText} />}
+            <GameScreenBottom game={game}
+                                data={baseballData}
+                                resetOpen={resetOpen}
+                                setResetOpen={setResetOpen}
+                                fullReset={fullReset}
+                                submitAndReset={submitAndReset}
+                                portrait={portrait}
+                                apiErrors={apiErrors}
+                                sport={sport} />
         </View>
     );
 };

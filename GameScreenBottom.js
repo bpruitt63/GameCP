@@ -1,17 +1,14 @@
-import React, {useContext, useState} from "react";
+import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { TimeContext } from "./context";
 import { gameScreenStyles } from "./styles/gameScreenStyles";
 import { appStyles } from "./styles/appStyles";
 import SubmitScores from "./SubmitScores";
 
-function GameScreenBottom({game, resetOpen, setResetOpen, fullReset, submitAndReset, portrait, apiErrors}) {
-
-    const {time} = useContext(TimeContext);
+function GameScreenBottom({game, data, resetOpen, setResetOpen, fullReset, submitAndReset, portrait, apiErrors, sport}) {
 
     return (
-        <View style={portrait ? gameScreenStyles.resetContainer : gameScreenStyles.resetContainerLandscape}>
-            {game && time && time.gameOver &&
+        <View style={portrait ? [gameScreenStyles.resetContainer, sport === 'baseball' ? {paddingTop: 5, paddingBottom: 5} : ''] : gameScreenStyles.resetContainerLandscape}>
+            {game && data && data.gameOver &&
                 <SubmitScores submitScores={submitAndReset}
                                 apiErrors={apiErrors}
                                 buttonStyle={portrait ? gameScreenStyles.underTimerChild : [gameScreenStyles.resetButtonLandscape, resetOpen ? '' : {maxHeight: '40%', marginBottom: '60%'}]}
