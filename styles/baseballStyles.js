@@ -7,7 +7,8 @@ export const baseballStyles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-around',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingBottom: 15
     },
     button: {
         backgroundColor: '#212121',
