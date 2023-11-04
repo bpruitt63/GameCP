@@ -1,5 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
-import {View, Text, TouchableOpacity, useWindowDimensions} from 'react-native';
+import {View, Text, TouchableOpacity, useWindowDimensions, StyleSheet} from 'react-native';
 import { appStyles } from './styles/appStyles';
 import { gameScreenStyles } from './styles/gameScreenStyles';
 import { baseballStyles } from './styles/baseballStyles';
@@ -9,7 +9,6 @@ import { storeBasedOnPlatform } from './helpers';
 import TeamSide from './TeamSide';
 import { BaseballContext, GameContext, ScoreContext, SportyContext } from './context';
 import Score from './Score';
-import SubmitScores from './SubmitScores';
 import ManualBaseballForm from './ManualBaseballForm';
 import GameScreenBottom from './GameScreenBottom';
 import Errors from './Errors';
@@ -38,6 +37,8 @@ function Baseball() {
     const fieldingTeamStyle = [gameScreenStyles.teamNameParent, {height: '6%'}, colorStyle];
     const fieldingTeamText = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
+    const errorStyle = StyleSheet.compose(appStyles.errors, appStyles.sportyError);
+
     useEffect(() => {
         const setDefaults = async () => {
             if (game) {
@@ -56,9 +57,11 @@ function Baseball() {
     }, [height, width]);
 
     const submitAndReset = async () => {
-        await submitScores();
-        setHomeTeam(defaultHome);
-        setAwayTeam(defaultAway);
+        const success = await submitScores();
+        if (success) {
+            setHomeTeam(defaultHome);
+            setAwayTeam(defaultAway);
+        };
     };
 
     const fullReset = async () => {
