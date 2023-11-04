@@ -90,7 +90,8 @@ function Baseball() {
                 {formOpen ?
                     <ManualBaseballForm initialValue={{inning: baseballData.inning, top: baseballData.top}}
                                         save={save} 
-                                        cancel={cancel} />
+                                        cancel={cancel}
+                                        textStyle={appStyles.text} />
                 :
                     <TouchableOpacity onLongPress={() => setFormOpen(true)}
                                     style={baseballStyles.button}>

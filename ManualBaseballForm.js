@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
-import { TextInput, Button } from 'react-native';
+import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import { manualBaseballStyles } from './styles/manualBaseballStyles';
 
-function ManualBaseballForm({initialValue, save, cancel}) {
+function ManualBaseballForm({initialValue, save, cancel, textStyle}) {
 
     const [value, setValue] = useState(initialValue);
 
@@ -16,19 +17,26 @@ function ManualBaseballForm({initialValue, save, cancel}) {
     };
 
     return (
-        <>
-            <Button title={value.top ? 'Top' : 'Bottom'}
-                    onPress={toggle} />
+        <View style={manualBaseballStyles.view}>
+            <TouchableOpacity onPress={toggle}
+                            style={manualBaseballStyles.button}>
+                <Text style={textStyle}>{value.top ? 'Top' : 'Bottom'}</Text>    
+            </TouchableOpacity>
             <TextInput inputMode='numeric'
                         onChangeText={handleChange}
-                        value={value.inning}
+                        value={value.inning.toString()}
+                        style={manualBaseballStyles.textInput}
                         autoFocus
                         selectTextOnFocus />
-            <Button title='Confirm'
-                    onPress={() => save(value)} />
-            <Button title='Cancel'
-                    onPress={cancel} />
-        </>
+            <TouchableOpacity onPress={() => save(value)}
+                            style={manualBaseballStyles.button}>
+                <Text style={textStyle}>Confirm</Text>    
+            </TouchableOpacity>
+            <TouchableOpacity onPress={cancel}
+                            style={manualBaseballStyles.button}>
+                <Text style={textStyle}>Cancel</Text>    
+            </TouchableOpacity>
+        </View>
     );
 };
 
