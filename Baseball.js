@@ -116,7 +116,7 @@ function Baseball() {
                         textStyle={fieldingTeamText}
                         teamScore={gameScreenStyles.teamScore} />
             </View>
-            <View style={baseballStyles.submitAndReset}>
+            <View style={portrait ? gameScreenStyles.resetContainer : gameScreenStyles.resetContainerLandscape}>
                 {game && baseballData && baseballData.gameOver &&
                     <SubmitScores submitScores={submitAndReset}
                                     apiErrors={apiErrors} />}

@@ -9,7 +9,7 @@ import Possession from './Possession';
 import Down from './Down';
 import { GameContext, GameDataContext, TimeContext, SportyContext } from './context';
 import Timer from './Timer';
-import SubmitScores from './SubmitScores';
+import GameScreenBottom from './GameScreenBottom';
 import Errors from './Errors';
 
 
@@ -24,7 +24,6 @@ function Game({route}) {
     const [resetOpen, setResetOpen] = useState(false);
     const {game} = useContext(GameContext);
     const {resetGame} = useContext(GameDataContext);
-    const {time} = useContext(TimeContext);
     const {submitScores, apiErrors} = useContext(SportyContext);
     const {height, width} = useWindowDimensions();
     const [portrait, setPortrait] = useState(height > width);
@@ -89,29 +88,13 @@ function Game({route}) {
                 <Errors apiErrors={apiErrors}
                         viewStyles={errorStyle}
                         textStyles={appStyles.errorText} />}
-            <View style={portrait ? gameScreenStyles.resetContainer : gameScreenStyles.resetContainerLandscape}>
-                {game && time && time.gameOver &&
-                    <SubmitScores submitScores={submitAndReset}
-                                    apiErrors={apiErrors}
-                                    buttonStyle={portrait ? gameScreenStyles.underTimerChild : [gameScreenStyles.resetButtonLandscape, resetOpen ? '' : {maxHeight: '40%', marginBottom: '60%'}]}
-                                    textStyle={portrait ? appStyles.text : [appStyles.text, appStyles.textLandscape]} />}
-                {resetOpen ?
-                    <>
-                        <TouchableOpacity onPress={() => setResetOpen(false)}
-                                            style={portrait ? gameScreenStyles.underTimerChild : gameScreenStyles.resetButtonLandscape}>
-                            <Text style={portrait ? appStyles.text : [appStyles.text, appStyles.textLandscape]}>Cancel Reset</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={fullReset}
-                                        style={portrait ? gameScreenStyles.underTimerChild : gameScreenStyles.resetButtonLandscape}>
-                            <Text style={portrait ? appStyles.text : [appStyles.text, appStyles.textLandscape]}>Confirm Reset</Text>
-                        </TouchableOpacity>
-                    </>
-                :
-                    <TouchableOpacity onPress={() => setResetOpen(true)}
-                                    style={portrait ? gameScreenStyles.underTimerChild : [gameScreenStyles.resetButtonLandscape, {maxHeight: '40%', marginBottom: '60%'}]}>
-                        <Text style={portrait ? appStyles.text : [appStyles.text, appStyles.textLandscape]}>Reset Data</Text>  
-                    </TouchableOpacity>}
-            </View>
+            <GameScreenBottom game={game}
+                                resetOpen={resetOpen}
+                                setResetOpen={setResetOpen}
+                                fullReset={fullReset}
+                                submitAndReset={submitAndReset}
+                                portrait={portrait}
+                                apiErrors={apiErrors} />
         </View>
     );
 };
