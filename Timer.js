@@ -69,6 +69,11 @@ function Timer({defaultValues, sport, textStyle}) {
                                 minutes: +newTime.minutes,
                                 seconds: +newTime.seconds};
         if (newCurrentTime.seconds > 59) newCurrentTime.seconds = 59;
+        if (newCurrentTime.minutes || newCurrentTime.seconds) newCurrentTime.gameOver = false;
+        if (newCurrentTime.period < newCurrentTime.maxPeriod
+            || (newCurrentTime.period === newCurrentTime.maxPeriod && (newCurrentTime.minutes || newCurrentTime.seconds))) {
+                newCurrentTime.regulation = true;
+            };
         setCurrentTime(newCurrentTime);
         saveTime(newCurrentTime);
         setFormOpen(intitialFormOpen);
