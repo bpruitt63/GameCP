@@ -21,10 +21,10 @@ export const defaultData = {
             gameOver: false,
             regulation: true},
     baseball: {balls: 0, 
-			strikes: 0, 
-			outs: 0, 
-			inning: 1, 
-			top: true, 
-			length: 9, 
-			gameOver: false}    
+                strikes: 0, 
+                outs: 0, 
+                inning: 1, 
+                top: true, 
+                length: 9, 
+                gameOver: false}    
 };

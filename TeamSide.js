@@ -16,7 +16,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
     const {score, incrementScore, manualSetScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
     const colorStyle = team.color === 'N/A' ? teamColorStyles.NA : teamColorStyles[team.color];
-    const teamSideStyle = sport === 'baseball' ? gameScreenStyles[`teamSide_home`]
+    const teamSideStyle = sport === 'baseball' ? gameScreenStyles.teamSide_home
                             :
                         gameScreenStyles[`teamSide_${team.position}${portrait ? '' : 'Landscape'}`];
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
@@ -26,9 +26,10 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
         possessionAndScoreButtonsLandscapeHome, possessionAndScoreButtonsLandscapeAway,
         scoreButtons, scoreButtonsLandscape, scoreButton, scoreButtonLandscape,
         possession, possessionLandscape, possessionIcon, possessionIconLandscape} = gameScreenStyles;
-    const possessionAndScoreButtonsStyle = portrait && team.position === 'home' ? possessionAndScoreButtonsHome
-                            : portrait && team.position === 'away' ? possessionAndScoreButtonsAway
-                            : !portrait && team.position === 'home' ? possessionAndScoreButtonsLandscapeHome
+    const position = sport === 'baseball' ? 'home' : team.position;
+    const possessionAndScoreButtonsStyle = portrait && position === 'home' ? possessionAndScoreButtonsHome
+                            : portrait && position === 'away' ? possessionAndScoreButtonsAway
+                            : !portrait && position === 'home' ? possessionAndScoreButtonsLandscapeHome
                             : possessionAndScoreButtonsLandscapeAway;
 
 
