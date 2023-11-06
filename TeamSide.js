@@ -4,6 +4,7 @@ import { gameScreenStyles } from './styles/gameScreenStyles';
 import { teamColorStyles } from './styles/teamColorStyles';
 import { ScoreContext, GameDataContext } from './context';
 import Score from './Score';
+import { baseballStyles } from './styles/baseballStyles';
 
 const icons = {
     football: require('./assets/images/football.png'),
@@ -16,7 +17,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
     const {score, incrementScore, manualSetScore} = useContext(ScoreContext);
     const {gameData} = useContext(GameDataContext);
     const colorStyle = team.color === 'N/A' ? teamColorStyles.NA : teamColorStyles[team.color];
-    const teamSideStyle = sport === 'baseball' ? gameScreenStyles.teamSide_home
+    const teamSideStyle = sport === 'baseball' ? [gameScreenStyles.teamSide_home, portrait ? '' : baseballStyles.baseballTeamSideLandscape]
                             :
                         gameScreenStyles[`teamSide_${team.position}${portrait ? '' : 'Landscape'}`];
     const textStyle = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
@@ -50,7 +51,7 @@ function TeamSide({scoreIntervals, team, sport, portrait}) {
                 <View style={portrait ? scoreButtons : scoreButtonsLandscape}>
                     {scoreIntervals.map(interval =>
                         <TouchableOpacity key={interval}
-                                        style={[portrait ? scoreButton : scoreButtonLandscape, colorStyle]}
+                                        style={portrait ? [scoreButton, colorStyle] : [scoreButtonLandscape, colorStyle, sport === 'baseball' ? {width: '25%', height: '25%'} : '']}
                                         onPress={() => incrementScore(interval, team.position)}>
                             <Text style={textStyle}>{`+${interval}`}</Text>      
                         </TouchableOpacity>)}

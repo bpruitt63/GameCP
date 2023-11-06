@@ -34,7 +34,7 @@ function Baseball() {
 
     const team = baseballData.top ? homeTeam : awayTeam;
     const colorStyle = team.color === 'N/A' ? teamColorStyles.NA : teamColorStyles[team.color];
-    const fieldingTeamStyle = [gameScreenStyles.teamNameParent, {height: '6%'}, colorStyle];
+    const fieldingTeamStyle = [gameScreenStyles.teamNameParent, {height: portrait ? '11%' : '15%'}, colorStyle];
     const fieldingTeamText = team.color === 'N/A' ? teamColorStyles.NAText : teamColorStyles[`${team.color}Text`];
 
     const errorStyle = StyleSheet.compose(appStyles.errors, appStyles.sportyError);
@@ -86,41 +86,43 @@ function Baseball() {
                         team={baseballData.top ? awayTeam : homeTeam}
                         sport='baseball'
                         portrait={portrait} />
-            <View style={baseballStyles.incrementButtons}>
-                {formOpen ?
-                    <ManualBaseballForm initialValue={{inning: baseballData.inning, top: baseballData.top}}
-                                        save={save} 
-                                        cancel={cancel}
-                                        textStyle={appStyles.text} />
-                :
-                    <TouchableOpacity onLongPress={() => setFormOpen(true)}
-                                    style={baseballStyles.button}>
-                        <Text style={appStyles.text}>Inning: {baseballData.top ? 'Top ' : 'Bottom '}
-                                {baseballData.inning}</Text>
-                    </TouchableOpacity>}
-                <TouchableOpacity onPress={incrementBalls}
-                                    style={baseballStyles.button}>
-                    <Text style={appStyles.text}>{`Balls: ${baseballData.balls}`}</Text>    
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => incrementStrikes(score)}
-                                    style={baseballStyles.button}>
-                    <Text style={appStyles.text}>{`Strikes: ${baseballData.strikes}`}</Text>    
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => incrementOuts(score)}
-                                    style={baseballStyles.button}>
-                    <Text style={appStyles.text}>{`Outs: ${baseballData.outs}`}</Text>    
-                </TouchableOpacity>
-            </View>
-            <View style={fieldingTeamStyle}>
-                <Text style={[gameScreenStyles.teamName, fieldingTeamText]}
-                        numberOfLines={2}>
-                            {baseballData.top ? homeTeam.name : awayTeam.name}
-                </Text>
-                <Score score={score}
-                        position={baseballData.top ? 'home' : 'away'}
-                        manualSetScore={manualSetScore}
-                        textStyle={fieldingTeamText}
-                        teamScore={gameScreenStyles.teamScore} />
+            <View style={[baseballStyles.buttonsAndFielders, portrait ? '' : baseballStyles.buttonsAndFieldersLandscape]}>
+                <View style={[baseballStyles.incrementButtons, portrait ? '' : baseballStyles.incrementButtonsLandscape]}>
+                    {formOpen ?
+                        <ManualBaseballForm initialValue={{inning: baseballData.inning, top: baseballData.top}}
+                                            save={save} 
+                                            cancel={cancel}
+                                            textStyle={appStyles.text} />
+                    :
+                        <TouchableOpacity onLongPress={() => setFormOpen(true)}
+                                        style={baseballStyles.button}>
+                            <Text style={appStyles.text}>Inning: {baseballData.top ? 'Top ' : 'Bottom '}
+                                    {baseballData.inning}</Text>
+                        </TouchableOpacity>}
+                    <TouchableOpacity onPress={incrementBalls}
+                                        style={baseballStyles.button}>
+                        <Text style={appStyles.text}>{`Balls: ${baseballData.balls}`}</Text>    
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => incrementStrikes(score)}
+                                        style={baseballStyles.button}>
+                        <Text style={appStyles.text}>{`Strikes: ${baseballData.strikes}`}</Text>    
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => incrementOuts(score)}
+                                        style={baseballStyles.button}>
+                        <Text style={appStyles.text}>{`Outs: ${baseballData.outs}`}</Text>    
+                    </TouchableOpacity>
+                </View>
+                <View style={fieldingTeamStyle}>
+                    <Text style={[gameScreenStyles.teamName, fieldingTeamText]}
+                            numberOfLines={2}>
+                                {baseballData.top ? homeTeam.name : awayTeam.name}
+                    </Text>
+                    <Score score={score}
+                            position={baseballData.top ? 'home' : 'away'}
+                            manualSetScore={manualSetScore}
+                            textStyle={fieldingTeamText}
+                            teamScore={gameScreenStyles.teamScore} />
+                </View>
             </View>
             {Object.keys(apiErrors)[0] &&
                 <Errors apiErrors={apiErrors}
