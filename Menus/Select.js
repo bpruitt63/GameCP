@@ -1,13 +1,13 @@
 import React, {useState, useContext, useEffect} from 'react';
 import { TouchableOpacity, Text, View, ScrollView } from 'react-native';
-import { GameContext, UserContext } from './context';
-import {useErrors} from './hooks';
-import { storeBasedOnPlatform } from './helpers';
-import { appStyles } from './styles/appStyles';
-import { menuStyles } from './styles/menuStyles';
+import { GameContext, UserContext } from '../context';
+import {useErrors} from '../helpersAndData/hooks';
+import { storeBasedOnPlatform } from '../helpersAndData/helpers';
+import { appStyles } from '../styles/appStyles';
+import { menuStyles } from '../styles/menuStyles';
 import SelectList from './SelectList';
-import Errors from './Errors';
-import API from './Api';
+import Errors from '../Errors';
+import API from '../Api';
 
 function Select({navigation}) {
 

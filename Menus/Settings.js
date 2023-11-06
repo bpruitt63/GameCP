@@ -1,12 +1,12 @@
 import React, {useState, useEffect, useContext} from 'react';
 import { TouchableOpacity, Text, View, StyleSheet } from 'react-native';
-import { defaultData } from './defaultData';
-import { useSettings } from './hooks';
-import ManualTimerForm from './ManualTimerForm';
-import ManualInputForm from './ManualInputForm';
-import { appStyles } from './styles/appStyles';
-import { menuStyles } from './styles/menuStyles';
-import { BaseballContext } from './context';
+import { defaultData } from '../helpersAndData/defaultData';
+import { useSettings } from '../helpersAndData/hooks';
+import ManualTimerForm from '../Forms/ManualTimerForm';
+import ManualInputForm from '../Forms/ManualInputForm';
+import { appStyles } from '../styles/appStyles';
+import { menuStyles } from '../styles/menuStyles';
+import { BaseballContext } from '../context';
 
 function Settings() {
 

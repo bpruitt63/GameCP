@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { gameScreenStyles } from './styles/gameScreenStyles';
-import ManualInputForm from './ManualInputForm';
+import { gameScreenStyles } from '../styles/gameScreenStyles';
+import ManualInputForm from '../Forms/ManualInputForm';
 
 function Score({score, position, manualSetScore, textStyle, teamScore}) {
 

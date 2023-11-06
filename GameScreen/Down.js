@@ -1,7 +1,7 @@
 import React, {useContext, useState, useEffect} from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { GameDataContext } from './context';
-import ManualInputForm from './ManualInputForm';
+import { GameDataContext } from '../context';
+import ManualInputForm from '../Forms/ManualInputForm';
 
 function Down({textStyle, mainStyle}) {
 

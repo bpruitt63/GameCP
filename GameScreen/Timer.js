@@ -1,10 +1,10 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import { timerStyles } from './styles/timerStyles';
-import { ScoreContext, TimeContext } from './context';
+import { timerStyles } from '../styles/timerStyles';
+import { ScoreContext, TimeContext } from '../context';
 import RunningClock from './RunningClock';
-import ManualTimerForm from './ManualTimerForm';
-import ManualInputForm from './ManualInputForm';
+import ManualTimerForm from '../Forms/ManualTimerForm';
+import ManualInputForm from '../Forms/ManualInputForm';
 
 function Timer({defaultValues, sport, textStyle}) {
 

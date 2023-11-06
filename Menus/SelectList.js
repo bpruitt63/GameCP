@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import { menuStyles } from './styles/menuStyles';
+import { menuStyles } from '../styles/menuStyles';
 
 function SelectList({data, press, textStyle}) {
 

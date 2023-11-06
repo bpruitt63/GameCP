@@ -1,11 +1,11 @@
 import React, {useState, useContext} from 'react';
 import { TextInput, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { LoginContext } from './context';
-import { useErrors } from './hooks';
-import { appStyles } from './styles/appStyles';
-import { loginStyles } from './styles/loginStyles';
-import Errors from './Errors';
-import API from './Api';
+import { LoginContext } from '../context';
+import { useErrors } from '../helpersAndData/hooks';
+import { appStyles } from '../styles/appStyles';
+import { loginStyles } from '../styles/loginStyles';
+import Errors from '../Errors';
+import API from '../Api';
 
 function Login({navigation}) {
 

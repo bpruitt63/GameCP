@@ -1,16 +1,16 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, useWindowDimensions, StyleSheet} from 'react-native';
-import { appStyles } from './styles/appStyles';
-import { gameScreenStyles } from './styles/gameScreenStyles';
-import { storeBasedOnPlatform } from './helpers';
-import { useSettings } from './hooks';
+import { appStyles } from '../styles/appStyles';
+import { gameScreenStyles } from '../styles/gameScreenStyles';
+import { storeBasedOnPlatform } from '../helpersAndData/helpers';
+import { useSettings } from '../helpersAndData/hooks';
 import TeamSide from './TeamSide';
 import Possession from './Possession';
 import Down from './Down';
-import { GameContext, GameDataContext, TimeContext, SportyContext } from './context';
+import { GameContext, GameDataContext, TimeContext, SportyContext } from '../context';
 import Timer from './Timer';
 import GameScreenBottom from './GameScreenBottom';
-import Errors from './Errors';
+import Errors from '../Errors';
 
 
 function Game({route}) {

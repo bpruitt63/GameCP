@@ -5,15 +5,15 @@ import jwt_decode from 'jwt-decode';
 import { ScoreContext, UserContext, LoginContext, 
 		GameContext, GameDataContext, BaseballContext,
 		TimeContext, SportyContext } from './context';
-import { useTimer, useIncrementScore, useGameData, useBaseball, useErrors } from './hooks';
-import { storeBasedOnPlatform, checkStorageOnLogin, retrieveStoredData } from './helpers';
-import { defaultData } from './defaultData';
-import Home from './Home';
-import Game from './Game';
-import Baseball from './Baseball';
-import Login from './Login';
-import Select from './Select';
-import Settings from './Settings';
+import { useTimer, useIncrementScore, useGameData, useBaseball, useErrors } from './helpersAndData/hooks';
+import { storeBasedOnPlatform, checkStorageOnLogin, retrieveStoredData } from './helpersAndData/helpers';
+import { defaultData } from './helpersAndData/defaultData';
+import Home from './Menus/Home';
+import Game from './GameScreen/Game';
+import Baseball from './GameScreen/Baseball';
+import Login from './Forms/Login';
+import Select from './Menus/Select';
+import Settings from './Menus/Settings';
 import API from './Api';
 import Header from './Header';
 

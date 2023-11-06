@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import { gameScreenStyles } from "./styles/gameScreenStyles";
-import { appStyles } from "./styles/appStyles";
+import { gameScreenStyles } from "../styles/gameScreenStyles";
+import { appStyles } from "../styles/appStyles";
 import SubmitScores from "./SubmitScores";
 
 function GameScreenBottom({game, data, resetOpen, setResetOpen, fullReset, submitAndReset, portrait, apiErrors, sport}) {

@@ -1,15 +1,15 @@
 import React, { useContext } from 'react';
 import {Text, View, TouchableOpacity, Image} from 'react-native';
-import { gameScreenStyles } from './styles/gameScreenStyles';
-import { teamColorStyles } from './styles/teamColorStyles';
-import { ScoreContext, GameDataContext } from './context';
+import { gameScreenStyles } from '../styles/gameScreenStyles';
+import { teamColorStyles } from '../styles/teamColorStyles';
+import { ScoreContext, GameDataContext } from '../context';
 import Score from './Score';
-import { baseballStyles } from './styles/baseballStyles';
+import { baseballStyles } from '../styles/baseballStyles';
 
 const icons = {
-    football: require('./assets/images/football.png'),
-    basketball: require('./assets/images/basketball.png'),
-    soccer: require('./assets/images/soccer.png')
+    football: require('../assets/images/football.png'),
+    basketball: require('../assets/images/basketball.png'),
+    soccer: require('../assets/images/soccer.png')
 };
 
 function TeamSide({scoreIntervals, team, sport, portrait}) {

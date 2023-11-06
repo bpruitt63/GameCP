@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
-import { manualBaseballStyles } from './styles/manualBaseballStyles';
+import { manualBaseballStyles } from '../styles/manualBaseballStyles';
 
 function ManualBaseballForm({initialValue, save, cancel, textStyle}) {
 

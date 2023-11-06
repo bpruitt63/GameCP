@@ -1,17 +1,17 @@
 import React, {useState, useContext, useEffect} from 'react';
 import {View, Text, TouchableOpacity, useWindowDimensions, StyleSheet} from 'react-native';
-import { appStyles } from './styles/appStyles';
-import { gameScreenStyles } from './styles/gameScreenStyles';
-import { baseballStyles } from './styles/baseballStyles';
-import { teamColorStyles } from './styles/teamColorStyles';
-import { useSettings } from './hooks';
-import { storeBasedOnPlatform } from './helpers';
+import { appStyles } from '../styles/appStyles';
+import { gameScreenStyles } from '../styles/gameScreenStyles';
+import { baseballStyles } from '../styles/baseballStyles';
+import { teamColorStyles } from '../styles/teamColorStyles';
+import { useSettings } from '../helpersAndData/hooks';
+import { storeBasedOnPlatform } from '../helpersAndData/helpers';
 import TeamSide from './TeamSide';
-import { BaseballContext, GameContext, ScoreContext, SportyContext } from './context';
+import { BaseballContext, GameContext, ScoreContext, SportyContext } from '../context';
 import Score from './Score';
-import ManualBaseballForm from './ManualBaseballForm';
+import ManualBaseballForm from '../Forms/ManualBaseballForm';
 import GameScreenBottom from './GameScreenBottom';
-import Errors from './Errors';
+import Errors from '../Errors';
 
 function Baseball() {
 

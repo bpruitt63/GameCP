@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import { TouchableOpacity, Text } from "react-native";
-import { GameDataContext } from "./context";
+import { GameDataContext } from "../context";
 
 function Possession({mainStyle, textStyle}) {
 

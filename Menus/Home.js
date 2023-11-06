@@ -1,8 +1,8 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, useWindowDimensions} from 'react-native';
-import { appStyles } from './styles/appStyles';
-import { menuStyles } from './styles/menuStyles';
-import { GameContext, LoginContext, UserContext } from './context';
+import { appStyles } from '../styles/appStyles';
+import { menuStyles } from '../styles/menuStyles';
+import { GameContext, LoginContext, UserContext } from '../context';
 
 
 function Home({navigation}) {
