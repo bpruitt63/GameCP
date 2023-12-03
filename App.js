@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import jwt_decode from 'jwt-decode';
+import * as serviceWorkerRegistration from "./src/serviceWorkerRegistration";
 import { ScoreContext, UserContext, LoginContext, 
 		GameContext, GameDataContext, BaseballContext,
 		TimeContext, SportyContext } from './context';
@@ -138,3 +139,5 @@ export default function App() {
 		</NavigationContainer>
 	);
 };
+
+serviceWorkerRegistration.register();
