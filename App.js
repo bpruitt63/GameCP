@@ -35,7 +35,7 @@ export default function App() {
 
 	useEffect(() => {
 		const checkIfLoggedIn = async () => {
-			const storedToken = await storeBasedOnPlatform('get', "token");
+			const storedToken = await storeBasedOnPlatform('get', "gameCPToken");
 			if (storedToken) {
 				await loginUser(storedToken);
 			};
@@ -59,7 +59,7 @@ export default function App() {
 		const userData = jwt_decode(token)?.user || jwt_decode(token);
 		setUser(userData);
 		API.token = token;
-		await storeBasedOnPlatform('store', "token", token);
+		await storeBasedOnPlatform('store', "gameCPToken", token);
 		const setters = {setOrganization, setSeason, setGame};
 		await checkStorageOnLogin(setters);
 	};
@@ -67,7 +67,7 @@ export default function App() {
 	const logoutUser = async () => {
 		setUser(null);
 		API.token = '';
-		await storeBasedOnPlatform('remove', "token");
+		await storeBasedOnPlatform('remove', "gameCPToken");
 		setGame(null);
 		setOrganization(null);
 		setSeason(null);
