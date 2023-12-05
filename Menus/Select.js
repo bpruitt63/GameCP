@@ -236,6 +236,11 @@ function Select({navigation}) {
                                 <Text style={appStyles.text}>Remove Season</Text>
                             </TouchableOpacity>}
                     </>}
+                {game &&
+                    <TouchableOpacity onPress={removeGame}
+                                        style={[menuStyles.menuButton, {marginBottom: 25}]}>
+                        <Text style={appStyles.text}>Remove Game</Text>
+                    </TouchableOpacity>}
             </View>
         </ScrollView>
     );

@@ -45,8 +45,8 @@ export const menuStyles = StyleSheet.create({
     },
     selectList: {
         width: '100%', 
-        marginBottom: 45,
-        paddingBottom: 25,
+        marginBottom: 50,
+        paddingBottom: 50,
         marginTop: 20
     },
     periodSettings: {
