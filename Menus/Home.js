@@ -12,12 +12,22 @@ function Home({navigation}) {
         const {logoutUser} = useContext(LoginContext);
         const {height, width} = useWindowDimensions();
         const [portrait, setPortrait] = useState(height > width);
+        const [online, setOnline] = useState(navigator.onLine);
 
         const dataTextStyle = StyleSheet.compose(appStyles.text, menuStyles.gameDataItem);
 
         useEffect(() => {
             setPortrait(height > width);
         }, [height, width]);
+
+        useEffect(() => {
+            window.addEventListener('online', () => setOnline(true));
+            window.addEventListener('offline', () => setOnline(false));
+            return () => {
+                window.removeEventListener('online', () => setOnline(true));
+                window.removeEventListener('offline', () => setOnline(false));
+              };
+        }, []);
 
     return (
         <View style={appStyles.app}>
@@ -57,7 +67,7 @@ function Home({navigation}) {
                         <>
                             <TouchableOpacity style={menuStyles.menuButton}
                                     onPress={() => navigation.navigate('Select')}>
-                                <Text style={appStyles.text}>Select or Change Game</Text>    
+                                <Text style={appStyles.text}>Select or Change Game</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={menuStyles.menuButton}
                                     onPress={logoutUser}>
@@ -65,9 +75,11 @@ function Home({navigation}) {
                             </TouchableOpacity>
                         </>
                         :
-                        <TouchableOpacity style={menuStyles.menuButton}
-                                        onPress={() => navigation.navigate('Login')}>
+                        <TouchableOpacity style={[menuStyles.menuButton, !online ? menuStyles.disabled : '']}
+                                        onPress={() => navigation.navigate('Login')}
+                                        disabled={!online}>
                             <Text style={appStyles.text}>Log in to Sporty</Text>
+                            {!online && <Text style={appStyles.text}>Online Connection Required</Text>} 
                         </TouchableOpacity> 
                     }
                     <TouchableOpacity style={menuStyles.menuButton}

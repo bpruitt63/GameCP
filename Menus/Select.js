@@ -22,6 +22,7 @@ function Select({navigation}) {
     const {organization, setOrganization, season, 
             setSeason, game, setGame} = useContext(GameContext);
     const userOrgs = Object.keys(user.organizations).map(k => [k, user.organizations[k].orgName]);
+    const [online, setOnline] = useState(navigator.onLine);
 
     useEffect(() => {
         const getCurrentStep = () => {
@@ -35,6 +36,15 @@ function Select({navigation}) {
         };
         getCurrentStep();
     }, [goToStep]);
+
+    useEffect(() => {
+        window.addEventListener('online', () => setOnline(true));
+        window.addEventListener('offline', () => setOnline(false));
+        return () => {
+            window.removeEventListener('online', () => setOnline(true));
+            window.removeEventListener('offline', () => setOnline(false));
+          };
+    }, []);
 
 
     const goToStep = async (step) => {
@@ -186,13 +196,17 @@ function Select({navigation}) {
             <View style={[menuStyles.menuSection, {maxHeight: 100, marginTop: 20, marginBottom: 20}]}>
                 {step !== 1 &&
                     <TouchableOpacity onPress={() => goToStep(1)}
-                                        style={[menuStyles.menuButton, {marginBottom: 25}]}>
+                                        style={[menuStyles.menuButton, {marginBottom: 25}, !online ? menuStyles.disabled : '']}
+                                        disabled={!online}>
                         <Text style={appStyles.text}>Change Organization</Text>
+                        {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
                     </TouchableOpacity>}
                 {step > 2 &&
                     <TouchableOpacity onPress={() => goToStep(2)}
-                                        style={menuStyles.menuButton}>
+                                        style={[menuStyles.menuButton, !online ? menuStyles.disabled : '']}
+                                        disabled={!online}>
                         <Text style={appStyles.text}>Change Season</Text>
+                        {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
                     </TouchableOpacity>}
             </View>
         </ScrollView>

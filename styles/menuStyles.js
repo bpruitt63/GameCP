@@ -40,6 +40,9 @@ export const menuStyles = StyleSheet.create({
         padding: 8,
         width: '70%'
     },
+    disabled: {
+        backgroundColor: 'darkgrey'
+    },
     selectList: {
         width: '100%', 
         borderBottomColor: '#212121', 
