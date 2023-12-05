@@ -114,9 +114,24 @@ function Select({navigation}) {
     };
 
     const removeSeason = () => {
+        removeGame();
         if (season) {
             setSeason(null);
+            setGames([]);
+            setTournamentRounds([]);
+            setTournamentGames({});
+            setStep(1);
             storeBasedOnPlatform('remove', 'season');
+        };
+    };
+
+    const removeOrganization = () => {
+        removeSeason();
+        if (organization) {
+            setOrganization(null);
+            setSeasons([]);
+            setStep(0);
+            storeBasedOnPlatform('remove', 'organization');
         };
     };
 
@@ -127,7 +142,6 @@ function Select({navigation}) {
         setOrganization(currentOrg);
         const orgString = JSON.stringify(currentOrg);
         storeBasedOnPlatform('store', 'organization', orgString);
-        removeGame();
         removeSeason();
         const seasonsRes = await getSeasons(id);
         if (seasonsRes) setStep(2);
@@ -195,19 +209,33 @@ function Select({navigation}) {
                 </View>}
             <View style={[menuStyles.menuSection, {maxHeight: 100, marginTop: 20, marginBottom: 20}]}>
                 {step !== 1 &&
-                    <TouchableOpacity onPress={() => goToStep(1)}
-                                        style={[menuStyles.menuButton, {marginBottom: 25}, !online ? menuStyles.disabled : '']}
-                                        disabled={!online}>
-                        <Text style={appStyles.text}>Change Organization</Text>
-                        {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
-                    </TouchableOpacity>}
+                    <>
+                        <TouchableOpacity onPress={() => goToStep(1)}
+                                            style={[menuStyles.menuButton, {marginBottom: 25}, !online ? menuStyles.disabled : '']}
+                                            disabled={!online}>
+                            <Text style={appStyles.text}>Select/Change Organization</Text>
+                            {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
+                        </TouchableOpacity>
+                        {organization &&
+                            <TouchableOpacity onPress={removeOrganization}
+                                                style={[menuStyles.menuButton, {marginBottom: 25}]}>
+                                <Text style={appStyles.text}>Remove Organization</Text>
+                            </TouchableOpacity>}
+                    </>}
                 {step > 2 &&
-                    <TouchableOpacity onPress={() => goToStep(2)}
-                                        style={[menuStyles.menuButton, !online ? menuStyles.disabled : '']}
-                                        disabled={!online}>
-                        <Text style={appStyles.text}>Change Season</Text>
-                        {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
-                    </TouchableOpacity>}
+                    <>
+                        <TouchableOpacity onPress={() => goToStep(2)}
+                                            style={[menuStyles.menuButton, {marginBottom: 25}, !online ? menuStyles.disabled : '']}
+                                            disabled={!online}>
+                            <Text style={appStyles.text}>Select/Change Season</Text>
+                            {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
+                        </TouchableOpacity>
+                        {season &&
+                            <TouchableOpacity onPress={removeSeason}
+                                                style={[menuStyles.menuButton, {marginBottom: 25}]}>
+                                <Text style={appStyles.text}>Remove Season</Text>
+                            </TouchableOpacity>}
+                    </>}
             </View>
         </ScrollView>
     );
