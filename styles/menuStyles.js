@@ -45,9 +45,7 @@ export const menuStyles = StyleSheet.create({
     },
     selectList: {
         width: '100%', 
-        borderBottomColor: '#212121', 
-        borderBottomWidth: 1,
-        marginBottom: 15,
+        marginBottom: 45,
         paddingBottom: 25,
         marginTop: 20
     },
