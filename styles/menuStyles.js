@@ -41,7 +41,7 @@ export const menuStyles = StyleSheet.create({
         width: '70%'
     },
     disabled: {
-        backgroundColor: 'darkgrey'
+        backgroundColor: 'gray'
     },
     selectList: {
         width: '100%', 
