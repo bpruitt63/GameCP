@@ -30,6 +30,7 @@ export const menuStyles = StyleSheet.create({
     menuSection: {
         display: 'flex',
         flexDirection: 'column',
+        flexBasis: 'content',
         justifyContent: 'space-around',
         flex: 1,
         alignItems: 'center'
