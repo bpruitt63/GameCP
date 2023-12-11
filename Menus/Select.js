@@ -150,7 +150,7 @@ function Select({navigation}) {
         if (organization) {
             setOrganization(null);
             setSeasons([]);
-            setStep(1);
+            goToStep(1);
             storeBasedOnPlatform('remove', 'organization');
         };
     };
