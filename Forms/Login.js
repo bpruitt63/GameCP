@@ -63,7 +63,7 @@ function Login({navigation}) {
     };
 
     return (
-        <View style={viewStyles}>{console.log("i'm bork!")}
+        <View style={viewStyles}>
             <TextInput
                     onChangeText={val => setData(d => { return {...d, email: val}})}
                     name='email'
