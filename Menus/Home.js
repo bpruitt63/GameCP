@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {TouchableOpacity, View, Text, StyleSheet, useWindowDimensions} from 'react-native';
+import { useOnline } from '../helpersAndData/hooks';
 import { appStyles } from '../styles/appStyles';
 import { menuStyles } from '../styles/menuStyles';
 import { GameContext, LoginContext, UserContext } from '../context';
@@ -12,7 +13,7 @@ function Home({navigation}) {
         const {logoutUser} = useContext(LoginContext);
         const {height, width} = useWindowDimensions();
         const [portrait, setPortrait] = useState(height > width);
-        const [online, setOnline] = useState(navigator.onLine);
+        const [online, watchOnlineStatus] = useOnline(navigator.onLine);
 
         const dataTextStyle = StyleSheet.compose(appStyles.text, menuStyles.gameDataItem);
 
@@ -21,13 +22,8 @@ function Home({navigation}) {
         }, [height, width]);
 
         useEffect(() => {
-            window.addEventListener('online', () => setOnline(true));
-            window.addEventListener('offline', () => setOnline(false));
-            return () => {
-                window.removeEventListener('online', () => setOnline(true));
-                window.removeEventListener('offline', () => setOnline(false));
-              };
-        }, []);
+            watchOnlineStatus();
+        }, [watchOnlineStatus]);
 
     return (
         <View style={appStyles.app}>

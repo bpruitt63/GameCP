@@ -1,9 +1,10 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { TextInput, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { LoginContext } from '../context';
-import { useErrors } from '../helpersAndData/hooks';
+import { useErrors, useOnline } from '../helpersAndData/hooks';
 import { appStyles } from '../styles/appStyles';
 import { loginStyles } from '../styles/loginStyles';
+import { menuStyles } from '../styles/menuStyles';
 import Errors from '../Errors';
 import API from '../Api';
 
@@ -14,8 +15,15 @@ function Login({navigation}) {
     const [errors, setErrors] = useState({});
     const [apiErrors, getApiErrors, setApiErrors] = useErrors();
     const {loginUser} = useContext(LoginContext);
+    const [online, watchOnlineStatus] = useOnline(navigator.onLine);
 
     const viewStyles = StyleSheet.compose(appStyles.app, loginStyles.container);
+
+
+    useEffect(() => {
+        watchOnlineStatus();
+    }, [watchOnlineStatus]);
+
 
     const handleLogin = async () => {
         setErrors({});
@@ -55,7 +63,7 @@ function Login({navigation}) {
     };
 
     return (
-        <View style={viewStyles}>
+        <View style={viewStyles}>{console.log("i'm bork!")}
             <TextInput
                     onChangeText={val => setData(d => { return {...d, email: val}})}
                     name='email'
@@ -69,9 +77,11 @@ function Login({navigation}) {
                     placeholder='Password'
                     secureTextEntry
                     style={loginStyles.textInput} />
-            <TouchableOpacity style={loginStyles.button}
-                            onPress={handleLogin}>
+            <TouchableOpacity style={[loginStyles.button, !online ? menuStyles.disabled : '']}
+                            onPress={handleLogin}
+                            disabled={!online}>
                 <Text style={appStyles.text}>Login</Text>
+                {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
             </TouchableOpacity>
             {(Object.keys(errors)[0] || Object.keys(apiErrors)[0]) &&
                 <Errors formErrors={errors}
