@@ -30,6 +30,7 @@ export const menuStyles = StyleSheet.create({
     menuSection: {
         display: 'flex',
         flexDirection: 'column',
+        flexBasis: 'content',
         justifyContent: 'space-around',
         flex: 1,
         alignItems: 'center'
@@ -40,12 +41,13 @@ export const menuStyles = StyleSheet.create({
         padding: 8,
         width: '70%'
     },
+    disabled: {
+        backgroundColor: 'gray'
+    },
     selectList: {
         width: '100%', 
-        borderBottomColor: '#212121', 
-        borderBottomWidth: 1,
-        marginBottom: 15,
-        paddingBottom: 25,
+        marginBottom: 50,
+        paddingBottom: 50,
         marginTop: 20
     },
     periodSettings: {
