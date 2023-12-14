@@ -11,7 +11,7 @@ import API from '../Api';
 
 function Select({navigation}) {
 
-    const [step, setStep] = useState(0);
+    const [step, setStep] = useState(1);
     const [seasons, setSeasons] = useState([]);
     const [games, setGames] = useState([]);
     const [tournamentRounds, setTournamentRounds] = useState([]);
@@ -22,19 +22,32 @@ function Select({navigation}) {
     const {organization, setOrganization, season, 
             setSeason, game, setGame} = useContext(GameContext);
     const userOrgs = Object.keys(user.organizations).map(k => [k, user.organizations[k].orgName]);
+    const [online, setOnline] = useState(navigator.onLine);
 
     useEffect(() => {
         const getCurrentStep = () => {
-            if (game) {
+            if (game || season) {
                 goToStep(3);
-            } else if (season) {
-                goToStep(2);
             } else if (organization) {
-                goToStep(1);
+                goToStep(2);
             };
         };
         getCurrentStep();
     }, [goToStep]);
+
+    useEffect(() => {
+        const goOnline = () => {
+            setErrors({});
+            setApiErrors({});
+            setOnline(true);
+        };
+        window.addEventListener('online', () => goOnline());
+        window.addEventListener('offline', () => setOnline(false));
+        return () => {
+            window.removeEventListener('online', () => goOnline());
+            window.removeEventListener('offline', () => setOnline(false));
+          };
+    }, []);
 
 
     const goToStep = async (step) => {
@@ -53,31 +66,46 @@ function Select({navigation}) {
         setStep(step);
     };
 
+    
+    const handleOffline = (listToAccess) => {
+        setErrors({err: `Internet connection required to access ${listToAccess}`});
+    };
+
     const getSeasons = async (orgId) => {
-        try {
-            const seasonsRes = await API.getSeasons(orgId);
-            if (!seasonsRes[0]) setErrors({err: 'No seasons found'});
-            setSeasons(seasonsRes.map(s => [s.seasonId, s.title]));
-            return seasonsRes;
-        } catch (err) {
-            getApiErrors(err);
+        if (!online) {
+            handleOffline('seasons');
+            return false;
+        } else {
+            try {
+                const seasonsRes = await API.getSeasons(orgId);
+                if (!seasonsRes[0]) setErrors({err: 'No seasons found'});
+                setSeasons(seasonsRes.map(s => [s.seasonId, s.title]));
+                return seasonsRes;
+            } catch (err) {
+                getApiErrors(err);
+            };
         };
     };
 
     const getGames = async (orgId, seasonId) => {
-        setTournamentRounds([]);
-        try {
-            const gamesRes = await API.getGames(orgId, seasonId);
-            if (Array.isArray(gamesRes)) {
-                setGames(formatGames(gamesRes));
-            } else {
-                setTournamentRounds(Object.keys(gamesRes));
-                setTournamentGames(gamesRes);
-                setGames(formatGames(Object.values(gamesRes['Round 1'])));
+        if (!online) {
+            handleOffline('games');
+            return false;
+        } else {
+            setTournamentRounds([]);
+            try {
+                const gamesRes = await API.getGames(orgId, seasonId);
+                if (Array.isArray(gamesRes)) {
+                    setGames(formatGames(gamesRes));
+                } else {
+                    setTournamentRounds(Object.keys(gamesRes));
+                    setTournamentGames(gamesRes);
+                    setGames(formatGames(Object.values(gamesRes['Round 1'])));
+                };
+                return gamesRes;
+            } catch (err) {
+                getApiErrors(err);
             };
-            return gamesRes;
-        } catch (err) {
-            getApiErrors(err);
         };
     };
 
@@ -99,14 +127,31 @@ function Select({navigation}) {
     const removeGame = () => {
         if (game) {
             setGame(null);
+            setStep(3);
             storeBasedOnPlatform('remove', 'game');
         };
     };
 
-    const removeSeason = () => {
+    const removeSeason = (loadSeasons=true) => {
+        removeGame();
         if (season) {
             setSeason(null);
+            setGames([]);
+            setTournamentRounds([]);
+            setTournamentGames({});
+            loadSeasons? goToStep(2) : setStep(2);
             storeBasedOnPlatform('remove', 'season');
+        };
+    };
+
+    const removeOrganization = () => {
+        const loadSeasons = false;
+        removeSeason(loadSeasons);
+        if (organization) {
+            setOrganization(null);
+            setSeasons([]);
+            goToStep(1);
+            storeBasedOnPlatform('remove', 'organization');
         };
     };
 
@@ -117,7 +162,6 @@ function Select({navigation}) {
         setOrganization(currentOrg);
         const orgString = JSON.stringify(currentOrg);
         storeBasedOnPlatform('store', 'organization', orgString);
-        removeGame();
         removeSeason();
         const seasonsRes = await getSeasons(id);
         if (seasonsRes) setStep(2);
@@ -155,44 +199,65 @@ function Select({navigation}) {
 
     return (
         <ScrollView style={[appStyles.app, {paddingTop: 20}]}>
-            {(Object.keys(errors)[0] || Object.keys(apiErrors)[0]) ?
-                <Errors formErrors={errors}
-                        apiErrors={apiErrors}
-                        viewStyles={appStyles.errors}
-                        textStyles={appStyles.errorText} />
-                :
-                <View style={[menuStyles.menuSection, {width: '100%', marginTop: 20}]}>
-                    {step === 1 &&
-                        <SelectList data={userOrgs}
-                                    press={selectOrg}
-                                    textStyle={appStyles.text} />}
-                    {step === 2 &&
-                        <SelectList data={seasons}
-                                    press={selectSeason}
-                                    textStyle={appStyles.text} />}
-                    {step === 3 &&
-                        <>
-                            {tournamentRounds.map(r =>
-                                <TouchableOpacity key={r}
-                                                onPress={() => setRound(r)}
-                                                style={[menuStyles.menuButton, {marginBottom: 20}]}>
-                                    <Text style={appStyles.text}>{r}</Text>
-                                </TouchableOpacity>)}
-                            <SelectList data={games}
-                                        press={selectGame}
-                                        textStyle={appStyles.text} />
+            <View style={[menuStyles.menuSection, {width: '100%'}]}>
+                {(Object.keys(errors)[0] || Object.keys(apiErrors)[0]) ?
+                    <Errors formErrors={errors}
+                            apiErrors={apiErrors}
+                            viewStyles={appStyles.errors}
+                            textStyles={appStyles.errorText} />
+                    :
+                    <>
+                        {step === 1 &&
+                            <SelectList data={userOrgs}
+                                        press={selectOrg}
+                                        textStyle={appStyles.text} />}
+                        {step === 2 &&
+                            <SelectList data={seasons}
+                                        press={selectSeason}
+                                        textStyle={appStyles.text} />}
+                        {step === 3 &&
+                            <>
+                                {tournamentRounds.map(r =>
+                                    <TouchableOpacity key={r}
+                                                    onPress={() => setRound(r)}
+                                                    style={[menuStyles.menuButton, {marginBottom: 20}]}>
+                                        <Text style={appStyles.text}>{r}</Text>
+                                    </TouchableOpacity>)}
+                                <SelectList data={games}
+                                            press={selectGame}
+                                            textStyle={appStyles.text} />
+                            </>}
                         </>}
-                </View>}
-            <View style={[menuStyles.menuSection, {maxHeight: 100, marginTop: 20, marginBottom: 20}]}>
+            </View>
+            <View style={[menuStyles.menuSection, {marginTop: 20, marginBottom: 20}]}>
                 {step !== 1 &&
                     <TouchableOpacity onPress={() => goToStep(1)}
+                                        style={[menuStyles.menuButton, {marginBottom: 25}, !online ? menuStyles.disabled : '']}
+                                        disabled={!online}>
+                        <Text style={appStyles.text}>Select/Change Organization</Text>
+                        {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
+                    </TouchableOpacity>}
+                {organization &&
+                    <TouchableOpacity onPress={removeOrganization}
                                         style={[menuStyles.menuButton, {marginBottom: 25}]}>
-                        <Text style={appStyles.text}>Change Organization</Text>
+                        <Text style={appStyles.text}>Remove Organization</Text>
                     </TouchableOpacity>}
                 {step > 2 &&
                     <TouchableOpacity onPress={() => goToStep(2)}
-                                        style={menuStyles.menuButton}>
-                        <Text style={appStyles.text}>Change Season</Text>
+                                        style={[menuStyles.menuButton, {marginBottom: 25}, !online ? menuStyles.disabled : '']}
+                                        disabled={!online}>
+                        <Text style={appStyles.text}>Select/Change Season</Text>
+                        {!online && <Text style={appStyles.text}>Online Connection Required</Text>}
+                    </TouchableOpacity>}
+                {season && step >= 2 &&
+                    <TouchableOpacity onPress={removeSeason}
+                                        style={[menuStyles.menuButton, {marginBottom: 25}]}>
+                        <Text style={appStyles.text}>Remove Season</Text>
+                    </TouchableOpacity>}
+                {game && step > 2 &&
+                    <TouchableOpacity onPress={removeGame}
+                                        style={[menuStyles.menuButton, {marginBottom: 25}]}>
+                        <Text style={appStyles.text}>Remove Game</Text>
                     </TouchableOpacity>}
             </View>
         </ScrollView>

@@ -184,4 +184,26 @@ function useSettings(sport=null) {
 };
 
 
-export { useTimer, useIncrementScore, useGameData, useBaseball, useErrors, useSettings};
+function useOnline(isOnline=true) {
+    const [online, setOnline] = useState(isOnline);
+
+    const watchOnlineStatus = () => {
+        window.addEventListener('online', () => setOnline(true));
+        window.addEventListener('offline', () => setOnline(false));
+        return () => {
+            window.removeEventListener('online', () => setOnline(true));
+            window.removeEventListener('offline', () => setOnline(false));
+        };
+    };
+
+    return [online, watchOnlineStatus, setOnline];
+};
+
+
+export { useTimer, 
+        useIncrementScore, 
+        useGameData, 
+        useBaseball, 
+        useErrors, 
+        useSettings,
+        useOnline };
