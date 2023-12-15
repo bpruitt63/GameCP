@@ -27,7 +27,9 @@
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": {
+        "src": "./assets/favicon.png",
+        "sizes": "144x144"}
     }
   }
 }
