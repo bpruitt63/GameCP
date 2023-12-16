@@ -70,7 +70,14 @@ self.addEventListener("message", (event) => {
   }
 });
 
+async function checkCache(request) {
+  const cachedResponse = await caches.match(request);
+  return cachedResponse;
+};
 
 self.addEventListener("fetch", (event) => {
-  console.log(event);
+  if (!navigator.onLine) {
+    const response = checkCache(event.request);
+    return response;
+  };
 });
