@@ -76,6 +76,8 @@ async function checkCache(request) {
 };
 
 self.addEventListener("fetch", (event) => {
+  console.log(navigator)
+  console.log('just in case')
   if (!navigator.onLine) {
     event.respondWith(checkCache(event.request));
   };
