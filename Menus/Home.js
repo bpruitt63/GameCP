@@ -26,7 +26,7 @@ function Home({navigation}) {
         }, [watchOnlineStatus]);
 
     return (
-        <View style={appStyles.app}><Text style={dataTextStyle}>No Seriously</Text>
+        <View style={appStyles.app}>
             {user &&
                 <View style={portrait ? menuStyles.gameData : menuStyles.gameDataLandscape}>
                     <Text style={dataTextStyle}>{`${user.firstName} ${user.lastName}`}</Text>

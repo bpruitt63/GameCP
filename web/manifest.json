@@ -1,0 +1,15 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "lang": "en",
+  "name": "GameCP",
+  "short_name": "GameCP",
+  "start_url": "/?utm_source=web_app_manifest",
+  "icons": [
+    {
+      "src": "../assets/favicon.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
