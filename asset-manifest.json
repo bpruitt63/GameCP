@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.js": "/GameCP/static/js/main.6350c8de.js",
+    "main.js": "/GameCP/static/js/main.2f53a36d.js",
     "static/js/238.3255d46e.js": "/GameCP/static/js/238.3255d46e.js",
     "favicon.ico": "/GameCP/favicon.ico",
     "static/media/basketball.png": "/GameCP/static/media/basketball.2b8fc69a0442348ee908.png",
@@ -12,11 +12,11 @@
     "favicon-16.png": "/GameCP/favicon-16.png",
     "manifest.json": "/GameCP/manifest.json",
     "serve.json": "/GameCP/serve.json",
-    "main.6350c8de.js.map": "/GameCP/static/js/main.6350c8de.js.map",
+    "main.2f53a36d.js.map": "/GameCP/static/js/main.2f53a36d.js.map",
     "238.3255d46e.js.map": "/GameCP/static/js/238.3255d46e.js.map"
   },
   "entrypoints": [
     "static/js/238.3255d46e.js",
-    "static/js/main.6350c8de.js"
+    "static/js/main.2f53a36d.js"
   ]
 }
