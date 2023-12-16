@@ -3,7 +3,7 @@
     "name": "GameCP",
     "slug": "GameCP",
     "version": "1.0.0",
-    "icon": "./assets/favicon.png",
+    "icon": "./web/favicon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
