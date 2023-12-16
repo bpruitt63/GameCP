@@ -76,7 +76,7 @@ async function checkCache(request) {
 };
 
 self.addEventListener("fetch", (event) => {
-  console.log(self)
+  console.log(navigator.serviceWorker)
   console.log('just in case')
   if (!navigator.onLine) {
     event.respondWith(checkCache(event.request));
