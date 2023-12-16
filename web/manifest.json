@@ -4,7 +4,7 @@
   "lang": "en",
   "name": "GameCP",
   "short_name": "GameCP",
-  "start_url": "/GameCP",
+  "start_url": "/",
   "icons": [
     {
       "src": "./favicon.png",
