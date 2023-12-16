@@ -5,7 +5,6 @@
   "name": "GameCP",
   "short_name": "GameCP",
   "start_url": "/GameCP",
-  "scope": ".",
   "icons": [
     {
       "src": "./favicon.png",
