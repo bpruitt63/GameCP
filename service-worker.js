@@ -69,3 +69,8 @@ self.addEventListener("message", (event) => {
     self.skipWaiting();
   }
 });
+
+
+self.addEventListener("fetch", (event) => {
+  console.log(event);
+});
