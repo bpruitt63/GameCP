@@ -66,7 +66,6 @@ const isLocalhost = Boolean(
           }
           installingWorker.onstatechange = () => {
             if (installingWorker.state === "installed") {
-              console.log(navigator.serviceWorker)
               if (navigator.serviceWorker.controller) {
                 // At this point, the updated precached content has been fetched,
                 // but the previous service worker will still serve the older
@@ -94,7 +93,7 @@ const isLocalhost = Boolean(
             }
           };
         };
-      })
+      })console.log(navigator.serviceWorker)
       .catch((error) => {
         console.error("Error during service worker registration:", error);
       });
