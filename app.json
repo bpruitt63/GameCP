@@ -3,7 +3,10 @@
     "name": "GameCP",
     "slug": "GameCP",
     "version": "1.0.0",
-    "icon": "./assets/icon.png",
+    "icon": {
+      "src": "./assets/favicon.png",
+      "sizes": "144x144",
+      "purpose": "any"},
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -24,7 +27,9 @@
       "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": {
+        "src": "./assets/favicon.png",
+        "sizes": "144x144"}
     }
   }
 }
