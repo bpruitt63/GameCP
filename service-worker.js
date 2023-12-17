@@ -72,13 +72,11 @@ self.addEventListener("message", (event) => {
 
 async function checkCache(request) {
   const cachedResponse = await caches.match(request);
-  console.log(cachedResponse)
   return cachedResponse;
 };
 
 self.addEventListener("fetch", (event) => {
-  console.log(navigator.onLine)
   if (!navigator.onLine) {
-    event.respondWith(checkCache(event.request));
+    event.respondWith(checkCache(event.request) || {error: 'This function is not available offline'});
   };
 });
