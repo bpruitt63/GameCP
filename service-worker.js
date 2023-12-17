@@ -72,6 +72,7 @@ self.addEventListener("message", (event) => {
 
 async function checkCache(request) {
   const cachedResponse = await caches.match(request);
+  console.log(cachedResponse)
   return cachedResponse;
 };
 

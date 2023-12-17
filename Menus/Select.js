@@ -33,7 +33,7 @@ function Select({navigation}) {
             };
         };
         getCurrentStep();
-    }, [goToStep]);
+    }, [goToStep, online]);
 
     useEffect(() => {
         const goOnline = () => {
