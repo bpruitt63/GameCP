@@ -4,8 +4,8 @@
   "lang": "en",
   "name": "GameCP",
   "short_name": "GameCP",
-  "start_url": "/GameCP",
-  "scope": "/GameCP",
+  "start_url": "https://bpruitt63.github.io/GameCP/",
+  "scope": "https://bpruitt63.github.io/GameCP/",
   "icons": [
     {
       "src": "./favicon.png",

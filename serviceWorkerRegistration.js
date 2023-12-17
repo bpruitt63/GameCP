@@ -57,7 +57,7 @@ const isLocalhost = Boolean(
   
   function registerValidSW(swUrl, config) {
     navigator.serviceWorker
-      .register(swUrl, {onfetch: () => console.log("onfetch")})
+      .register(swUrl)
       .then((registration) => {
         registration.onupdatefound = () => {
           const installingWorker = registration.installing;
