@@ -57,7 +57,7 @@ const isLocalhost = Boolean(
   
   function registerValidSW(swUrl, config) {
     navigator.serviceWorker
-      .register(swUrl, {scope: '/GameCP', onfetch: () => console.log("onfetch")})
+      .register(swUrl, {onfetch: () => console.log("onfetch")})
       .then((registration) => {
         registration.onupdatefound = () => {
           const installingWorker = registration.installing;
