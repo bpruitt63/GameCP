@@ -4,8 +4,8 @@
   "lang": "en",
   "name": "GameCP",
   "short_name": "GameCP",
-  "start_url": "/",
-  "scope": "/",
+  "start_url": "/GameCP",
+  "scope": "/GameCP",
   "icons": [
     {
       "src": "./favicon.png",
