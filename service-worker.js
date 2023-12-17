@@ -77,6 +77,8 @@ async function checkCache(request) {
 
 self.addEventListener("fetch", (event) => {
   if (!navigator.onLine) {
-    event.respondWith(checkCache(event.request) || {error: 'This function is not available offline'});
+    const cachedResponse = checkCache(event.request);
+    if (cachedResponse) event.respondWith(cachedResponse);
+    return fetch(event.request);
   };
 });
