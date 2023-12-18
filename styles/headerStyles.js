@@ -16,7 +16,7 @@ export const headerStyles = StyleSheet.create({
         borderBottomColor: 'darkgray',
         alignItems: 'center',
         width: '100%',
-        maxWidth: 1000,
+        maxWidth: 900,
         marginLeft: 'auto',
         marginRight: 'auto'
     },
