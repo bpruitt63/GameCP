@@ -5,7 +5,7 @@ const app = {
     backgroundColor: 'black',
     flex: 1,
     width: '100%',
-    maxWidth: 1000,
+    maxWidth: 900,
     marginLeft: 'auto',
     marginRight: 'auto'
 };

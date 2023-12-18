@@ -27,7 +27,7 @@ function Game({route}) {
     const {time} = useContext(TimeContext);
     const {submitScores, apiErrors} = useContext(SportyContext);
     const {height, width} = useWindowDimensions();
-    const [portrait, setPortrait] = useState(height > Math.min(width, 1000));
+    const [portrait, setPortrait] = useState(height > Math.min(width, 900));
 
     const errorStyle = StyleSheet.compose(appStyles.errors, appStyles.sportyError);
 
@@ -44,7 +44,7 @@ function Game({route}) {
     }, [setHomeTeam, setAwayTeam, game, setDefaultValues]);
 
     useEffect(() => {
-        setPortrait(height > Math.min(width, 1000));
+        setPortrait(height > Math.min(width, 900));
     }, [height, width]);
 
     const fullReset = async () => {
