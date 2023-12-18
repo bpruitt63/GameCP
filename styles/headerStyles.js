@@ -14,7 +14,11 @@ export const headerStyles = StyleSheet.create({
         paddingBottom: 3,
         borderBottomWidth: 1,
         borderBottomColor: 'darkgray',
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%',
+        maxWidth: 1000,
+        marginLeft: 'auto',
+        marginRight: 'auto'
     },
     headerButtonText: {
         color: 'white',

@@ -4,6 +4,7 @@ import { StyleSheet } from "react-native";
 const app = {
     backgroundColor: 'black',
     flex: 1,
+    width: '100%',
     maxWidth: 1000,
     marginLeft: 'auto',
     marginRight: 'auto'
