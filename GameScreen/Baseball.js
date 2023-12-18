@@ -30,7 +30,7 @@ function Baseball() {
     const {submitScores, apiErrors} = useContext(SportyContext);
     const sport = 'baseball';
     const {height, width} = useWindowDimensions();
-    const [portrait, setPortrait] = useState(height > width);
+    const [portrait, setPortrait] = useState(height > Math.min(width, 1000));
 
     const team = baseballData.top ? homeTeam : awayTeam;
     const colorStyle = team.color === 'N/A' ? teamColorStyles.NA : teamColorStyles[team.color];
@@ -53,7 +53,7 @@ function Baseball() {
     }, [setHomeTeam, setAwayTeam, game, baseballData]);
 
     useEffect(() => {
-        setPortrait(height > width);
+        setPortrait(height > Math.min(width, 1000));
     }, [height, width]);
 
     const submitAndReset = async () => {
