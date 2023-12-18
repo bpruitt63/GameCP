@@ -16,7 +16,7 @@ function SubmitScores({submitScores, buttonStyle, textStyle}) {
                         style={[buttonStyle, !online ? menuStyles.disabled : '']}
                         disabled={!online}>
             <Text style={textStyle}>Save to Sporty</Text>
-            {!online && <Text style={textStyle}>Online Connection Required</Text>}    
+            {!online && <Text style={textStyle}>Online Only</Text>}    
         </TouchableOpacity>
     );
 };
