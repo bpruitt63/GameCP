@@ -1,10 +1,12 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 
 
 const app = {
     backgroundColor: 'black',
     flex: 1,
-    maxWidth: Platform.OS === 'web' ? '30%' : 'max-content'
+    maxWidth: 1000,
+    marginLeft: 'auto',
+    marginRight: 'auto'
 };
 export const appStyles = StyleSheet.create({
     app,

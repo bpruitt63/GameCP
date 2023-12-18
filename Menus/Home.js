@@ -12,13 +12,13 @@ function Home({navigation}) {
         const {organization, season, game} = useContext(GameContext);
         const {logoutUser} = useContext(LoginContext);
         const {height, width} = useWindowDimensions();
-        const [portrait, setPortrait] = useState(height > width);
+        const [portrait, setPortrait] = useState(height > Math.min(width, 1000));
         const [online, watchOnlineStatus] = useOnline(navigator.onLine);
 
         const dataTextStyle = StyleSheet.compose(appStyles.text, menuStyles.gameDataItem);
 
         useEffect(() => {
-            setPortrait(height > width);
+            setPortrait(height > Math.min(width, 1000));
         }, [height, width]);
 
         useEffect(() => {

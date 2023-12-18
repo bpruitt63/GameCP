@@ -101,7 +101,7 @@ export default function App() {
 
 
 	return (
-		<NavigationContainer style={{maxWidth: '40%', marginRight: 'auto', marginLeft: 'auto'}}>
+		<NavigationContainer>
 			<UserContext.Provider value={user}>
 			<GameContext.Provider value={{organization, setOrganization,
 											season, setSeason,
