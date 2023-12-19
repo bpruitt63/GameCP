@@ -12,11 +12,11 @@ function Settings() {
 
     const initialOpen = {footballTimer: false, basketballTimer: false, 
                             soccerTimer: false, footballLength: false,
-                            soccerLength: false, baseballLength: false,
+                            soccerLength: false, basketballLength: false,
                             baseballLength: false};
     const [openForm, setOpenForm] = useState(initialOpen);
     const [compiledDefaults, setCompiledDefaults] = useState(defaultData);
-    const [getStoredDefaults, defaultValues, setDefaultValues, updateDefaults] = useSettings();
+    const [getStoredDefaults, , , updateDefaults] = useSettings();
     const {baseballData, manualBaseballChange} = useContext(BaseballContext);
 
     const viewStyles = StyleSheet.compose(appStyles.app, menuStyles.menuSection);
@@ -72,7 +72,7 @@ function Settings() {
     return (
         <View style={viewStyles}>
             {openForm.basketballTimer ?
-                <ManualTimerForm initialValue={{minutes: compiledDefaults.basketball.minutes.toString(),
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.basketball.minutes > 9 ? compiledDefaults.basketball.minutes.toString() : `0${compiledDefaults.basketball.minutes}`,
                                                 seconds: compiledDefaults.basketball.seconds > 9 ? compiledDefaults.basketball.seconds.toString() : `0${compiledDefaults.basketball.seconds}`,
                                                 sport: 'basketball'}}
                                                 save={saveTime}
@@ -97,7 +97,7 @@ function Settings() {
                     <Text style={appStyles.text}>Default Basketball Periods</Text>
                 </TouchableOpacity>}
             {openForm.footballTimer ?
-                <ManualTimerForm initialValue={{minutes: compiledDefaults.football.minutes.toString(),
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.football.minutes > 9 ? compiledDefaults.football.minutes.toString() : `0${compiledDefaults.football.minutes}`,
                                                 seconds: compiledDefaults.football.seconds > 9 ? compiledDefaults.football.seconds.toString() : `0${compiledDefaults.football.seconds}`,
                                                 sport: 'football'}}
                                                 save={saveTime}
@@ -122,7 +122,7 @@ function Settings() {
                     <Text style={appStyles.text}>Default Football Periods</Text>
                 </TouchableOpacity>}
             {openForm.soccerTimer ?
-                <ManualTimerForm initialValue={{minutes: compiledDefaults.soccer.minutes.toString(),
+                <ManualTimerForm initialValue={{minutes: compiledDefaults.soccer.minutes > 9 ? compiledDefaults.soccer.minutes.toString() : `0${compiledDefaults.soccer.minutes}`,
                                                 seconds: compiledDefaults.soccer.seconds > 9 ? compiledDefaults.soccer.seconds.toString() : `0${compiledDefaults.soccer.seconds}`,
                                                 sport: 'soccer'}}
                                                 save={saveTime}
