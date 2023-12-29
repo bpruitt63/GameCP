@@ -25,7 +25,7 @@ function Timer({defaultValues, sport, textStyle}) {
             } else {
                 setCurrentTime({...defaultValues, sport});
             };
-        };
+        };console.log({time});console.log({currentTime});console.log({score})
         setIsRunning(false);
         getStartingTime();
         setFormOpen(intitialFormOpen);
