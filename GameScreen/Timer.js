@@ -39,7 +39,7 @@ function Timer({defaultValues, sport, textStyle}) {
         if (timeToCheck.gameOverFinal) {
             timeToCheck.regulation = false;
             timeToCheck.gameOver = true;
-        } else if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod >= timeToCheck.period) {
+        } else if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod <= timeToCheck.period) {
             timeToCheck.regulation = false;
             if (scoreToCheck.homeScore !== scoreToCheck.awayScore) {
                 timeToCheck.gameOver = true;
@@ -85,8 +85,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const gameOverFinal = () => {
         const newTime = {...currentTime,
                             gameOverFinal: true};
-        setCurrentTime(newTime);
-        saveTime(newTime);
+        gameOver(newTime);
     };
 
     const openForm = (field) => {
