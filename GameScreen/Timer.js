@@ -31,6 +31,10 @@ function Timer({defaultValues, sport, textStyle}) {
         setFormOpen(intitialFormOpen);
     }, [time, setTime, defaultValues]);
 
+    useEffect(() => {
+        setCurrentTime(checkGameStatus(currentTime, score));
+    }, [score]);
+
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
         if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod >= timeToCheck.period) {
             timeToCheck.regulation = false;
