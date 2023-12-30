@@ -25,7 +25,7 @@ function Timer({defaultValues, sport, textStyle}) {
             } else {
                 setCurrentTime({...defaultValues, sport});
             };
-        };console.log({time});console.log({currentTime});console.log({score})
+        };
         setIsRunning(false);
         getStartingTime();
         setFormOpen(intitialFormOpen);
@@ -74,7 +74,8 @@ function Timer({defaultValues, sport, textStyle}) {
         const newTime = {...currentTime,
                             minutes: 0,
                             seconds: 0,
-                            gameOver: true};
+                            gameOver: true,
+                            regulation: false};
         setCurrentTime(newTime);
         saveTime(newTime);
     };
@@ -108,7 +109,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
-        <View style={timerStyles.container}>
+        <View style={timerStyles.container}>{console.log({time})}{console.log({currentTime})}{console.log({score})}
             <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
