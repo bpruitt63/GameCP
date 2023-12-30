@@ -21,7 +21,7 @@ function Timer({defaultValues, sport, textStyle}) {
     useEffect(() => {
         const getStartingTime = async () => {
 			if (time && time.sport === sport) {
-                setCurrentTime(time);
+                setCurrentTime(checkGameStatus(time, score));
             } else {
                 setCurrentTime({...defaultValues, sport});
             };
@@ -30,6 +30,21 @@ function Timer({defaultValues, sport, textStyle}) {
         getStartingTime();
         setFormOpen(intitialFormOpen);
     }, [time, setTime, defaultValues]);
+
+    const checkGameStatus = (timeToCheck, scoreToCheck) => {
+        if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod >= timeToCheck.period) {
+            timeToCheck.regulation = false;
+            if (scoreToCheck.homeScore !== scoreToCheck.awayScore) {
+                timeToCheck.gameOver = true;
+            } else {
+                timeToCheck.gameOver = false;
+            };
+        } else {
+            timeToCheck.gameOver = false;
+            timeToCheck.regulation = true;
+        };
+        return timeToCheck;
+    };
 
     const startTimer = () => {
         if (currentTime.seconds > 0 || currentTime.minutes > 0) {
