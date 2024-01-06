@@ -90,7 +90,7 @@ function Game({route}) {
                         viewStyles={errorStyle}
                         textStyles={appStyles.errorText} />}
             <GameScreenBottom game={game}
-                                data={time}
+                                gameOver={time.gameOver}
                                 resetOpen={resetOpen}
                                 setResetOpen={setResetOpen}
                                 fullReset={fullReset}
