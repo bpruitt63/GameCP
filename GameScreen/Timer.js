@@ -36,7 +36,7 @@ function Timer({defaultValues, sport, textStyle}) {
 
     useEffect(() => {
         const checkStatusOnDataChange = () => {
-            const newTime = checkGameStatus({...time}, score)
+            const newTime = checkGameStatus({...currentTime}, score)
             setCurrentTime(newTime);
             saveTime(newTime);
         };
@@ -117,7 +117,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
-        <View style={timerStyles.container}>
+        <View style={timerStyles.container}>{console.log(time)}
             <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
