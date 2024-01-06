@@ -8,6 +8,7 @@ function GameScreenBottom({game, data, resetOpen, setResetOpen, fullReset, submi
 
     return (
         <View style={portrait ? [gameScreenStyles.resetContainer, sport === 'baseball' ? {paddingTop: 5, paddingBottom: 5} : ''] : gameScreenStyles.resetContainerLandscape}>
+            {console.log({data})}
             {game && data && data.gameOver &&
                 <SubmitScores submitScores={submitAndReset}
                                 apiErrors={apiErrors}
