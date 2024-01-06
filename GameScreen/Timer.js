@@ -19,7 +19,7 @@ function Timer({defaultValues, sport, textStyle}) {
 
 
     useEffect(() => {
-        const getStartingTime = async () => {
+        const getStartingTime = () => {
 			if (time && time.sport === sport) {
                 const newTime = checkGameStatus({...time}, score)
                 setCurrentTime(newTime);
@@ -34,7 +34,12 @@ function Timer({defaultValues, sport, textStyle}) {
     }, [setTime, defaultValues]);
 
     useEffect(() => {
-        setCurrentTime(checkGameStatus(currentTime, score));
+        const checkStatusOnScoreChange = () => {
+            const newTime = checkGameStatus({...time}, score)
+            setCurrentTime(newTime);
+            saveTime(newTime);
+        };
+        checkStatusOnScoreChange();
     }, [score]);
 
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
