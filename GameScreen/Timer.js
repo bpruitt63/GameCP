@@ -21,7 +21,9 @@ function Timer({defaultValues, sport, textStyle}) {
     useEffect(() => {
         const getStartingTime = async () => {
 			if (time && time.sport === sport) {
-                setCurrentTime(checkGameStatus({...time}, score));
+                const newTime = checkGameStatus({...time}, score)
+                setCurrentTime(newTime);
+                saveTime(newTime);
             } else {
                 setCurrentTime({...defaultValues, sport});
             };
