@@ -14,6 +14,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);
+    const period = time?.period;
     
     const clockStyle = [textStyle, {fontSize: currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver ? 60 : 80}];
 
@@ -34,13 +35,13 @@ function Timer({defaultValues, sport, textStyle}) {
     }, [setTime, defaultValues]);
 
     useEffect(() => {
-        const checkStatusOnScoreChange = () => {
+        const checkStatusOnDataChange = () => {
             const newTime = checkGameStatus({...time}, score)
             setCurrentTime(newTime);
             saveTime(newTime);
         };
-        checkStatusOnScoreChange();
-    }, [score]);
+        checkStatusOnDataChange();
+    }, [score, period]);
 
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
         // if (timeToCheck.gameOverFinal) {
