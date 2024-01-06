@@ -31,7 +31,7 @@ function Timer({defaultValues, sport, textStyle}) {
         setIsRunning(false);
         getStartingTime();
         setFormOpen(intitialFormOpen);
-    }, [time, setTime, defaultValues]);
+    }, [setTime, defaultValues]);
 
     useEffect(() => {
         setCurrentTime(checkGameStatus(currentTime, score));
