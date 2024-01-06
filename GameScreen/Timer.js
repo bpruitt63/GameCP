@@ -43,10 +43,11 @@ function Timer({defaultValues, sport, textStyle}) {
     }, [score]);
 
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
-        if (timeToCheck.gameOverFinal) {
-            timeToCheck.regulation = false;
-            timeToCheck.gameOver = true;
-        } else if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod <= timeToCheck.period) {
+        // if (timeToCheck.gameOverFinal) {
+        //     timeToCheck.regulation = false;
+        //     timeToCheck.gameOver = true;
+        // } else 
+        if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod <= timeToCheck.period) {
             timeToCheck.regulation = false;
             if (scoreToCheck.homeScore !== scoreToCheck.awayScore) {
                 timeToCheck.gameOver = true;
@@ -68,7 +69,7 @@ function Timer({defaultValues, sport, textStyle}) {
 
     const stopTimer = (newTime) => {
         setIsRunning(false);
-        if (!newTime.regulation && score.homeScore !== score.awayScore) gameOver(newTime);
+        if (!newTime.regulation && score.homeScore !== score.awayScore) gameOver();
             else saveTime(newTime);
     };
 
@@ -80,7 +81,8 @@ function Timer({defaultValues, sport, textStyle}) {
         saveTime(newTime);
     };
 
-    const gameOver = (newTime) => {
+    const gameOver = () => {
+        const newTime = {...currentTime};
         newTime.minutes = 0;
         newTime.seconds = 0;
         newTime.gameOver = true;
@@ -89,11 +91,11 @@ function Timer({defaultValues, sport, textStyle}) {
         saveTime(newTime);
     };
 
-    const gameOverFinal = () => {
-        const newTime = {...currentTime,
-                            gameOverFinal: true};
-        gameOver(newTime);
-    };
+    // const gameOverFinal = () => {
+    //     const newTime = {...currentTime,
+    //                         gameOverFinal: true};
+    //     gameOver(newTime);
+    // };
 
     const openForm = (field) => {
         setFormOpen({...intitialFormOpen, [field]: true});
@@ -171,7 +173,7 @@ function Timer({defaultValues, sport, textStyle}) {
             {currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver &&
                 <View style={timerStyles.periodOverButtonsContainer}>
                     {!currentTime.regulation && score.homeScore === score.awayScore &&
-                        <TouchableOpacity onPress={gameOverFinal}
+                        <TouchableOpacity onPress={gameOver}
                                             style={timerStyles.periodOverButton}>
                             <Text style={textStyle}>End As Tie</Text>
                         </TouchableOpacity>}
