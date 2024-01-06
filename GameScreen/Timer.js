@@ -75,6 +75,7 @@ function Timer({defaultValues, sport, textStyle}) {
                             minutes: defaultValues.minutes,
                             seconds: defaultValues.seconds,
                             period: currentTime.period + 1};
+        setCurrentTime(newTime);
         saveTime(newTime);
     };
 
@@ -117,7 +118,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
-        <View style={timerStyles.container}>{console.log(time)}
+        <View style={timerStyles.container}>
             <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
