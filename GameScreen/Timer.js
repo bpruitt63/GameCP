@@ -44,10 +44,6 @@ function Timer({defaultValues, sport, textStyle}) {
     }, [score, period]);
 
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
-        // if (timeToCheck.gameOverFinal) {
-        //     timeToCheck.regulation = false;
-        //     timeToCheck.gameOver = true;
-        // } else 
         if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod <= timeToCheck.period) {
             timeToCheck.regulation = false;
             if (scoreToCheck.homeScore !== scoreToCheck.awayScore) {
@@ -92,12 +88,6 @@ function Timer({defaultValues, sport, textStyle}) {
         saveTime(newTime);
     };
 
-    // const gameOverFinal = () => {
-    //     const newTime = {...currentTime,
-    //                         gameOverFinal: true};
-    //     gameOver(newTime);
-    // };
-
     const openForm = (field) => {
         setFormOpen({...intitialFormOpen, [field]: true});
     };
@@ -127,7 +117,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
-        <View style={timerStyles.container}>{console.log({time})}{console.log({currentTime})}{console.log({score})}
+        <View style={timerStyles.container}>
             <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
