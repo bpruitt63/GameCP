@@ -89,6 +89,10 @@ export default function App() {
 		}};
 		try {
 			await API.submitScore(organization.orgId, season.seasonId, game.gameId, dataToSubmit);
+			setApiErrors({successMessage: 'Game Submitted'});
+			setTimeout(() => {
+				setApiErrors({});
+			}, 2000);
 			resetGame();
 			await storeBasedOnPlatform('remove', 'game');
 			setGame(null);
