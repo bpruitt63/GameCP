@@ -59,8 +59,8 @@ function Game({route}) {
         const success = await submitScores();
         if (success) {
             await fullReset();
-            setHomeTeam(defaultHome);
-            setAwayTeam(defaultAway);
+            setHomeTeam({...defaultHome});
+            setAwayTeam({...defaultAway});
             setApiErrors({successMessage: 'Game Submitted'});
 			setTimeout(() => {
 				setApiErrors({});
