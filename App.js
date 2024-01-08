@@ -89,10 +89,6 @@ export default function App() {
 		}};
 		try {
 			await API.submitScore(organization.orgId, season.seasonId, game.gameId, dataToSubmit);
-			setApiErrors({successMessage: 'Game Submitted'});
-			setTimeout(() => {
-				setApiErrors({});
-			}, 2000);
 			resetGame();
 			await storeBasedOnPlatform('remove', 'game');
 			setGame(null);
@@ -117,7 +113,7 @@ export default function App() {
 			<BaseballContext.Provider value={{baseballData, incrementBalls, incrementStrikes, 
 										incrementOuts, setBaseballData, resetGame, manualBaseballChange}}>
 			<TimeContext.Provider value={{time, setTime, saveTime}}>
-			<SportyContext.Provider value={{submitScores, apiErrors}}>
+			<SportyContext.Provider value={{submitScores, apiErrors, setApiErrors}}>
 				<Stack.Navigator initialRouteName='Home'>
 					<Stack.Screen name='Home' component={Home}
 											options={{header: () => <Header title={'Home'} />}} />

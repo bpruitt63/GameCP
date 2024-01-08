@@ -25,7 +25,7 @@ function Game({route}) {
     const {game} = useContext(GameContext);
     const {resetGame} = useContext(GameDataContext);
     const {time} = useContext(TimeContext);
-    const {submitScores, apiErrors} = useContext(SportyContext);
+    const {submitScores, apiErrors, setApiErrors} = useContext(SportyContext);
     const {height, width} = useWindowDimensions();
     const [portrait, setPortrait] = useState(height > Math.min(width, 900));
 
@@ -60,6 +60,10 @@ function Game({route}) {
         if (success) {
             setHomeTeam(defaultHome);
             setAwayTeam(defaultAway);
+            setApiErrors({successMessage: 'Game Submitted'});
+			setTimeout(() => {
+				setApiErrors({});
+			}, 2000);
         };
     };
 

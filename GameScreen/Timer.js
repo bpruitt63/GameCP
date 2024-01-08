@@ -118,7 +118,7 @@ function Timer({defaultValues, sport, textStyle}) {
     const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
-        <View style={timerStyles.container}>
+        <View style={timerStyles.container}>{console.log(currentTime)}
             <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
