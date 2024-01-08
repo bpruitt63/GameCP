@@ -61,10 +61,10 @@ function Game({route}) {
             await fullReset();
             setHomeTeam({...defaultHome});
             setAwayTeam({...defaultAway});
-            setApiErrors({successMessage: 'Game Submitted'});
-			setTimeout(() => {
-				setApiErrors({});
-			}, 2000);
+            // setApiErrors({successMessage: 'Game Submitted'});
+			// setTimeout(() => {
+			// 	setApiErrors({});
+			// }, 2000);
         };
     };
 
