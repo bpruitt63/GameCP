@@ -89,7 +89,7 @@ export default function App() {
 		}};
 		try {
 			await API.submitScore(organization.orgId, season.seasonId, game.gameId, dataToSubmit);
-			resetGame();
+			//resetGame();
 			await storeBasedOnPlatform('remove', 'game');
 			setGame(null);
 			return true;

@@ -58,6 +58,7 @@ function Game({route}) {
     const submitAndReset = async () => {
         const success = await submitScores();
         if (success) {
+            await fullReset();
             setHomeTeam(defaultHome);
             setAwayTeam(defaultAway);
             setApiErrors({successMessage: 'Game Submitted'});

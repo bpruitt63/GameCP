@@ -34,7 +34,6 @@ function Timer({defaultValues, sport, textStyle}) {
     }, [setTime, defaultValues]);
 
     const period = time?.period;
-    const timeGameOver = time?.gameOver;
     const regulation = currentTime?.regulation;
     useEffect(() => {
         const checkStatusOnDataChange = () => {
@@ -43,7 +42,7 @@ function Timer({defaultValues, sport, textStyle}) {
             saveTime(newTime);
         };
         checkStatusOnDataChange();
-    }, [score, period, regulation, timeGameOver]);
+    }, [score, period, regulation]);
 
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
         if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod <= timeToCheck.period) {
