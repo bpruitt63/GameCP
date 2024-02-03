@@ -6,11 +6,11 @@ import RunningClock from './RunningClock';
 import ManualTimerForm from '../Forms/ManualTimerForm';
 import ManualInputForm from '../Forms/ManualInputForm';
 
-function Timer({defaultValues, sport, textStyle}) {
+function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const {score} = useContext(ScoreContext);
-    const [isRunning, setIsRunning] = useState(false);
+    //const [isRunning, setIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);

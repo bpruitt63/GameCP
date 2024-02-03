@@ -25,6 +25,7 @@ function Game({route}) {
     const {game} = useContext(GameContext);
     const {resetGame} = useContext(GameDataContext);
     const {time} = useContext(TimeContext);
+    const [isRunning, setIsRunning] = useState(false);
     const {submitScores, apiErrors, setApiErrors} = useContext(SportyContext);
     const {height, width} = useWindowDimensions();
     const [portrait, setPortrait] = useState(height > Math.min(width, 900));
@@ -48,6 +49,7 @@ function Game({route}) {
     }, [height, width]);
 
     const fullReset = async () => {
+        setIsRunning(false);
         resetGame();
         const newDefaults = await getStoredDefaults(sport);
         setDefaultValues(newDefaults);
@@ -77,7 +79,9 @@ function Game({route}) {
             <View style={portrait ? gameScreenStyles.center : gameScreenStyles.centerLandscape}>
                 <Timer defaultValues={defaultValues}
                         sport={sport}
-                        textStyle={appStyles.text} />
+                        textStyle={appStyles.text}
+                        isRunning={isRunning}
+                        setIsRunning={setIsRunning} />
                 <View style={gameScreenStyles.underTimer}>
                     <Possession mainStyle={gameScreenStyles.underTimerChild}
                                 textStyle={appStyles.text} />
