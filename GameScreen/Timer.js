@@ -7,11 +7,11 @@ import RunningClock from './RunningClock';
 import ManualTimerForm from '../Forms/ManualTimerForm';
 import ManualInputForm from '../Forms/ManualInputForm';
 
-function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning, resetNavigate}) {
+function Timer({defaultValues, sport, textStyle, resetNavigate}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const {score} = useContext(ScoreContext);
-    //const [isRunning, setIsRunning] = useState(false);
+    const [isRunning, setIsRunning] = useState(false);
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);
@@ -132,7 +132,7 @@ function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning, resetN
     const cancel = () => setFormOpen(intitialFormOpen);
 
     return (
-        <View style={timerStyles.container}>{console.log(currentTime)}
+        <View style={timerStyles.container}>
             <View style={[timerStyles.period, formOpen.period ? timerStyles.periodFormOpen : '']}>
                 {formOpen.period ?
                     <>
