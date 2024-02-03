@@ -6,7 +6,7 @@ import RunningClock from './RunningClock';
 import ManualTimerForm from '../Forms/ManualTimerForm';
 import ManualInputForm from '../Forms/ManualInputForm';
 
-function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning}) {
+function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning, resetNavigate}) {
 
     const {time, saveTime, setTime} = useContext(TimeContext);
     const {score} = useContext(ScoreContext);
@@ -147,6 +147,7 @@ function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning}) {
                                 setCurrentTime={setCurrentTime}
                                 stopTimer={stopTimer}
                                 saveTime={saveTime}
+                                resetNavigate={resetNavigate}
                                 styles={{clockStyle, display: timerStyles.clockDisplay}} />}
                 {!isRunning && !formOpen.timer &&
                     <TouchableOpacity onPress={startTimer}
