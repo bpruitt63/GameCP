@@ -44,6 +44,17 @@ function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning, resetN
         checkStatusOnDataChange();
     }, [score, period, regulation]);
 
+    useEffect(() => {
+        const saveOnNavigate = (timeToSave) => {
+            navigation.addListener('beforeRemove', (e) => {
+                e.preventDefault();
+                saveTime(timeToSave);
+                navigation.dispatch(e.data.action);
+            });
+        };
+        if (resetNavigate) saveOnNavigate(resetNavigate);
+    }, [resetNavigate]);
+
     const checkGameStatus = (timeToCheck, scoreToCheck) => {
         if (timeToCheck.minutes === 0 && timeToCheck.seconds === 0 && timeToCheck.maxPeriod <= timeToCheck.period) {
             timeToCheck.regulation = false;

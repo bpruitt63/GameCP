@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, resetNavigate, styles}) {
+function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, styles}) {
 
     const navigation = useNavigation();
 
@@ -32,11 +32,11 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, resetNa
             });
         };
         const setUpTime = () => {
-            return saveOnNavigate(resetNavigate ? resetNavigate : getTime());
+            return saveOnNavigate(getTime());
         };
         const interval = setInterval(() => setUpTime(), 1000);
         return () => clearInterval(interval);
-    }, [navigation, currentTime, stopTimer, saveTime, resetNavigate]);
+    }, [navigation, currentTime, stopTimer, saveTime]);
 
 
     return (
