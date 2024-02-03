@@ -36,7 +36,7 @@ function RunningClock({currentTime, setCurrentTime, stopTimer, saveTime, resetNa
         };
         const interval = setInterval(() => setUpTime(), 1000);
         return () => clearInterval(interval);
-    }, [navigation, currentTime, stopTimer, saveTime]);
+    }, [navigation, currentTime, stopTimer, saveTime, resetNavigate]);
 
 
     return (
