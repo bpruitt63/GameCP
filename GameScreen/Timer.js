@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { timerStyles } from '../styles/timerStyles';
 import { ScoreContext, TimeContext } from '../context';
 import RunningClock from './RunningClock';
@@ -14,6 +15,7 @@ function Timer({defaultValues, sport, textStyle, isRunning, setIsRunning, resetN
     const [currentTime, setCurrentTime] = useState({...defaultValues, sport});
     const intitialFormOpen = {timer: false, period: false};
     const [formOpen, setFormOpen] = useState(intitialFormOpen);
+    const navigation = useNavigation();
     
     const clockStyle = [textStyle, {fontSize: currentTime.minutes === 0 && currentTime.seconds === 0 && !currentTime.gameOver ? 60 : 80}];
 
