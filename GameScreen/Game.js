@@ -49,8 +49,9 @@ function Game({route}) {
     }, [height, width]);
 
     const fullReset = async () => {
-        setIsRunning(false);
         resetGame();
+        setIsRunning(true);
+        setIsRunning(false);
         const newDefaults = await getStoredDefaults(sport);
         setDefaultValues(newDefaults);
         storeBasedOnPlatform('store', 'time', JSON.stringify(newDefaults));
